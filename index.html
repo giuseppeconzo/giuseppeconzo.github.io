@@ -63,22 +63,50 @@ html[lang="en"] .lang-it { display: none !important; }
 .discovery-card .icon{font-size:18px;}
 .discovery-card .name{font-weight:700;font-size:12px;margin:4px 0 2px 0;}
 .discovery-card .desc{font-size:10px;color:#4A5568;line-height:1.4;}
+
+/* Timeline interattiva */
 .timeline{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-.timeline-item{display:flex;align-items:center;gap:10px;font-size:11px;}
+.timeline-item{display:flex;align-items:center;gap:10px;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:background 0.2s;}
+.timeline-item:hover{background:rgba(11, 61, 145, 0.08);}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--nasa-blue);flex-shrink:0;}
 .year{font-weight:700;color:var(--nasa-blue);min-width:70px;}
 .count{color:#718096;}
+
 .list{list-style:none;}
 .list li{font-size:11px;padding:4px 0;color:#2D3748;display:flex;gap:6px;}
 .badge{display:inline-block;background:var(--nasa-blue);color:white;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.5px;margin-right:4px;}
-.pub{margin-bottom:16px;padding-left:12px;border-left:3px solid #E2E8F0;transition:all 0.2s;}
+
+/* Stili Filtri Pubblicazioni */
+.pub-filters{display:flex;gap:6px;margin-bottom:14px;}
+.filter-btn{background:#E2E8F0;border:none;color:#4A5568;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.filter-btn:hover{background:#CBD5E0;}
+.filter-btn.active{background:var(--nasa-blue);color:white;}
+
+/* Stili Pubblicazione e Copia Citazione */
+.pub{margin-bottom:16px;padding-left:12px;border-left:3px solid #E2E8F0;transition:all 0.2s;position:relative;}
 .pub:hover{border-left-color:var(--nasa-blue);background:#F7FAFF;}
 .pub .authors{font-size:11px;font-weight:700;color:#2D3748;}
 .pub .title{font-size:12px;font-weight:600;color:#1A202C;margin:2px 0;}
 .pub .journal{font-size:10px;font-style:italic;color:#4A5568;}
 .pub .doi{font-size:9px;color:#5A7AB8;font-family:'JetBrains Mono', monospace;margin-top:3px;word-break:break-all;}
 .pub .note{font-size:8px;background:#FFF3CD;color:#856404;padding:1px 5px;border-radius:3px;margin-left:6px;}
+.pub-actions{margin-top:4px;}
+.copy-btn{background:none;border:1px solid #CBD5E0;color:#4A5568;font-size:9px;padding:2px 6px;border-radius:3px;cursor:pointer;transition:all 0.2s;}
+.copy-btn:hover{background:var(--nasa-blue);color:white;border-color:var(--nasa-blue);}
+
 .profile-text{font-size:11.5px;line-height:1.6;color:#2D3748;background:#F7FAFF;padding:14px;border-radius:8px;border:1px solid #E2E8F0;text-align: justify;}
+
+/* Toast Notification */
+#toast{position:fixed;bottom:20px;right:20px;background:#1A202C;color:white;padding:8px 16px;border-radius:6px;font-size:11px;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:none;z-index:100;}
+
+/* Stampa PDF */
+@media print{
+  body{background:white;padding:0;}
+  .cv-container{box-shadow:none;border-radius:0;max-width:100%;}
+  .lang-switch, .pub-filters, .copy-btn {display:none !important;}
+  .pub:hover{background:transparent;}
+}
+
 @media(max-width:800px){.body{grid-template-columns:1fr;}.metrics{grid-template-columns:repeat(2,1fr);}.header{flex-direction:column;text-align:center;}.lang-switch{top:12px;right:12px;}}
 </style>
 </head>
@@ -86,6 +114,7 @@ html[lang="en"] .lang-it { display: none !important; }
 <div class="cv-container">
   <div class="header">
     <div class="lang-switch">
+      <button class="lang-btn" onclick="window.print()" title="Stampa o Salva PDF">🖨️ PDF</button>
       <button class="lang-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
       <button class="lang-btn" id="btn-en" onclick="switchLang('en')">EN</button>
     </div>
@@ -156,11 +185,11 @@ html[lang="en"] .lang-it { display: none !important; }
 
       <div class="section-title">📅 Timeline</div>
       <div class="timeline">
-        <div class="timeline-item"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
-        <div class="timeline-item"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
-        <div class="timeline-item"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
-        <div class="timeline-item"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
       </div>
 
       <div class="section-title">
@@ -226,14 +255,24 @@ html[lang="en"] .lang-it { display: none !important; }
         📚 <span class="lang-it">Pubblicazioni – 15 lavori</span><span class="lang-en">Publications – 15 works</span>
       </div>
 
-      <div class="pub">
+      <!-- Filtri Pubblicazioni -->
+      <div class="pub-filters">
+        <button class="filter-btn active" onclick="filterPubs('all', this)"><span class="lang-it">Tutte</span><span class="lang-en">All</span></button>
+        <button class="filter-btn" onclick="filterPubs('first', this)"><span class="lang-it">Primo Autore</span><span class="lang-en">First Author</span></button>
+        <button class="filter-btn" onclick="filterPubs('discovery', this)"><span class="lang-it">Scoperte</span><span class="lang-en">Discoveries</span></button>
+      </div>
+
+      <div class="pub" data-year="2026" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge">2026</span> Sha et al. (incl. Conzo G.)</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026AJ....172..183S">The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters</a></div>
         <div class="journal">The Astronomical Journal, 172, 3, 183</div>
         <div class="doi">DOI: 10.3847/1538-3881/ae8bb0 | arXiv:2601.13302 | ADS: 2026AJ....172..183S</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Sha et al., 2026, AJ, 172, 183')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2026" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge">2026</span> Conzo G., Moriconi M., Correa S.A. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>] 
@@ -242,16 +281,22 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">Detection and characterization of the temperate super-earth Gliese 48 b</a></div>
         <div class="journal">Open European Journal on Variable Stars, 273, 1-18</div>
         <div class="doi">DOI: 10.5817/OEJV2026-0273 | arXiv:2605.11123 | ADS: 2026OEJV..273....1C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2026, OEJV, 273, 1-18')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2026" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge">2026</span> Kokori A. et al. (incl. Conzo G.)</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026ApJS..283....5K">ExoClock Project IV: A Homogeneous Catalog of 620 Updated Exoplanet Ephemerides</a></div>
         <div class="journal">ApJS, 283, 1, 5</div>
         <div class="doi">DOI: 10.3847/1538-4365/ae3238 | arXiv:2511.14407 | ADS: 2026ApJS..283....5K</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2026, ApJS, 283, 5')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2025" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge">2025</span> Conzo G., Campos F., Conti F., Sharp I. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -260,16 +305,22 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025RNAAS...9..139C">Characterization of the Visual Binary TOI-6883AB and Dynamical Implications for TOI-6883Ab</a></div>
         <div class="journal">RNAAS, 9, 6, 139</div>
         <div class="doi">DOI: 10.3847/2515-5172/ade25d | arXiv:2506.08798 | ADS: 2025RNAAS...9..139C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2025, RNAAS, 9, 139')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2025" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge">2025</span> Fairnington T.R. et al. (incl. Conzo G.)</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.540.1144F">The eccentricity distribution of warm sub-Saturns in TESS</a></div>
         <div class="journal">MNRAS, 540, 1144-1162</div>
         <div class="doi">DOI: 10.1093/mnras/staf759 | arXiv:2505.04106 | ADS: 2025MNRAS.540.1144F</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Fairnington et al., 2025, MNRAS, 540, 1144')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2024" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#FC3D21">2024</span> Conzo G., Moriconi M. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -278,30 +329,42 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">TOI-6883.01: A Single-transit Planet Candidate Detected from TESS</a></div>
         <div class="journal">RNAAS, 8, 2, 53</div>
         <div class="doi">DOI: 10.3847/2515-5172/ad2c85 | ADS: 2024RNAAS...8...53C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo & Moriconi, 2024, RNAAS, 8, 53')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2023" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge" style="background:#718096">2023</span> Bianciardi G. et al. (incl. Conzo G.)</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf, a possible II-L Subtype Supernova</a></div>
         <div class="journal">TNSAN, 213, 1</div>
         <div class="doi">arXiv:2307.05612 | ADS: 2023TNSAN.213....1B</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Bianciardi et al., 2023, TNSAN, 213, 1')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2023" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. – DATASET</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023yCat..22650004K">VizieR: ExoClock III – 450 exoplanet ephemerides</a></div>
         <div class="journal">VizieR J/ApJS/265/4</div>
         <div class="doi">ADS: 2023yCat..22650004K</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2023, VizieR J/ApJS/265/4')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2023" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. (incl. Conzo G.)</div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023ApJS..265....4K">ExoClock III: 450 New Exoplanet Ephemerides</a></div>
         <div class="journal">ApJS, 265, 1, 4</div>
         <div class="doi">DOI: 10.3847/1538-4365/ac9da4 | arXiv:2209.09673 | ADS: 2023ApJS..265....4K</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2023, ApJS, 265, 4')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2023" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#718096">2023</span> Conzo G., Moriconi M., Peretto I. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -310,9 +373,12 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C">Candidate triple-star system with ellipsoidal components detected in Vulpecula through TESS photometry</a></div>
         <div class="journal">OEJV, 235, 1-9</div>
         <div class="doi">DOI: 10.5817/OEJV2023-0235 | arXiv:2302.05778</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2023, OEJV, 235, 1-9')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2022" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., Peretto I. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -321,9 +387,12 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022RNAAS...6..275C">HD 345723: RS Canum Venaticorum Variable Star Detected with TESS Data</a></div>
         <div class="journal">RNAAS, 7, 275</div>
         <div class="doi">ADS: 2022RNAAS...6..275C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, RNAAS, 7, 275')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2022" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., P.G.Marotta 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -332,9 +401,12 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C">New Semiregular Variable Star Near The Wizard Nebula - Evolution of the Red Giant MACOMP_V1</a></div>
         <div class="journal">Open European Journal on Variable stars, Vol. 229, p. 1-8.</div>
         <div class="doi">ADS: 2022OEJV..229....1C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, OEJV, 229, 1-8')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2021" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#A0AEC0">2021</span> Conzo G., Moriconi M., Spaziani G. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -343,9 +415,12 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2021AsUAI...3...44C">New seven short-period variable stars in Cassiopea</a></div>
         <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 44 - 51 (luglio - settembre 2021)</div>
         <div class="doi">ADS: 2021AsUAI...3...44C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2021, Astronomia UAI, 3, 44')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2020" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -354,9 +429,12 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...4...19C">Un nuovo sistema binario di tipo Algol in Auriga: GUNVAG2 (VSX 1542879)</a></div>
         <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 4, p. 19 - 24 (ottobre - dicembre 2020)</div>
         <div class="doi">ADS: 2020AsUAI...4...19C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 4, 19')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
 
-      <div class="pub">
+      <div class="pub" data-year="2020" data-first="true" data-discovery="true">
         <div class="authors">
           <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
@@ -365,10 +443,15 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...3...19C">Nuovo sistema binario di stelle ellissoidali in Auriga: GUNVAG1 (VSX 1500078)</a></div>
         <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 19 - 25 (luglio - settembre 2020)</div>
         <div class="doi">ADS: 2020AsUAI...3...19C</div>
+        <div class="pub-actions">
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 3, 19')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<div id="toast">Citazione copiata negli appunti!</div>
 
 <script>
 function switchLang(lang) {
@@ -378,8 +461,44 @@ function switchLang(lang) {
   localStorage.setItem('cv_lang_v2', lang);
 }
 
+function filterPubs(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  const pubs = document.querySelectorAll('.pub');
+  pubs.forEach(pub => {
+    if (type === 'all') {
+      pub.style.display = 'block';
+    } else if (type === 'first') {
+      pub.style.display = pub.getAttribute('data-first') === 'true' ? 'block' : 'none';
+    } else if (type === 'discovery') {
+      pub.style.display = pub.getAttribute('data-discovery') === 'true' ? 'block' : 'none';
+    }
+  });
+}
+
+function copyCitation(btn, citationText) {
+  navigator.clipboard.writeText(citationText).then(() => {
+    const toast = document.getElementById('toast');
+    const isEn = document.documentElement.lang === 'en';
+    toast.textContent = isEn ? 'Citation copied to clipboard!' : 'Citazione copiata negli appunti!';
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 2500);
+  });
+}
+
+function scrollToYear(year) {
+  const targetPub = document.querySelector(`.pub[data-year="${year}"]`);
+  if (targetPub) {
+    targetPub.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    targetPub.style.transition = 'background 0.5s';
+    const origBg = targetPub.style.background;
+    targetPub.style.background = '#FFF3CD';
+    setTimeout(() => { targetPub.style.background = origBg; }, 1500);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Ora 'it' è la lingua di default per chi accede per la prima volta
   const savedLang = localStorage.getItem('cv_lang_v2') || 'it';
   switchLang(savedLang);
 });
