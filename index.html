@@ -141,7 +141,7 @@ body.dark-theme .year { color: #60A5FA; }
 
 .list { list-style: none; }
 .list li { font-size: 11px; padding: 4px 0; color: var(--text-main); display: flex; gap: 6px; align-items: center; }
-.badge { display: inline-block; background: var(--nasa-blue); color: white; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; margin-right: 4px; }
+.badge { display: inline-block; background: var(--nasa-blue); color: white; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; margin-right: 4px; flex-shrink: 0; }
 
 /* Section Uni Logo */
 .edu-card { display: flex; align-items: center; gap: 12px; background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); }
@@ -222,7 +222,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
     background: #FFFFFF !important;
   }
 
-  /* Nascondi controlli interattivi ed elementi non utili in stampa */
   .controls-bar,
   .pub-toolbar,
   .pub-actions,
@@ -231,7 +230,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
     display: none !important;
   }
 
-  /* Header e Metriche */
   .header {
     background: #0B3D91 !important;
     color: #FFFFFF !important;
@@ -283,7 +281,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
     font-size: 8px !important;
   }
 
-  /* Struttura a 2 Colonne per Stampa */
   .body {
     display: grid !important;
     grid-template-columns: 250px 1fr !important;
@@ -300,7 +297,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
     padding: 18px 20px !important;
   }
 
-  /* Controllo interruzioni di pagina e visibilità dei blocchi */
   .section-title {
     color: #0B3D91 !important;
     border-bottom-color: #0B3D91 !important;
@@ -350,7 +346,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
     font-size: 9.5pt !important;
   }
 
-  /* QR Code Stampa */
   .print-qr-code {
     display: block !important;
     margin-top: 16px !important;
@@ -467,13 +462,41 @@ body.dark-theme .modal h3 { color: #60A5FA; }
         <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
       </ul>
 
+      <!-- SEZIONE RICONOSCIMENTI AGGIUNTA -->
+      <div class="section-title">
+        🏆 <span class="lang-it">Riconoscimenti</span><span class="lang-en">Awards & Honors</span>
+      </div>
+      <ul class="list" style="font-size: 10px; line-height: 1.4;">
+        <li style="align-items: flex-start; margin-bottom: 8px;">
+          <span class="badge">2026</span>
+          <div>
+            <span class="lang-it"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato di merito per la scoperta di Gliese 48 b (Comune di Fiumicino)</a></span>
+            <span class="lang-en"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Certificate of Merit for the discovery of Gliese 48 b (Municipality of Fiumicino)</a></span>
+          </div>
+        </li>
+        <li style="align-items: flex-start; margin-bottom: 8px;">
+          <span class="badge">2023</span>
+          <div>
+            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato AAVSO per lo studio dei pianeti extrasolari</a></span>
+            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">AAVSO Certificate for exoplanet study</a></span>
+          </div>
+        </li>
+        <li style="align-items: flex-start;">
+          <span class="badge">2017</span>
+          <div>
+            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato ESA (Rosetta Legacy Campaign) per il contributo alla Missione Rosetta</a></span>
+            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">ESA Certificate (Rosetta Legacy Campaign) for contribution to the Rosetta Mission</a></span>
+          </div>
+        </li>
+      </ul>
+
       <div class="section-title">
         🎓 <span class="lang-it">Istruzione</span><span class="lang-en">Education</span>
       </div>
       <div class="edu-card">
         <img src="https://upload.wikimedia.org/wikipedia/it/thumb/b/b5/Logo_Parthenope.png/180px-Logo_Parthenope.png" alt="Parthenope Logo" class="edu-logo" onerror="this.style.display='none'">
         <div class="edu-info">
-          Università degli Studi di Napoli "Parthenope"
+          <img style="float: left;" src="lp.jpg" width="30">&nbsp;&nbsp;Università degli Studi di Napoli<br />&nbsp;&nbsp;"Parthenope"
         </div>
       </div>
 
@@ -522,6 +545,21 @@ Active coordinator at Gruppo Astrofili Palidoro (Fiumicino, RM), managing public
         📰 <span class="lang-it">Rassegna Stampa & Media (Public Outreach)</span><span class="lang-en">Press & Media Coverage (Public Outreach)</span>
       </div>
       <div class="media-grid">
+        
+        <a href="https://www.uniparthenope.it/Portale-Ateneo/articolo/Dalla_Parthenope_alle_stelle__un26d6684593094960b6ff1d6a5977bc30" target="_blank" rel="noopener noreferrer" class="media-card">
+          <div>
+            <div class="media-tag">
+              <span class="lang-it">Università Parthenope (Napoli)</span>
+              <span class="lang-en">Parthenope University (Napoli)</span>
+            </div>
+            <div class="media-title">
+              <span class="lang-it">Dalla Parthenope alle stelle: una scoperta che parla anche di noi</span>
+              <span class="lang-en">From Parthenope to the stars: a discovery that also speaks about us</span>
+            </div>
+          </div>
+          <div class="media-source"><span>Università Parthenope</span> <span>2026 🔗</span></div>
+        </a>		
+	  
         <a href="https://www.corriere.it/tecnologia/26_giugno_26/scoperta-una-super-terra-a-28-anni-luce-dal-sistema-solare-e-nella-zona-abitabile-della-sua-stella-f3649d37-d2d1-48ed-a70c-de46a2382xlk.shtml" target="_blank" rel="noopener noreferrer" class="media-card">
           <div>
             <div class="media-tag">
