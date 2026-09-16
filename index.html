@@ -5,11 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Giuseppe Conzo - CV & Pubblicazioni Scientifiche</title>
 
-<!-- Meta Tag Open Graph (Social & SEO) -->
+<!-- SEO Meta Tags -->
+<meta name="description" content="Curriculum Vitae Scientifico di Giuseppe Conzo, Ricercatore Indipendente specializzato in Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
+<meta name="keywords" content="Giuseppe Conzo, Esoplaneti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
+<meta name="author" content="Giuseppe Conzo">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.astrofilipalidoro.it/giuseppe-conzo-cv.html">
+
+<!-- Meta Tag Open Graph (Social & Facebook) -->
 <meta property="og:title" content="Giuseppe Conzo - Curriculum Vitae Scientifico">
-<meta property="og:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab.">
+<meta property="og:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
 <meta property="og:image" content="IO_SCIENTIST_web_square.jpg">
+<meta property="og:url" content="https://www.astrofilipalidoro.it/giuseppe-conzo-cv.html">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Giuseppe Conzo CV">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Giuseppe Conzo - CV & Pubblicazioni Scientifiche">
+<meta name="twitter:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab.">
+<meta name="twitter:image" content="IO_SCIENTIST_web_square.jpg">
+
+<!-- Dati Strutturati Schema.org (JSON-LD) per SEO Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Giuseppe Conzo",
+  "jobTitle": "Ricercatore Indipendente / Independent Researcher",
+  "affiliation": {
+    "@type": "EducationalOrganization",
+    "name": "Gruppo Astrofili Palidoro"
+  },
+  "url": "https://www.astrofilipalidoro.it",
+  "sameAs": [
+    "https://orcid.org/0000-0002-2412-1558",
+    "https://www.facebook.com/pek81",
+    "http://instagram.com/giuseppe.conzo"
+  ],
+  "knowsAbout": [
+    "Exoplanets",
+    "Variable Stars",
+    "Transit Photometry",
+    "TESS Pipeline",
+    "ESA ARIEL Mission"
+  ]
+}
+</script>
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -54,8 +96,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(
 html[lang="it"] .lang-en { display: none !important; }
 html[lang="en"] .lang-it { display: none !important; }
 
-.controls-bar { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; z-index: 10; }
-.ctrl-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; transition: all 0.2s ease; }
+.controls-bar { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; z-index: 10; align-items: center; }
+.ctrl-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; transition: all 0.2s ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
 .ctrl-btn:hover { background: rgba(255, 255, 255, 0.35); }
 .ctrl-btn.active { background: var(--nasa-red); border-color: var(--nasa-red); }
 
@@ -163,7 +205,13 @@ body.dark-theme .modal h3 { color: #60A5FA; }
   <div class="header">
     <div class="controls-bar">
       <button class="ctrl-btn" onclick="toggleTheme()" id="theme-toggle">🌙 Dark</button>
-      <button class="ctrl-btn" onclick="window.print()" title="Stampa / Print PDF">🖨️ PDF</button>
+      
+      <!-- Download PDF pre-generato -->
+      <!-- <a href="Giuseppe_Conzo_CV.pdf" download="Giuseppe_Conzo_CV.pdf" class="ctrl-btn" title="Scarica PDF Pre-generato / Download Pre-generated PDF">📥 PDF</a> -->
+      
+      <!-- Stampa Rapida -->
+      <button class="ctrl-btn" onclick="window.print()" title="Stampa / Print">🖨️ Stampa</button>
+      
       <button class="ctrl-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
       <button class="ctrl-btn" id="btn-en" onclick="switchLang('en')">EN</button>
     </div>
