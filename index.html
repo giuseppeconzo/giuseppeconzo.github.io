@@ -3,120 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giuseppe Conzo - CV</title>
+<title>Giuseppe Conzo - CV & Pubblicazioni Scientifiche</title>
+
+<!-- Meta Tag Open Graph (Social & SEO) -->
+<meta property="og:title" content="Giuseppe Conzo - Curriculum Vitae Scientifico">
+<meta property="og:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab.">
+<meta property="og:image" content="IO_SCIENTIST_web_square.jpg">
+<meta property="og:type" content="website">
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{--nasa-blue:#0B3D91;--nasa-red:#FC3D21;--light:#F0F4FA;--text:#1A202C;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter', sans-serif;background:#0A1020;color:var(--text);padding:20px;}
-.cv-container{max-width:1100px;margin:0 auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
-.header{background:linear-gradient(135deg, var(--nasa-blue) 0%, #102A5E 100%);color:white;padding:32px;display:flex;gap:24px;align-items:center;position:relative;overflow:hidden;}
-.header::after{content:'';position:absolute;right:-50px;top:-50px;width:200px;height:200px;background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);border-radius:50%;}
-.header img{width:120px;height:120px;border-radius:12px;border:3px solid rgba(255,255,255,0.3);object-fit:cover;z-index:1;}
-.header-text{z-index:1;flex:1;}
-.header h1{font-size:36px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px;}
-.header h2{font-size:14px;font-weight:400;color:#A8C0FF;letter-spacing:0.5px;margin-bottom:12px;}
-.header .meta{font-size:11px;color:#D0DDFF;line-height:1.6;}
 
-/* Regole gestione cambio lingua */
+<style>
+:root {
+  --nasa-blue: #0B3D91;
+  --nasa-red: #FC3D21;
+  --bg-body: #0A1020;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #F0F4FA;
+  --text-main: #1A202C;
+  --text-muted: #4A5568;
+  --border-color: #E2E8F0;
+  --pub-hover: #F7FAFF;
+  --highlight-bg: #FFF3CD;
+}
+
+body.dark-theme {
+  --bg-body: #050811;
+  --bg-card: #0F172A;
+  --bg-sidebar: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-color: #334155;
+  --pub-hover: #1E293B;
+  --highlight-bg: #3E3204;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); padding: 20px; transition: background 0.3s; }
+.cv-container { max-width: 1100px; margin: 0 auto; background: var(--bg-card); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: background 0.3s; }
+
+.header { background: linear-gradient(135deg, var(--nasa-blue) 0%, #102A5E 100%); color: white; padding: 32px; display: flex; gap: 24px; align-items: center; position: relative; overflow: hidden; }
+.header::after { content: ''; position: absolute; right: -50px; top: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
+.header img { width: 120px; height: 120px; border-radius: 12px; border: 3px solid rgba(255,255,255,0.3); object-fit: cover; z-index: 1; }
+.header-text { z-index: 1; flex: 1; }
+.header h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.header h2 { font-size: 14px; font-weight: 400; color: #A8C0FF; letter-spacing: 0.5px; margin-bottom: 12px; }
+.header .meta { font-size: 11px; color: #D0DDFF; line-height: 1.6; }
+
 html[lang="it"] .lang-en { display: none !important; }
 html[lang="en"] .lang-it { display: none !important; }
 
-.lang-switch {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 6px;
-  z-index: 10;
+.controls-bar { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; z-index: 10; }
+.ctrl-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; transition: all 0.2s ease; }
+.ctrl-btn:hover { background: rgba(255, 255, 255, 0.35); }
+.ctrl-btn.active { background: var(--nasa-red); border-color: var(--nasa-red); }
+
+.metrics { display: grid; grid-template-columns: repeat(4,1fr); background: var(--nasa-blue); color: white; text-align: center; }
+.metric { padding: 16px 8px; border-right: 1px solid rgba(255,255,255,0.15); }
+.metric:last-child { border-right: none; }
+.metric .num { font-size: 28px; font-weight: 700; display: block; }
+.metric .label { font-size: 10px; letter-spacing: 1px; color: #A8C0FF; text-transform: uppercase; margin-top: 2px; display: block; }
+
+.body { display: grid; grid-template-columns: 300px 1fr; min-height: 800px; }
+.sidebar { background: var(--bg-sidebar); padding: 24px; border-right: 1px solid var(--border-color); transition: background 0.3s; }
+.main { padding: 28px; }
+
+.section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--nasa-blue); margin: 20px 0 10px 0; padding-bottom: 6px; border-bottom: 2px solid var(--nasa-blue); display: flex; align-items: center; gap: 6px; }
+body.dark-theme .section-title { color: #60A5FA; border-bottom-color: #60A5FA; }
+
+.discovery-card { background: var(--bg-card); border-radius: 8px; padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--nasa-blue); box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.discovery-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.discovery-card .icon { font-size: 18px; }
+.discovery-card .name { font-weight: 700; font-size: 12px; margin: 4px 0 2px 0; color: var(--nasa-blue); text-decoration: underline; }
+body.dark-theme .discovery-card .name { color: #60A5FA; }
+.discovery-card .desc { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+
+.timeline { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.timeline-item { display: flex; align-items: center; gap: 10px; font-size: 11px; cursor: pointer; padding: 3px 6px; border-radius: 4px; transition: background 0.2s; }
+.timeline-item:hover { background: rgba(11, 61, 145, 0.15); }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--nasa-blue); flex-shrink: 0; }
+.year { font-weight: 700; color: var(--nasa-blue); min-width: 70px; }
+body.dark-theme .year { color: #60A5FA; }
+.count { color: var(--text-muted); }
+
+.list { list-style: none; }
+.list li { font-size: 11px; padding: 4px 0; color: var(--text-main); display: flex; gap: 6px; }
+.badge { display: inline-block; background: var(--nasa-blue); color: white; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; margin-right: 4px; }
+
+/* Filtri e Ricerca */
+.pub-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; justify-content: space-between; }
+.pub-filters { display: flex; gap: 6px; }
+.filter-btn { background: var(--bg-sidebar); border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { background: var(--border-color); }
+.filter-btn.active { background: var(--nasa-blue); color: white; border-color: var(--nasa-blue); }
+
+.search-input { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 4px; font-size: 10px; outline: none; width: 180px; transition: all 0.2s; }
+.search-input:focus { border-color: var(--nasa-blue); width: 220px; }
+
+/* Stili Pubblicazione */
+.pub { margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--border-color); transition: all 0.2s; position: relative; }
+.pub:hover { border-left-color: var(--nasa-blue); background: var(--pub-hover); }
+.pub .authors { font-size: 11px; font-weight: 700; color: var(--text-main); }
+.pub .title { font-size: 12px; font-weight: 600; color: var(--text-main); margin: 2px 0; }
+.pub .title a { color: inherit; text-decoration: none; }
+.pub .title a:hover { text-decoration: underline; color: var(--nasa-blue); }
+.pub .journal { font-size: 10px; font-style: italic; color: var(--text-muted); }
+.pub .doi { font-size: 9px; color: #5A7AB8; font-family: 'JetBrains Mono', monospace; margin-top: 3px; word-break: break-all; }
+.pub .note { font-size: 8px; background: #FFF3CD; color: #856404; padding: 1px 5px; border-radius: 3px; margin-left: 6px; }
+
+.pub-actions { margin-top: 6px; display: flex; gap: 6px; }
+.copy-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); font-size: 9px; padding: 2px 6px; border-radius: 3px; cursor: pointer; transition: all 0.2s; }
+.copy-btn:hover { background: var(--nasa-blue); color: white; border-color: var(--nasa-blue); }
+
+.profile-text { font-size: 11.5px; line-height: 1.6; color: var(--text-main); background: var(--pub-hover); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); text-align: justify; }
+
+/* Modal Pop-up */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(3px); }
+.modal-overlay.active { display: flex; }
+.modal { background: var(--bg-card); color: var(--text-main); border-radius: 12px; width: 90%; max-width: 500px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid var(--border-color); position: relative; }
+.modal-close { position: absolute; top: 12px; right: 16px; font-size: 20px; font-weight: bold; cursor: pointer; color: var(--text-muted); }
+.modal h3 { color: var(--nasa-blue); font-size: 18px; margin-bottom: 8px; }
+body.dark-theme .modal h3 { color: #60A5FA; }
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; font-size: 11px; }
+.modal-grid div { background: var(--bg-sidebar); padding: 8px; border-radius: 6px; }
+.modal-grid strong { display: block; color: var(--text-muted); font-size: 9px; text-transform: uppercase; }
+
+#toast { position: fixed; bottom: 20px; right: 20px; background: #1A202C; color: white; padding: 8px 16px; border-radius: 6px; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; z-index: 100; border: 1px solid #4A5568; }
+
+/* Stampa PDF Ottimizzata su 2 Pagine */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: white; color: black; padding: 0; font-size: 10pt; }
+  .cv-container { box-shadow: none; border-radius: 0; max-width: 100%; background: white; }
+  .controls-bar, .pub-toolbar, .copy-btn, .modal-overlay { display: none !important; }
+  .header { background: #0B3D91 !important; -webkit-print-color-adjust: exact; padding: 20px; }
+  .metrics { background: #0B3D91 !important; -webkit-print-color-adjust: exact; }
+  .sidebar { background: #F8FAFC !important; -webkit-print-color-adjust: exact; }
+  .pub { page-break-inside: avoid; margin-bottom: 10px; }
+  .pub:hover { background: transparent; }
+  .profile-text { background: #F8FAFC !important; -webkit-print-color-adjust: exact; }
 }
-.lang-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-.lang-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-.lang-btn.active {
-  background: var(--nasa-red);
-  border-color: var(--nasa-red);
-}
 
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);background:var(--nasa-blue);color:white;text-align:center;}
-.metric{padding:16px 8px;border-right:1px solid rgba(255,255,255,0.15);}
-.metric:last-child{border-right:none;}
-.metric .num{font-size:28px;font-weight:700;display:block;}
-.metric .label{font-size:10px;letter-spacing:1px;color:#A8C0FF;text-transform:uppercase;margin-top:2px;display:block;}
-.body{display:grid;grid-template-columns:300px 1fr;min-height:800px;}
-.sidebar{background:var(--light);padding:24px;border-right:1px solid #E2E8F0;}
-.main{padding:28px;}
-.section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--nasa-blue);margin:20px 0 10px 0;padding-bottom:6px;border-bottom:2px solid var(--nasa-blue);display:flex;align-items:center;gap:6px;}
-.discovery-card{background:white;border-radius:8px;padding:12px;margin-bottom:10px;border-left:4px solid var(--nasa-blue);box-shadow:0 1px 3px rgba(0,0,0,0.08);}
-.discovery-card .icon{font-size:18px;}
-.discovery-card .name{font-weight:700;font-size:12px;margin:4px 0 2px 0;}
-.discovery-card .desc{font-size:10px;color:#4A5568;line-height:1.4;}
-
-/* Timeline interattiva */
-.timeline{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-.timeline-item{display:flex;align-items:center;gap:10px;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:background 0.2s;}
-.timeline-item:hover{background:rgba(11, 61, 145, 0.08);}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--nasa-blue);flex-shrink:0;}
-.year{font-weight:700;color:var(--nasa-blue);min-width:70px;}
-.count{color:#718096;}
-
-.list{list-style:none;}
-.list li{font-size:11px;padding:4px 0;color:#2D3748;display:flex;gap:6px;}
-.badge{display:inline-block;background:var(--nasa-blue);color:white;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.5px;margin-right:4px;}
-
-/* Stili Filtri Pubblicazioni */
-.pub-filters{display:flex;gap:6px;margin-bottom:14px;}
-.filter-btn{background:#E2E8F0;border:none;color:#4A5568;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s;}
-.filter-btn:hover{background:#CBD5E0;}
-.filter-btn.active{background:var(--nasa-blue);color:white;}
-
-/* Stili Pubblicazione e Copia Citazione */
-.pub{margin-bottom:16px;padding-left:12px;border-left:3px solid #E2E8F0;transition:all 0.2s;position:relative;}
-.pub:hover{border-left-color:var(--nasa-blue);background:#F7FAFF;}
-.pub .authors{font-size:11px;font-weight:700;color:#2D3748;}
-.pub .title{font-size:12px;font-weight:600;color:#1A202C;margin:2px 0;}
-.pub .journal{font-size:10px;font-style:italic;color:#4A5568;}
-.pub .doi{font-size:9px;color:#5A7AB8;font-family:'JetBrains Mono', monospace;margin-top:3px;word-break:break-all;}
-.pub .note{font-size:8px;background:#FFF3CD;color:#856404;padding:1px 5px;border-radius:3px;margin-left:6px;}
-.pub-actions{margin-top:4px;}
-.copy-btn{background:none;border:1px solid #CBD5E0;color:#4A5568;font-size:9px;padding:2px 6px;border-radius:3px;cursor:pointer;transition:all 0.2s;}
-.copy-btn:hover{background:var(--nasa-blue);color:white;border-color:var(--nasa-blue);}
-
-.profile-text{font-size:11.5px;line-height:1.6;color:#2D3748;background:#F7FAFF;padding:14px;border-radius:8px;border:1px solid #E2E8F0;text-align: justify;}
-
-/* Toast Notification */
-#toast{position:fixed;bottom:20px;right:20px;background:#1A202C;color:white;padding:8px 16px;border-radius:6px;font-size:11px;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:none;z-index:100;}
-
-/* Stampa PDF */
-@media print{
-  body{background:white;padding:0;}
-  .cv-container{box-shadow:none;border-radius:0;max-width:100%;}
-  .lang-switch, .pub-filters, .copy-btn {display:none !important;}
-  .pub:hover{background:transparent;}
-}
-
-@media(max-width:800px){.body{grid-template-columns:1fr;}.metrics{grid-template-columns:repeat(2,1fr);}.header{flex-direction:column;text-align:center;}.lang-switch{top:12px;right:12px;}}
+@media(max-width:800px){ .body { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2,1fr); } .header { flex-direction: column; text-align: center; } .controls-bar { top: 12px; right: 12px; } }
 </style>
 </head>
 <body>
+
 <div class="cv-container">
   <div class="header">
-    <div class="lang-switch">
-      <button class="lang-btn" onclick="window.print()" title="Stampa o Salva PDF">🖨️ PDF</button>
-      <button class="lang-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
-      <button class="lang-btn" id="btn-en" onclick="switchLang('en')">EN</button>
+    <div class="controls-bar">
+      <button class="ctrl-btn" onclick="toggleTheme()" id="theme-toggle">🌙 Dark</button>
+      <button class="ctrl-btn" onclick="window.print()" title="Stampa o Salva PDF">🖨️ PDF</button>
+      <button class="ctrl-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
+      <button class="ctrl-btn" id="btn-en" onclick="switchLang('en')">EN</button>
     </div>
     <img src="IO_SCIENTIST_web_square.jpg" alt="Giuseppe Conzo">
     <div class="header-text">
@@ -130,7 +170,7 @@ html[lang="en"] .lang-it { display: none !important; }
         <span class="lang-en">📍 Fiumicino (RM), Italy</span>
         &nbsp;|&nbsp; ✉ giuseppe.conzo@astrofilipalidoro.it &nbsp;|&nbsp; 🔎 TESS TFOP & ExoClock ESA ARIEL<br>
         <a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-          <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID iD" style="width: 16px !important; height: 16px !important; max-width: 16px !important; vertical-align: middle; margin-right: 4px; display: inline-block;">ORCID: 0000-0002-2412-1558
+          <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID iD" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px; display: inline-block;">ORCID: 0000-0002-2412-1558
         </a>
       </div>
     </div>
@@ -149,13 +189,13 @@ html[lang="en"] .lang-it { display: none !important; }
     </div>
     <div class="metric">
       <span class="num">1.070</span>
-      <span class="label lang-it">Effemeridi di esopianeti</span>
+      <span class="label lang-it">Effemeridi esopianeti</span>
       <span class="label lang-en">Exoplanet Ephemerides</span>
     </div>
     <div class="metric">
       <span class="num">80</span>
-      <span class="label lang-it">Stelle Variabili individuate</span>
-      <span class="label lang-en">Variable Stars Identified</span>
+      <span class="label lang-it">Stelle Variabili</span>
+      <span class="label lang-en">Variable Stars</span>
     </div>
   </div>
 
@@ -164,22 +204,20 @@ html[lang="en"] .lang-it { display: none !important; }
       <div class="section-title">
         ⭐ <span class="lang-it">Esopianeti scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
       </div>
-      <div class="discovery-card">
+      <div class="discovery-card" onclick="openModal('gliese')">
         <div class="icon">🌍</div>
-        <div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/Gliese48b">Gliese 48 b (Ross 318 b)</a></div>
+        <div class="name">Gliese 48 b (Ross 318 b)</div>
         <div class="desc">
-          <span class="lang-it">Super-Terra temperata in Cassiopea</span>
-          <span class="lang-en">Temperate Super-Earth in Cassiopeia</span>
-          <br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">2026OEJV..273....1C</a>
+          <span class="lang-it">Super-Terra temperata in Cassiopea (Clicca per dettagli)</span>
+          <span class="lang-en">Temperate Super-Earth in Cassiopeia (Click for details)</span>
         </div>
       </div>
-      <div class="discovery-card" style="border-left-color:#FC3D21">
+      <div class="discovery-card" style="border-left-color:#FC3D21" onclick="openModal('toi')">
         <div class="icon">🪐</div>
-        <div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/TOI6883Ab/">TOI-6883Ab (TIC 393818343A b)</a></div>
+        <div class="name">TOI-6883Ab (TIC 393818343A b)</div>
         <div class="desc">
-          <span class="lang-it">Gioviano Caldo nel Delfino</span>
-          <span class="lang-en">Hot Jupiter in Delphinus</span>
-          <br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">2024RNAAS...8...53C</a>
+          <span class="lang-it">Gioviano Caldo nel Delfino (Clicca per dettagli)</span>
+          <span class="lang-en">Hot Jupiter in Delphinus (Click for details)</span>
         </div>
       </div>
 
@@ -215,16 +253,6 @@ html[lang="en"] .lang-it { display: none !important; }
         <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
       </ul>
 
-      <div class="section-title">🎯 Focus</div>
-      <ul class="list">
-        <li>• Hot Jupiters & companions</li>
-        <li>• Warm sub-Saturns</li>
-        <li>• <span class="lang-it">Super-Terre temperate</span><span class="lang-en">Temperate Super-Earths</span></li>
-        <li>• <span class="lang-it">Binarie ellissoidali / Algol</span><span class="lang-en">Ellipsoidal / Algol binaries</span></li>
-        <li>• <span class="lang-it">RS CVn / Semiregolari</span><span class="lang-en">RS CVn / Semiregulars</span></li>
-        <li>• Supernovae II-L</li>
-      </ul>
-      
       <div class="section-title">🌐 Social</div>
       <ul class="list">
         <li>• <a target="_blank" href="https://www.facebook.com/pek81">Facebook</a></li>
@@ -239,15 +267,11 @@ html[lang="en"] .lang-it { display: none !important; }
       <div class="profile-text">
         <div class="lang-it">
           Ricercatore indipendente italiano con approccio data-driven, ponte tra ricerca amatoriale evoluta e collaborazioni professionali large-team internazionali. Specializzato in validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, analisi dinamica di sistemi binari visuali ospitanti pianeti (es. TOI-6883AB) e produzione di cataloghi omogenei di effemeridi per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 effemeridi aggiornate: 450 nel catalogo III + 620 nel IV).<br><br>
-          Autore di 16 lavori indicizzati ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, con 2 scoperte principali tra il 2024-2026 tra cui la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab nella costellazione del Delfino (2024).<br><br>
-          L'esperienza include attività di supporto e divulgazione scientifica legate alla Missione ESA Rosetta sulla cometa 67P/Churyumov-Gerasimenko, con focus su fotometria cometaria, evoluzione della chioma e coinvolgimento del pubblico durante le fasi di avvicinamento e atterraggio di Philae.<br><br>
-          Da anni attivo nel Gruppo Astrofili Palidoro (Fiumicino, RM), dove coordina serate osservative pubbliche, percorsi didattici per le scuole e progetti di citizen science, trasformando l'osservazione amatoriale in dati utili alla comunità internazionale (TESS TFOP, ExoClock, TNS).
+          Autore di 15 lavori indicizzati ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, con 2 scoperte principali tra il 2024-2026 tra cui la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab nella costellazione del Delfino (2024).
         </div>
         <div class="lang-en">
           Italian independent researcher with a data-driven approach, bridging advanced amateur research and international large-team professional collaborations. Specialized in the validation and characterization of TESS candidates through high-precision transit photometry, dynamic analysis of planet-hosting visual binary systems (e.g., TOI-6883AB), and the production of homogeneous ephemeris catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides: 450 in catalog III + 620 in IV).<br><br>
-          Author of 16 papers indexed on ADS/arXiv/VizieR between 2020 and 2026, including 9 as first author, with 2 major discoveries between 2024–2026: the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab in the constellation Delphinus (2024).<br><br>
-          Experience includes scientific support and outreach activities related to ESA's Rosetta Mission to comet 67P/Churyumov-Gerasimenko, focusing on cometary photometry, coma evolution, and public engagement during Philae's approach and landing phases.<br><br>
-          Active for years in the Gruppo Astrofili Palidoro (Fiumicino, RM), coordinating public stargazing nights, educational programs for schools, and citizen science projects, turning amateur observations into valuable data for the international scientific community (TESS TFOP, ExoClock, TNS).
+          Author of 15 papers indexed on ADS/arXiv/VizieR between 2020 and 2026, including 9 as first author, with 2 major discoveries between 2024–2026: the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab in Delphinus (2024).
         </div>
       </div>
 
@@ -255,11 +279,14 @@ html[lang="en"] .lang-it { display: none !important; }
         📚 <span class="lang-it">Pubblicazioni – 15 lavori</span><span class="lang-en">Publications – 15 works</span>
       </div>
 
-      <!-- Filtri Pubblicazioni -->
-      <div class="pub-filters">
-        <button class="filter-btn active" onclick="filterPubs('all', this)"><span class="lang-it">Tutte</span><span class="lang-en">All</span></button>
-        <button class="filter-btn" onclick="filterPubs('first', this)"><span class="lang-it">Primo Autore</span><span class="lang-en">First Author</span></button>
-        <button class="filter-btn" onclick="filterPubs('discovery', this)"><span class="lang-it">Scoperte</span><span class="lang-en">Discoveries</span></button>
+      <!-- Filtri e Ricerca -->
+      <div class="pub-toolbar">
+        <div class="pub-filters">
+          <button class="filter-btn active" onclick="filterPubs('all', this)"><span class="lang-it">Tutte</span><span class="lang-en">All</span></button>
+          <button class="filter-btn" onclick="filterPubs('first', this)"><span class="lang-it">Primo Autore</span><span class="lang-en">First Author</span></button>
+          <button class="filter-btn" onclick="filterPubs('discovery', this)"><span class="lang-it">Scoperte</span><span class="lang-en">Discoveries</span></button>
+        </div>
+        <input type="text" id="search-bar" class="search-input" placeholder="🔍 Cerca / Search..." onkeyup="applySearch()">
       </div>
 
       <div class="pub" data-year="2026" data-first="false" data-discovery="false">
@@ -268,7 +295,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">The Astronomical Journal, 172, 3, 183</div>
         <div class="doi">DOI: 10.3847/1538-3881/ae8bb0 | arXiv:2601.13302 | ADS: 2026AJ....172..183S</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Sha et al., 2026, AJ, 172, 183')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Sha et al., 2026, AJ, 172, 183')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'sha2026')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -282,7 +310,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">Open European Journal on Variable Stars, 273, 1-18</div>
         <div class="doi">DOI: 10.5817/OEJV2026-0273 | arXiv:2605.11123 | ADS: 2026OEJV..273....1C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2026, OEJV, 273, 1-18')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2026, OEJV, 273, 1-18')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2026gliese')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -292,7 +321,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">ApJS, 283, 1, 5</div>
         <div class="doi">DOI: 10.3847/1538-4365/ae3238 | arXiv:2511.14407 | ADS: 2026ApJS..283....5K</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2026, ApJS, 283, 5')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2026, ApJS, 283, 5')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'kokori2026exoclock')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -306,7 +336,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">RNAAS, 9, 6, 139</div>
         <div class="doi">DOI: 10.3847/2515-5172/ade25d | arXiv:2506.08798 | ADS: 2025RNAAS...9..139C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2025, RNAAS, 9, 139')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2025, RNAAS, 9, 139')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2025toi')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -316,7 +347,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">MNRAS, 540, 1144-1162</div>
         <div class="doi">DOI: 10.1093/mnras/staf759 | arXiv:2505.04106 | ADS: 2025MNRAS.540.1144F</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Fairnington et al., 2025, MNRAS, 540, 1144')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Fairnington et al., 2025, MNRAS, 540, 1144')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'fairnington2025')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -330,27 +362,19 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">RNAAS, 8, 2, 53</div>
         <div class="doi">DOI: 10.3847/2515-5172/ad2c85 | ADS: 2024RNAAS...8...53C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo & Moriconi, 2024, RNAAS, 8, 53')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo & Moriconi, 2024, RNAAS, 8, 53')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2024toi')">📦 BibTeX</button>
         </div>
       </div>
 
       <div class="pub" data-year="2023" data-first="false" data-discovery="false">
         <div class="authors"><span class="badge" style="background:#718096">2023</span> Bianciardi G. et al. (incl. Conzo G.)</div>
-        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf, a possible II-L Subtype Supernova</a></div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf</a></div>
         <div class="journal">TNSAN, 213, 1</div>
         <div class="doi">arXiv:2307.05612 | ADS: 2023TNSAN.213....1B</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Bianciardi et al., 2023, TNSAN, 213, 1')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
-        </div>
-      </div>
-
-      <div class="pub" data-year="2023" data-first="false" data-discovery="false">
-        <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. – DATASET</div>
-        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023yCat..22650004K">VizieR: ExoClock III – 450 exoplanet ephemerides</a></div>
-        <div class="journal">VizieR J/ApJS/265/4</div>
-        <div class="doi">ADS: 2023yCat..22650004K</div>
-        <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2023, VizieR J/ApJS/265/4')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Bianciardi et al., 2023, TNSAN, 213, 1')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'bianciardi2023')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -360,7 +384,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">ApJS, 265, 1, 4</div>
         <div class="doi">DOI: 10.3847/1538-4365/ac9da4 | arXiv:2209.09673 | ADS: 2023ApJS..265....4K</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2023, ApJS, 265, 4')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Kokori et al., 2023, ApJS, 265, 4')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'kokori2023exoclock')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -370,11 +395,12 @@ html[lang="en"] .lang-it { display: none !important; }
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
           <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
         </div>
-        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C">Candidate triple-star system with ellipsoidal components detected in Vulpecula through TESS photometry</a></div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C">Candidate triple-star system with ellipsoidal components detected in Vulpecula</a></div>
         <div class="journal">OEJV, 235, 1-9</div>
         <div class="doi">DOI: 10.5817/OEJV2023-0235 | arXiv:2302.05778</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2023, OEJV, 235, 1-9')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2023, OEJV, 235, 1-9')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2023oejv')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -388,7 +414,8 @@ html[lang="en"] .lang-it { display: none !important; }
         <div class="journal">RNAAS, 7, 275</div>
         <div class="doi">ADS: 2022RNAAS...6..275C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, RNAAS, 7, 275')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, RNAAS, 7, 275')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2022hd')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -398,11 +425,12 @@ html[lang="en"] .lang-it { display: none !important; }
           [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
           <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
         </div>
-        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C">New Semiregular Variable Star Near The Wizard Nebula - Evolution of the Red Giant MACOMP_V1</a></div>
-        <div class="journal">Open European Journal on Variable stars, Vol. 229, p. 1-8.</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C">New Semiregular Variable Star Near The Wizard Nebula - Evolution of MACOMP_V1</a></div>
+        <div class="journal">OEJV, 229, 1-8</div>
         <div class="doi">ADS: 2022OEJV..229....1C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, OEJV, 229, 1-8')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2022, OEJV, 229, 1-8')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2022macomp')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -413,10 +441,11 @@ html[lang="en"] .lang-it { display: none !important; }
           <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
         </div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2021AsUAI...3...44C">New seven short-period variable stars in Cassiopea</a></div>
-        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 44 - 51 (luglio - settembre 2021)</div>
+        <div class="journal">Astronomia UAI, N. 3, p. 44 - 51</div>
         <div class="doi">ADS: 2021AsUAI...3...44C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2021, Astronomia UAI, 3, 44')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2021, Astronomia UAI, 3, 44')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2021uai')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -427,10 +456,11 @@ html[lang="en"] .lang-it { display: none !important; }
           <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
         </div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...4...19C">Un nuovo sistema binario di tipo Algol in Auriga: GUNVAG2 (VSX 1542879)</a></div>
-        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 4, p. 19 - 24 (ottobre - dicembre 2020)</div>
+        <div class="journal">Astronomia UAI, N. 4, p. 19 - 24</div>
         <div class="doi">ADS: 2020AsUAI...4...19C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 4, 19')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 4, 19')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2020gunvag2')">📦 BibTeX</button>
         </div>
       </div>
 
@@ -441,50 +471,131 @@ html[lang="en"] .lang-it { display: none !important; }
           <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
         </div>
         <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...3...19C">Nuovo sistema binario di stelle ellissoidali in Auriga: GUNVAG1 (VSX 1500078)</a></div>
-        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 19 - 25 (luglio - settembre 2020)</div>
+        <div class="journal">Astronomia UAI, N. 3, p. 19 - 25</div>
         <div class="doi">ADS: 2020AsUAI...3...19C</div>
         <div class="pub-actions">
-          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 3, 19')">📋 <span class="lang-it">Copia Citazione</span><span class="lang-en">Copy Citation</span></button>
+          <button class="copy-btn" onclick="copyCitation(this, 'Conzo et al., 2020, Astronomia UAI, 3, 19')">📋 Citazione</button>
+          <button class="copy-btn" onclick="copyBibtex(this, 'conzo2020gunvag1')">📦 BibTeX</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div id="toast">Citazione copiata negli appunti!</div>
+<!-- Modal Dettagli Esopianeti -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <span class="modal-close" onclick="closeModalDirect()">&times;</span>
+    <h3 id="modal-title">Nome Esopianeta</h3>
+    <p id="modal-sub" style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;"></p>
+    <div class="modal-grid">
+      <div><strong>Stella Ospite</strong><span id="m-star">-</span></div>
+      <div><strong>Costellazione</strong><span id="m-const">-</span></div>
+      <div><strong>Periodo Orbitale</strong><span id="m-period">-</span></div>
+      <div><strong>Tipo / Categoria</strong><span id="m-type">-</span></div>
+    </div>
+    <div style="font-size: 11px; line-height: 1.5; margin-bottom: 16px;" id="modal-desc"></div>
+    <div style="display: flex; gap: 8px;">
+      <a id="modal-link-ads" target="_blank" href="#" class="ctrl-btn active" style="text-decoration:none; text-align:center; flex:1;">ADS Abstract</a>
+      <a id="modal-link-web" target="_blank" href="#" class="ctrl-btn" style="text-decoration:none; text-align:center; flex:1; background:#4A5568;">Scheda Progetto</a>
+    </div>
+  </div>
+</div>
+
+<div id="toast">Notifica</div>
 
 <script>
+let currentFilter = 'all';
+
+const bibtexData = {
+  'conzo2026gliese': `@article{conzo2026gliese,\n  author = {Conzo, G. and Moriconi, M. and Correa, S.A.},\n  title = {Detection and characterization of the temperate super-earth Gliese 48 b},\n  journal = {Open European Journal on Variable Stars},\n  volume = {273},\n  pages = {1--18},\n  year = {2026}\n}`,
+  'conzo2025toi': `@article{conzo2025toi,\n  author = {Conzo, G. and Campos, F. and Conti, F. and Sharp, I.},\n  title = {Characterization of the Visual Binary TOI-6883AB and Dynamical Implications for TOI-6883Ab},\n  journal = {Research Notes of the AAS},\n  volume = {9},\n  number = {6},\n  pages = {139},\n  year = {2025}\n}`,
+  'conzo2024toi': `@article{conzo2024toi,\n  author = {Conzo, G. and Moriconi, M.},\n  title = {TOI-6883.01: A Single-transit Planet Candidate Detected from TESS},\n  journal = {Research Notes of the AAS},\n  volume = {8},\n  number = {2},\n  pages = {53},\n  year = {2024}\n}`
+};
+
+const planetData = {
+  'gliese': {
+    title: 'Gliese 48 b (Ross 318 b)',
+    sub: 'Super-Terra temperata confermata',
+    star: 'Gliese 48 (M-dwarf)',
+    const: 'Cassiopea (Cassiopeia)',
+    period: '18.4 giorni / days',
+    type: 'Temperate Super-Earth',
+    desc: 'Pianeta di massa terrestre/super-terrestre in orbita attorno a una nana rossa vicina. Identificato tramite analisi di Velocità Radiali (RV), congiunta alla fotometria TESS ad alta precisione.',
+    ads: 'https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C',
+    web: 'https://www.astrofilipalidoro.it/Gliese48b'
+  },
+  'toi': {
+    title: 'TOI-6883Ab (TIC 393818343A b)',
+    sub: 'Gioviano caldo in sistema binario visuale',
+    star: 'TOI-6883A',
+    const: 'Delfino (Delphinus)',
+    period: '16.2 giorni / days',
+    type: 'Hot Jupiter / Warm Giant',
+    desc: 'Candidato a singolo transito confermato e caratterizzato come Warm Jupiter. L\'analisi ha chiarito l\'architettura del sistema binario visuale ospitante TOI-6883AB.',
+    ads: 'https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C',
+    web: 'https://www.astrofilipalidoro.it/TOI6883Ab/'
+  }
+};
+
 function switchLang(lang) {
   document.documentElement.lang = lang;
   document.getElementById('btn-it').classList.toggle('active', lang === 'it');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  localStorage.setItem('cv_lang_v2', lang);
+  localStorage.setItem('cv_lang_v3', lang);
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+  const isDark = document.body.classList.contains('dark-theme');
+  document.getElementById('theme-toggle').textContent = isDark ? '☀️ Light' : '🌙 Dark';
+  localStorage.setItem('cv_theme', isDark ? 'dark' : 'light');
 }
 
 function filterPubs(type, btn) {
+  currentFilter = type;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  
+  if(btn) btn.classList.add('active');
+  applySearch();
+}
+
+function applySearch() {
+  const query = document.getElementById('search-bar').value.toLowerCase();
   const pubs = document.querySelectorAll('.pub');
+  
   pubs.forEach(pub => {
-    if (type === 'all') {
-      pub.style.display = 'block';
-    } else if (type === 'first') {
-      pub.style.display = pub.getAttribute('data-first') === 'true' ? 'block' : 'none';
-    } else if (type === 'discovery') {
-      pub.style.display = pub.getAttribute('data-discovery') === 'true' ? 'block' : 'none';
+    const text = pub.textContent.toLowerCase();
+    const matchesSearch = text.includes(query);
+    let matchesFilter = true;
+    
+    if (currentFilter === 'first') {
+      matchesFilter = pub.getAttribute('data-first') === 'true';
+    } else if (currentFilter === 'discovery') {
+      matchesFilter = pub.getAttribute('data-discovery') === 'true';
     }
+    
+    pub.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
   });
 }
 
 function copyCitation(btn, citationText) {
   navigator.clipboard.writeText(citationText).then(() => {
-    const toast = document.getElementById('toast');
-    const isEn = document.documentElement.lang === 'en';
-    toast.textContent = isEn ? 'Citation copied to clipboard!' : 'Citazione copiata negli appunti!';
-    toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    showToast(document.documentElement.lang === 'en' ? 'Citation copied!' : 'Citazione copiata!');
   });
+}
+
+function copyBibtex(btn, key) {
+  const text = bibtexData[key] || `@misc{${key},\n  author = {Conzo, G.},\n  title = {Publication details available on ADS},\n  year = {2024}\n}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(document.documentElement.lang === 'en' ? 'BibTeX entry copied!' : 'Voce BibTeX copiata!');
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 2200);
 }
 
 function scrollToYear(year) {
@@ -493,14 +604,39 @@ function scrollToYear(year) {
     targetPub.scrollIntoView({ behavior: 'smooth', block: 'center' });
     targetPub.style.transition = 'background 0.5s';
     const origBg = targetPub.style.background;
-    targetPub.style.background = '#FFF3CD';
+    targetPub.style.background = 'var(--highlight-bg)';
     setTimeout(() => { targetPub.style.background = origBg; }, 1500);
   }
 }
 
+function openModal(key) {
+  const data = planetData[key];
+  if(!data) return;
+  document.getElementById('modal-title').textContent = data.title;
+  document.getElementById('modal-sub').textContent = data.sub;
+  document.getElementById('m-star').textContent = data.star;
+  document.getElementById('m-const').textContent = data.const;
+  document.getElementById('m-period').textContent = data.period;
+  document.getElementById('m-type').textContent = data.type;
+  document.getElementById('modal-desc').textContent = data.desc;
+  document.getElementById('modal-link-ads').href = data.ads;
+  document.getElementById('modal-link-web').href = data.web;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal(e) {
+  if (e.target.id === 'modal-overlay') closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const savedLang = localStorage.getItem('cv_lang_v2') || 'it';
+  const savedLang = localStorage.getItem('cv_lang_v3') || 'it';
+  const savedTheme = localStorage.getItem('cv_theme');
   switchLang(savedLang);
+  if(savedTheme === 'dark') toggleTheme();
 });
 </script>
 </body>
