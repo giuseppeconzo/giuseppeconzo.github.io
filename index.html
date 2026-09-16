@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giuseppe Conzo</title>
+<title>Giuseppe Conzo - CV</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--nasa-blue:#0B3D91;--nasa-red:#FC3D21;--light:#F0F4FA;--text:#1A202C;}
@@ -17,6 +17,38 @@ body{font-family:'Inter', sans-serif;background:#0A1020;color:var(--text);paddin
 .header h1{font-size:36px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px;}
 .header h2{font-size:14px;font-weight:400;color:#A8C0FF;letter-spacing:0.5px;margin-bottom:12px;}
 .header .meta{font-size:11px;color:#D0DDFF;line-height:1.6;}
+
+/* Regole gestione cambio lingua */
+html[lang="it"] .lang-en { display: none !important; }
+html[lang="en"] .lang-it { display: none !important; }
+
+.lang-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+.lang-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+.lang-btn.active {
+  background: var(--nasa-red);
+  border-color: var(--nasa-red);
+}
+
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);background:var(--nasa-blue);color:white;text-align:center;}
 .metric{padding:16px 8px;border-right:1px solid rgba(255,255,255,0.15);}
 .metric:last-child{border-right:none;}
@@ -46,128 +78,310 @@ body{font-family:'Inter', sans-serif;background:#0A1020;color:var(--text);paddin
 .pub .doi{font-size:9px;color:#5A7AB8;font-family:'JetBrains Mono', monospace;margin-top:3px;word-break:break-all;}
 .pub .note{font-size:8px;background:#FFF3CD;color:#856404;padding:1px 5px;border-radius:3px;margin-left:6px;}
 .profile-text{font-size:11.5px;line-height:1.6;color:#2D3748;background:#F7FAFF;padding:14px;border-radius:8px;border:1px solid #E2E8F0;text-align: justify;}
-@media(max-width:800px){.body{grid-template-columns:1fr;}.metrics{grid-template-columns:repeat(2,1fr);}.header{flex-direction:column;text-align:center;}}
+@media(max-width:800px){.body{grid-template-columns:1fr;}.metrics{grid-template-columns:repeat(2,1fr);}.header{flex-direction:column;text-align:center;}.lang-switch{top:12px;right:12px;}}
 </style>
 </head>
 <body>
 <div class="cv-container">
   <div class="header">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
+      <button class="lang-btn" id="btn-en" onclick="switchLang('en')">EN</button>
+    </div>
     <img src="IO_SCIENTIST_web_square.jpg" alt="Giuseppe Conzo">
     <div class="header-text">
       <h1>GIUSEPPE CONZO</h1>
-      <h2>Gruppo Astrofili Palidoro • Ricercatore Indipendente — Esoplanetologia e Stelle Variabili</h2>
-      <div class="meta">📍 Fiumicino (RM), Italia &nbsp;|&nbsp; ✉ giuseppe.conzo@astrofilipalidoro.it &nbsp;|&nbsp; 🔎 TESS TFOP & ExoClock ESA ARIEL<br><a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-  <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID iD" style="width: 16px !important; height: 16px !important; max-width: 16px !important; vertical-align: middle; margin-right: 4px; display: inline-block;">ORCID: 0000-0002-2412-1558
-</a></div>
+      <h2>
+        <span class="lang-it">Gruppo Astrofili Palidoro • Ricercatore Indipendente — Esoplanetologia e Stelle Variabili</span>
+        <span class="lang-en">Palidoro Amateur Astronomers Group • Independent Researcher — Exoplanetology and Variable Stars</span>
+      </h2>
+      <div class="meta">
+        <span class="lang-it">📍 Fiumicino (RM), Italia</span>
+        <span class="lang-en">📍 Fiumicino (RM), Italy</span>
+        &nbsp;|&nbsp; ✉ giuseppe.conzo@astrofilipalidoro.it &nbsp;|&nbsp; 🔎 TESS TFOP & ExoClock ESA ARIEL<br>
+        <a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+          <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID iD" style="width: 16px !important; height: 16px !important; max-width: 16px !important; vertical-align: middle; margin-right: 4px; display: inline-block;">ORCID: 0000-0002-2412-1558
+        </a>
+      </div>
     </div>
   </div>
+  
   <div class="metrics">
-    <div class="metric"><span class="num">15</span><span class="label">Pubblicazioni</span></div>
-    <!-- <div class="metric"><span class="num">9</span><span class="label">Primo Autore</span></div> -->
-    <div class="metric"><span class="num">9</span><span class="label">Scoperte 2020-26</span></div>
-    <div class="metric"><span class="num">1.070</span><span class="label">Effemeridi di esopianeti</span></div>
-	<div class="metric"><span class="num">80</span><span class="label">Stelle Variabili individuate</span></div>
+    <div class="metric">
+      <span class="num">15</span>
+      <span class="label lang-it">Pubblicazioni</span>
+      <span class="label lang-en">Publications</span>
+    </div>
+    <div class="metric">
+      <span class="num">9</span>
+      <span class="label lang-it">Scoperte 2020-26</span>
+      <span class="label lang-en">Discoveries 2020-26</span>
+    </div>
+    <div class="metric">
+      <span class="num">1.070</span>
+      <span class="label lang-it">Effemeridi di esopianeti</span>
+      <span class="label lang-en">Exoplanet Ephemerides</span>
+    </div>
+    <div class="metric">
+      <span class="num">80</span>
+      <span class="label lang-it">Stelle Variabili individuate</span>
+      <span class="label lang-en">Variable Stars Identified</span>
+    </div>
   </div>
+
   <div class="body">
     <div class="sidebar">
-      <div class="section-title">⭐ Esopianeti scoperti (2)</div>
-      <div class="discovery-card"><div class="icon">🌍</div><div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/Gliese48b">Gliese 48 b (Ross 318 b)</a></div><div class="desc">Super-Terra temperata in Cassiopea<br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">2026OEJV..273....1C</a></div></div>
-      <div class="discovery-card" style="border-left-color:#FC3D21"><div class="icon">🪐</div><div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/TOI6883Ab/">TOI-6883Ab (TIC 393818343A b)</a></div><div class="desc">Gioviano Caldo nel Delfino<br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">2024RNAAS...8...53C</a></div></div>
-      <!-- <div class="discovery-card" style="border-left-color:#38A169"><div class="icon">🌟</div><div class="name">TOI-6883AB</div><div class="desc">Binaria visuale + pianeta<br>RNAAS 2025 – 1° autore</div></div> -->
+      <div class="section-title">
+        ⭐ <span class="lang-it">Esopianeti scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
+      </div>
+      <div class="discovery-card">
+        <div class="icon">🌍</div>
+        <div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/Gliese48b">Gliese 48 b (Ross 318 b)</a></div>
+        <div class="desc">
+          <span class="lang-it">Super-Terra temperata in Cassiopea</span>
+          <span class="lang-en">Temperate Super-Earth in Cassiopeia</span>
+          <br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">2026OEJV..273....1C</a>
+        </div>
+      </div>
+      <div class="discovery-card" style="border-left-color:#FC3D21">
+        <div class="icon">🪐</div>
+        <div class="name"><a target="_blank" href="https://www.astrofilipalidoro.it/TOI6883Ab/">TOI-6883Ab (TIC 393818343A b)</a></div>
+        <div class="desc">
+          <span class="lang-it">Gioviano Caldo nel Delfino</span>
+          <span class="lang-en">Hot Jupiter in Delphinus</span>
+          <br><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">2024RNAAS...8...53C</a>
+        </div>
+      </div>
 
       <div class="section-title">📅 Timeline</div>
       <div class="timeline">
-        <div class="timeline-item"><div class="dot"></div><div class="year">2026</div><div class="count">3 pub</div></div>
-        <div class="timeline-item"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count">2 pub</div></div>
-        <div class="timeline-item"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count">1 pub</div></div>
-        <div class="timeline-item"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count">4 pub</div></div>
-        <div class="timeline-item"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count">5 pub</div></div>
+        <div class="timeline-item"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
+        <div class="timeline-item"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
+        <div class="timeline-item"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
+        <div class="timeline-item"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
+        <div class="timeline-item"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
       </div>
 
-      <div class="section-title">🛠️ Competenze</div>
+      <div class="section-title">
+        🛠️ <span class="lang-it">Competenze</span><span class="lang-en">Skills</span>
+      </div>
       <ul class="list">
-        <li>• Fotometria di transito</li>
-        <li>• Pipeline TESS</li>
+        <li>• <span class="lang-it">Fotometria di transito</span><span class="lang-en">Transit Photometry</span></li>
+        <li>• <span class="lang-it">Pipeline TESS</span><span class="lang-en">TESS Pipeline</span></li>
         <li>• Light-curve modeling</li>
-        <li>• Astrometria binarie</li>
+        <li>• <span class="lang-it">Astrometria binarie</span><span class="lang-en">Binary Astrometry</span></li>
         <li>• Python / AstroImageJ</li>
         <li>• ADS / arXiv / VizieR</li>
-        <li>• Follow-up multibanda</li>
+        <li>• <span class="lang-it">Follow-up multibanda</span><span class="lang-en">Multiband Follow-up</span></li>
       </ul>
 
-      <div class="section-title">🤝 Collaborazioni</div>
+      <div class="section-title">
+        🤝 <span class="lang-it">Collaborazioni</span><span class="lang-en">Collaborations</span>
+      </div>
       <ul class="list">
         <li>• <a target="_blank" href="https://www.exoclock.space/">ExoClock / ESA ARIEL</a></li>
         <li>• <a target="_blank" href="https://exofop.ipac.caltech.edu/tess/">TESS Follow-up Program</a></li>
-        <li>• <a target="_blank" href="https://www.uai.it/sito/">Unione Astrofili Italiani (UAI)</a></li>
-		<li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta">Missione Rosetta (ESA)</a></li>
+        <li>• <a target="_blank" href="https://www.uai.it/sito/"><span class="lang-it">Unione Astrofili Italiani (UAI)</span><span class="lang-en">Italian Amateur Astronomers Union (UAI)</span></a></li>
+        <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
       </ul>
 
       <div class="section-title">🎯 Focus</div>
       <ul class="list">
         <li>• Hot Jupiters & companions</li>
         <li>• Warm sub-Saturns</li>
-        <li>• Super-Terre temperate</li>
-        <li>• Binarie ellissoidali / Algol</li>
-        <li>• RS CVn / Semiregolari</li>
+        <li>• <span class="lang-it">Super-Terre temperate</span><span class="lang-en">Temperate Super-Earths</span></li>
+        <li>• <span class="lang-it">Binarie ellissoidali / Algol</span><span class="lang-en">Ellipsoidal / Algol binaries</span></li>
+        <li>• <span class="lang-it">RS CVn / Semiregolari</span><span class="lang-en">RS CVn / Semiregulars</span></li>
         <li>• Supernovae II-L</li>
       </ul>
-	  
-	  	      <div class="section-title">🌐 Social</div>
+      
+      <div class="section-title">🌐 Social</div>
       <ul class="list">
         <li>• <a target="_blank" href="https://www.facebook.com/pek81">Facebook</a></li>
         <li>• <a target="_blank" href="http://instagram.com/giuseppe.conzo">Instagram</a></li>
       </ul>
-	  
     </div>
-	
+  
     <div class="main">
-      <div class="section-title">🎯 Profilo Scientifico</div>
-      <div class="profile-text">Ricercatore indipendente italiano con approccio data-driven, ponte tra ricerca amatoriale evoluta e collaborazioni professionali large-team internazionali. Specializzato in validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, analisi dinamica di sistemi binari visuali ospitanti pianeti (es. TOI-6883AB) e produzione di cataloghi omogenei di effemeridi per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 effemeridi aggiornate: 450 nel catalogo III + 620 nel IV).
+      <div class="section-title">
+        🎯 <span class="lang-it">Profilo Scientifico</span><span class="lang-en">Scientific Profile</span>
+      </div>
+      <div class="profile-text">
+        <div class="lang-it">
+          Ricercatore indipendente italiano con approccio data-driven, ponte tra ricerca amatoriale evoluta e collaborazioni professionali large-team internazionali. Specializzato in validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, analisi dinamica di sistemi binari visuali ospitanti pianeti (es. TOI-6883AB) e produzione di cataloghi omogenei di effemeridi per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 effemeridi aggiornate: 450 nel catalogo III + 620 nel IV).<br><br>
+          Autore di 16 lavori indicizzati ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, con 2 scoperte principali tra il 2024-2026 tra cui la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab nella costellazione del Delfino (2024).<br><br>
+          L'esperienza include attività di supporto e divulgazione scientifica legate alla Missione ESA Rosetta sulla cometa 67P/Churyumov-Gerasimenko, con focus su fotometria cometaria, evoluzione della chioma e coinvolgimento del pubblico durante le fasi di avvicinamento e atterraggio di Philae.<br><br>
+          Da anni attivo nel Gruppo Astrofili Palidoro (Fiumicino, RM), dove coordina serate osservative pubbliche, percorsi didattici per le scuole e progetti di citizen science, trasformando l'osservazione amatoriale in dati utili alla comunità internazionale (TESS TFOP, ExoClock, TNS).
+        </div>
+        <div class="lang-en">
+          Italian independent researcher with a data-driven approach, bridging advanced amateur research and international large-team professional collaborations. Specialized in the validation and characterization of TESS candidates through high-precision transit photometry, dynamic analysis of planet-hosting visual binary systems (e.g., TOI-6883AB), and the production of homogeneous ephemeris catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides: 450 in catalog III + 620 in IV).<br><br>
+          Author of 16 papers indexed on ADS/arXiv/VizieR between 2020 and 2026, including 9 as first author, with 2 major discoveries between 2024–2026: the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab in the constellation Delphinus (2024).<br><br>
+          Experience includes scientific support and outreach activities related to ESA's Rosetta Mission to comet 67P/Churyumov-Gerasimenko, focusing on cometary photometry, coma evolution, and public engagement during Philae's approach and landing phases.<br><br>
+          Active for years in the Gruppo Astrofili Palidoro (Fiumicino, RM), coordinating public stargazing nights, educational programs for schools, and citizen science projects, turning amateur observations into valuable data for the international scientific community (TESS TFOP, ExoClock, TNS).
+        </div>
+      </div>
 
-Autore di 16 lavori indicizzati ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, con 2 scoperte principali tra il 2024-2026 tra cui la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab nella costellazione del Delfino (2024).
+      <div class="section-title">
+        📚 <span class="lang-it">Pubblicazioni – 15 lavori</span><span class="lang-en">Publications – 15 works</span>
+      </div>
 
-L'esperienza include attività di supporto e divulgazione scientifica legate alla Missione ESA Rosetta sulla cometa 67P/Churyumov-Gerasimenko, con focus su fotometria cometaria, evoluzione della chioma e coinvolgimento del pubblico durante le fasi di avvicinamento e atterraggio di Philae.
+      <div class="pub">
+        <div class="authors"><span class="badge">2026</span> Sha et al. (incl. Conzo G.)</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026AJ....172..183S">The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters</a></div>
+        <div class="journal">The Astronomical Journal, 172, 3, 183</div>
+        <div class="doi">DOI: 10.3847/1538-3881/ae8bb0 | arXiv:2601.13302 | ADS: 2026AJ....172..183S</div>
+      </div>
 
-Da anni attivo nel Gruppo Astrofili Palidoro (Fiumicino, RM), dove coordina serate osservative pubbliche, percorsi didattici per le scuole e progetti di citizen science, trasformando l'osservazione amatoriale in dati utili alla comunità internazionale (TESS TFOP, ExoClock, TNS).</div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge">2026</span> Conzo G., Moriconi M., Correa S.A. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>] 
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">Detection and characterization of the temperate super-earth Gliese 48 b</a></div>
+        <div class="journal">Open European Journal on Variable Stars, 273, 1-18</div>
+        <div class="doi">DOI: 10.5817/OEJV2026-0273 | arXiv:2605.11123 | ADS: 2026OEJV..273....1C</div>
+      </div>
 
-      <div class="section-title">📚 Pubblicazioni – 15 lavori</div>
+      <div class="pub">
+        <div class="authors"><span class="badge">2026</span> Kokori A. et al. (incl. Conzo G.)</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026ApJS..283....5K">ExoClock Project IV: A Homogeneous Catalog of 620 Updated Exoplanet Ephemerides</a></div>
+        <div class="journal">ApJS, 283, 1, 5</div>
+        <div class="doi">DOI: 10.3847/1538-4365/ae3238 | arXiv:2511.14407 | ADS: 2026ApJS..283....5K</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge">2026</span> Sha et al. (incl. Conzo G.)</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026AJ....172..183S">The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters</a></div><div class="journal">The Astronomical Journal, 172, 3, 183</div><div class="doi">DOI: 10.3847/1538-3881/ae8bb0 | arXiv:2601.13302 | ADS: 2026AJ....172..183S</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge">2025</span> Conzo G., Campos F., Conti F., Sharp I. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025RNAAS...9..139C">Characterization of the Visual Binary TOI-6883AB and Dynamical Implications for TOI-6883Ab</a></div>
+        <div class="journal">RNAAS, 9, 6, 139</div>
+        <div class="doi">DOI: 10.3847/2515-5172/ade25d | arXiv:2506.08798 | ADS: 2025RNAAS...9..139C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge">2026</span> Conzo G., Moriconi M., Correa S.A. [PRIMO AUTORE] <span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C">Detection and characterization of the temperate super-earth Gliese 48 b</a></div><div class="journal">Open European Journal on Variable Stars, 273, 1-18</div><div class="doi">DOI: 10.5817/OEJV2026-0273 | arXiv:2605.11123 | ADS: 2026OEJV..273....1C</div></div>
+      <div class="pub">
+        <div class="authors"><span class="badge">2025</span> Fairnington T.R. et al. (incl. Conzo G.)</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.540.1144F">The eccentricity distribution of warm sub-Saturns in TESS</a></div>
+        <div class="journal">MNRAS, 540, 1144-1162</div>
+        <div class="doi">DOI: 10.1093/mnras/staf759 | arXiv:2505.04106 | ADS: 2025MNRAS.540.1144F</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge">2026</span> Kokori A. et al. (incl. Conzo G.)</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026ApJS..283....5K">ExoClock Project IV: A Homogeneous Catalog of 620 Updated Exoplanet Ephemerides</a></div><div class="journal">ApJS, 283, 1, 5</div><div class="doi">DOI: 10.3847/1538-4365/ae3238 | arXiv:2511.14407 | ADS: 2026ApJS..283....5K</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#FC3D21">2024</span> Conzo G., Moriconi M. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">TOI-6883.01: A Single-transit Planet Candidate Detected from TESS</a></div>
+        <div class="journal">RNAAS, 8, 2, 53</div>
+        <div class="doi">DOI: 10.3847/2515-5172/ad2c85 | ADS: 2024RNAAS...8...53C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge">2025</span> Conzo G., Campos F., Conti F., Sharp I. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025RNAAS...9..139C">Characterization of the Visual Binary TOI-6883AB and Dynamical Implications for TOI-6883Ab</a></div><div class="journal">RNAAS, 9, 6, 139</div><div class="doi">DOI: 10.3847/2515-5172/ade25d | arXiv:2506.08798 | ADS: 2025RNAAS...9..139C</div></div>
+      <div class="pub">
+        <div class="authors"><span class="badge" style="background:#718096">2023</span> Bianciardi G. et al. (incl. Conzo G.)</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf, a possible II-L Subtype Supernova</a></div>
+        <div class="journal">TNSAN, 213, 1</div>
+        <div class="doi">arXiv:2307.05612 | ADS: 2023TNSAN.213....1B</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge">2025</span> Fairnington T.R. et al. (incl. Conzo G.)</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.540.1144F">The eccentricity distribution of warm sub-Saturns in TESS</a></div><div class="journal">MNRAS, 540, 1144-1162</div><div class="doi">DOI: 10.1093/mnras/staf759 | arXiv:2505.04106 | ADS: 2025MNRAS.540.1144F</div></div>
+      <div class="pub">
+        <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. – DATASET</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023yCat..22650004K">VizieR: ExoClock III – 450 exoplanet ephemerides</a></div>
+        <div class="journal">VizieR J/ApJS/265/4</div>
+        <div class="doi">ADS: 2023yCat..22650004K</div>
+      </div>
 
-      <!-- <div class="pub" style="border-left-color:#FC3D21"><div class="authors"><span class="badge" style="background:#FC3D21">2024</span> Conzo G. et al. [PRIMO AUTORE] <span class="note">⭐ SCOPERTA</span></div><div class="title">TIC 393818343 c: Discovery and characterization of a Neptune-like planet in Delphinus</div><div class="journal">arXiv e-prints</div><div class="doi">arXiv:2410.07425 | ADS: 2024arXiv241007425C</div></div> -->
+      <div class="pub">
+        <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. (incl. Conzo G.)</div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023ApJS..265....4K">ExoClock III: 450 New Exoplanet Ephemerides</a></div>
+        <div class="journal">ApJS, 265, 1, 4</div>
+        <div class="doi">DOI: 10.3847/1538-4365/ac9da4 | arXiv:2209.09673 | ADS: 2023ApJS..265....4K</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#FC3D21">2024</span> Conzo G., Moriconi M. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C">TOI-6883.01: A Single-transit Planet Candidate Detected from TESS</a></div><div class="journal">RNAAS, 8, 2, 53</div><div class="doi">DOI: 10.3847/2515-5172/ad2c85 | ADS: 2024RNAAS...8...53C</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#718096">2023</span> Conzo G., Moriconi M., Peretto I. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C">Candidate triple-star system with ellipsoidal components detected in Vulpecula through TESS photometry</a></div>
+        <div class="journal">OEJV, 235, 1-9</div>
+        <div class="doi">DOI: 10.5817/OEJV2023-0235 | arXiv:2302.05778</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#718096">2023</span> Bianciardi G. et al. (incl. Conzo G.)</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf, a possible II-L Subtype Supernova</a></div><div class="journal">TNSAN, 213, 1</div><div class="doi">arXiv:2307.05612 | ADS: 2023TNSAN.213....1B</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., Peretto I. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022RNAAS...6..275C">HD 345723: RS Canum Venaticorum Variable Star Detected with TESS Data</a></div>
+        <div class="journal">RNAAS, 7, 275</div>
+        <div class="doi">ADS: 2022RNAAS...6..275C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. – DATASET</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023yCat..22650004K">VizieR: ExoClock III – 450 exoplanet ephemerides</a></div><div class="journal">VizieR J/ApJS/265/4</div><div class="doi">ADS: 2023yCat..22650004K</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., P.G.Marotta 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C">New Semiregular Variable Star Near The Wizard Nebula - Evolution of the Red Giant MACOMP_V1</a></div>
+        <div class="journal">Open European Journal on Variable stars, Vol. 229, p. 1-8.</div>
+        <div class="doi">ADS: 2022OEJV..229....1C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. (incl. Conzo G.)</div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023ApJS..265....4K">ExoClock III: 450 New Exoplanet Ephemerides</a></div><div class="journal">ApJS, 265, 1, 4</div><div class="doi">DOI: 10.3847/1538-4365/ac9da4 | arXiv:2209.09673 | ADS: 2023ApJS..265....4K</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#A0AEC0">2021</span> Conzo G., Moriconi M., Spaziani G. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2021AsUAI...3...44C">New seven short-period variable stars in Cassiopea</a></div>
+        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 44 - 51 (luglio - settembre 2021)</div>
+        <div class="doi">ADS: 2021AsUAI...3...44C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#718096">2023</span> Conzo G., Moriconi M., Peretto I. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C">Candidate triple-star system with ellipsoidal components detected in Vulpecula through TESS photometry</a></div><div class="journal">OEJV, 235, 1-9</div><div class="doi">DOI: 10.5817/OEJV2023-0235 | arXiv:2302.05778</div></div>
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...4...19C">Un nuovo sistema binario di tipo Algol in Auriga: GUNVAG2 (VSX 1542879)</a></div>
+        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 4, p. 19 - 24 (ottobre - dicembre 2020)</div>
+        <div class="doi">ADS: 2020AsUAI...4...19C</div>
+      </div>
 
-      <div class="pub"><div class="authors"><span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., Peretto I. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022RNAAS...6..275C">HD 345723: RS Canum Venaticorum Variable Star Detected with TESS Data</a></div><div class="journal">RNAAS, 7, 275</div><div class="doi">ADS: 2022RNAAS...6..275C</div></div>
-	  
-      <div class="pub"><div class="authors"><span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., P.G.Marotta [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C">New Semiregular Variable Star Near The Wizard Nebula - Evolution of the Red Giant MACOMP_V1</a></div><div class="journal">Open European Journal on Variable stars, Vol. 229, p. 1-8.</div><div class="doi">ADS: 2022OEJV..229....1C</div></div>
-	  
-	  <div class="pub"><div class="authors"><span class="badge" style="background:#A0AEC0">2021</span> Conzo G., Moriconi M., Spaziani G. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2021AsUAI...3...44C">New seven short-period variable stars in Cassiopea</a></div><div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 44 - 51 (luglio - settembre 2021)</div><div class="doi">ADS: 2021AsUAI...3...44C</div></div>
-	  
-	  <div class="pub"><div class="authors"><span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...4...19C">Un nuovo sistema binario di tipo Algol in Auriga: GUNVAG2 (VSX 1542879)</a></div><div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 4, p. 19 - 24 (ottobre - dicembre 2020)</div><div class="doi">ADS: 2020AsUAI...4...19C</div></div>
-	  
-	  <div class="pub"><div class="authors"><span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. [PRIMO AUTORE]<span class="note">⭐ SCOPERTA</span></div><div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...3...19C">Nuovo sistema binario di stelle ellissoidali in Auriga: GUNVAG1 (VSX 1500078)</a></div><div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 19 - 25 (luglio - settembre 2020)</div><div class="doi">ADS: 2020AsUAI...3...19C</div></div>
-
-      <!-- <div style="margin-top:24px;text-align:center;font-size:9px;color:#A0AEC0;">CV NASA Infographic – Giuseppe Conzo – 15/09/2026 – Verificabile su ADS: author:"Conzo, G" – Tutti i DOI inclusi</div> -->
+      <div class="pub">
+        <div class="authors">
+          <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
+          [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]
+          <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>
+        </div>
+        <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2020AsUAI...3...19C">Nuovo sistema binario di stelle ellissoidali in Auriga: GUNVAG1 (VSX 1500078)</a></div>
+        <div class="journal">Astronomia. La rivista dell' Unione Astrofili Italiani (ISSN 1593-3814), N. 3, p. 19 - 25 (luglio - settembre 2020)</div>
+        <div class="doi">ADS: 2020AsUAI...3...19C</div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+function switchLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('cv_lang_v2', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Ora 'it' è la lingua di default per chi accede per la prima volta
+  const savedLang = localStorage.getItem('cv_lang_v2') || 'it';
+  switchLang(savedLang);
+});
+</script>
 </body>
 </html>
