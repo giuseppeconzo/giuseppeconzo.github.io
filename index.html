@@ -933,18 +933,21 @@ Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinat
   </div>
 </div>
 
-<!-- Modal Database Stelle Variabili (CSV Reader Dinamico) -->
+<!-- Modal Database Stelle Variabili (CSV Reader Dinamico) con Filtro Magnitudine -->
 <div class="modal-overlay" id="vsx-modal-overlay" onclick="closeVsxModal(event)">
   <div class="modal modal-wide" onclick="event.stopPropagation()">
     <span class="modal-close" onclick="closeVsxModalDirect()">&times;</span>
     <h3>✨ <span class="lang-it">Database Stelle Variabili (AAVSO VSX)</span><span class="lang-en">Variable Stars Database (AAVSO VSX)</span></h3>
     <p style="font-size: 11px; color: var(--text-muted);">
-      <span class="lang-it">Elenco dinamico letto da SearchResults.csv. Usa la ricerca o i filtri rapidi.</span>
-      <span class="lang-en">Dynamic list read from SearchResults.csv. Use search or quick filters.</span>
+      <span class="lang-it">Elenco dinamico letto da SearchResults.csv. Usa la ricerca, la magnitudine massima o i filtri rapidi.</span>
+      <span class="lang-en">Dynamic list read from SearchResults.csv. Use search, max magnitude or quick filters.</span>
     </p>
     
     <div style="display: flex; gap: 8px; margin: 12px 0 8px 0; flex-wrap: wrap; align-items: center; justify-content: space-between;">
-      <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Cerca nome, costellazione, tipo..." onkeyup="filterVsxTable()" style="width: 240px;">
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Cerca nome, costellazione..." onkeyup="filterVsxTable()" style="width: 180px;">
+        <input type="number" id="vsx-mag-input" class="search-input" placeholder="Mag Max (es. 15)" oninput="filterVsxTable()" style="width: 120px;" step="0.1" min="0" max="30" title="Filtra per magnitudine massima">
+      </div>
       <div class="pub-filters" id="vsx-type-filters">
         <button class="filter-btn active" onclick="filterVsxByType('ALL', this)">ALL</button>
         <button class="filter-btn" onclick="filterVsxByType('EW', this)">EW</button>
@@ -1270,6 +1273,7 @@ function filterVsxByType(type, btn) {
 
 function filterVsxTable() {
   const query = document.getElementById('vsx-search-input').value.toLowerCase();
+  const maxMagVal = parseFloat(document.getElementById('vsx-mag-input').value);
   
   const filtered = vsxDataCache.filter(item => {
     const matchesSearch = (item.Name && item.Name.toLowerCase().includes(query)) ||
@@ -1278,7 +1282,18 @@ function filterVsxTable() {
                           
     const matchesType = (currentVsxType === 'ALL') || (item.Type && item.Type.toUpperCase().includes(currentVsxType));
     
-    return matchesSearch && matchesType;
+    let matchesMag = true;
+    if (!isNaN(maxMagVal) && item.Mag) {
+      const magNums = item.Mag.match(/[\d.]+/g);
+      if (magNums && magNums.length > 0) {
+        const primaryMag = parseFloat(magNums[0]);
+        if (!isNaN(primaryMag)) {
+          matchesMag = primaryMag <= maxMagVal;
+        }
+      }
+    }
+    
+    return matchesSearch && matchesType && matchesMag;
   });
   
   renderVsxTable(filtered);
