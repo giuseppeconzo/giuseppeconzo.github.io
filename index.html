@@ -761,7 +761,7 @@ function downloadAllBibtex() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'export-bibtex.bib';
+  a.download = 'http://giuseppeconzo.github.io/export-bibtex.bib';
   a.click();
   URL.revokeObjectURL(url);
   showToast(document.documentElement.lang === 'en' ? 'Downloaded export-bibtex.bib!' : 'File export-bibtex.bib scaricato!');
