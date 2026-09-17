@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giuseppe Conzo</title>
+<title id="browser-title">Giuseppe Conzo - Scientific CV</title>
+
+<!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+<!-- <meta property="og:type" content="website">
+<meta property="og:url" content="https://giuseppeconzo.github.io/">
+<meta property="og:title" content="Giuseppe Conzo - CV Scientifico">
+<meta property="og:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
+<meta property="og:image" content="anteprima-W2.jpg"> -->
+
+<!-- Twitter Card (per Twitter / X) -->
+<!-- <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://giuseppeconzo.github.io/">
+<meta name="twitter:title" content="Giuseppe Conzo - CV Scientifico">
+<meta name="twitter:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
+<meta name="twitter:image" content="anteprima-W2.jpg"> -->
+
+<!-- SEO Meta Tags -->
+<!-- <meta name="description" content="Curriculum Vitae Scientifico di Giuseppe Conzo, Ricercatore Indipendente specializzato in Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
+<meta name="keywords" content="Giuseppe Conzo, Esopianeti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
+<meta name="author" content="Giuseppe Conzo">
+<meta name="robots" content="index, follow"> -->
 
 <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://giuseppeconzo.github.io/">
-<meta property="og:title" content="Giuseppe Conzo - CV Scientifico">
-<meta property="og:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
+<meta property="og:title" content="Giuseppe Conzo - Scientific CV">
+<meta property="og:description" content="Scientific and research activities of Independent Researcher Giuseppe Conzo">
 <meta property="og:image" content="anteprima-W2.jpg">
 
 <!-- Twitter Card (per Twitter / X) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://giuseppeconzo.github.io/">
-<meta name="twitter:title" content="Giuseppe Conzo - CV Scientifico">
-<meta name="twitter:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
+<meta name="twitter:title" content="Giuseppe Conzo - Scientific CV">
+<meta name="twitter:description" content="Scientific and research activities of Independent Researcher Giuseppe Conzo">
 <meta name="twitter:image" content="anteprima-W2.jpg">
 
 <!-- SEO Meta Tags -->
-<meta name="description" content="Curriculum Vitae Scientifico di Giuseppe Conzo, Ricercatore Indipendente specializzato in Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
-<meta name="keywords" content="Giuseppe Conzo, Esopianeti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
+<meta name="description" content="Scientific Curriculum Vitae of Giuseppe Conzo, Independent Researcher specialized in Exoplanetology and Variable Stars. Discoverer of Gliese 48 b and TOI-6883Ab. Collaborator with TESS TFOP and ESA ARIEL ExoClock.">
+<meta name="keywords" content="Giuseppe Conzo, Exoplanets, Esopianeti, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Variable Stars, Astrophysics, Photometry, Scientific CV, Publications">
 <meta name="author" content="Giuseppe Conzo">
 <meta name="robots" content="index, follow">
+
 
 <!-- Dati Strutturati Schema.org (JSON-LD) per SEO Google -->
 <script type="application/ld+json">
@@ -392,8 +413,8 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
     <div class="controls-bar">
       <button class="ctrl-btn" onclick="toggleTheme()" id="theme-toggle">🌙 Dark</button>
       <button class="ctrl-btn" onclick="window.print()" title="Stampa / Print">🖨️ <span class="lang-it">Stampa</span><span class="lang-en">Print</span></button>
-      <button class="ctrl-btn active" id="btn-it" onclick="switchLang('it')">IT</button>
-      <button class="ctrl-btn" id="btn-en" onclick="switchLang('en')">EN</button>
+      <button class="ctrl-btn" id="btn-it" onclick="switchLang('it')">IT</button>
+      <button class="ctrl-btn active" id="btn-en" onclick="switchLang('en')">EN</button>
     </div>
     <img src="IO_SCIENTIST_web_square.jpg" alt="Giuseppe Conzo" class="profile-avatar">
     <div class="header-text">
@@ -576,11 +597,11 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
 	  
 	  <div class="section-title">📅 Timeline</div>
       <div class="timeline">
-        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div><div>3 Peer Reviewed</div></div>
+        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div><div>1 Peer Reviewed</div></div>
         <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#FC3D21"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#718096"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#718096"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">3 pubs</span></div><div>2 Peer Reviewed</div></div>
+        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div><div>5 Peer Reviewed</div></div>
       </div>
 	  
     </div>
@@ -719,7 +740,7 @@ Autore di 15 articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di 
           <button class="filter-btn" onclick="filterPubs('discovery', this)"><span class="lang-it">Scoperte</span><span class="lang-en">Discoveries</span></button>
         </div>
         <div style="display: flex; gap: 6px; align-items: center;">
-          <input type="text" id="search-bar" class="search-input" placeholder="🔍 Cerca / Search..." onkeyup="applySearch()">
+          <input type="text" id="search-bar" class="search-input" placeholder="🔍 Search..." onkeyup="applySearch()">
           <button class="filter-btn" style="background: var(--nasa-blue); color: white;" onclick="downloadAllBibtex()" title="Scarica tutte le citazioni / Download all citations">
             <span class="lang-it">📦 Scarica .bib</span><span class="lang-en">📦 Download .bib</span>
           </button>
@@ -952,7 +973,7 @@ Autore di 15 articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di 
     </p>
     
     <div style="display: flex; gap: 8px; margin: 12px 0 8px 0; flex-wrap: wrap; align-items: center; justify-content: space-between;">
-      <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Cerca nome, costellazione, tipo..." onkeyup="filterVsxTable()" style="width: 240px;">
+      <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Search..." onkeyup="filterVsxTable()" style="width: 240px;">
       <div class="pub-filters" id="vsx-type-filters">
         <button class="filter-btn active" onclick="filterVsxByType('ALL', this)">ALL</button>
         <button class="filter-btn" onclick="filterVsxByType('EW', this)">EW</button>
@@ -1054,6 +1075,13 @@ function switchLang(lang) {
   
   document.getElementById('search-bar').placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
 
+  // Aggiorna dinamicamente il titolo della scheda del browser in base alla lingua attiva
+  if (lang === 'it') {
+    document.getElementById('browser-title').textContent = "Giuseppe Conzo - CV Scientifico";
+  } else {
+    document.getElementById('browser-title').textContent = "Giuseppe Conzo - Scientific CV";
+  }
+
   if (currentPlanetKey) {
     renderModalContent(currentPlanetKey);
   }
@@ -1140,8 +1168,8 @@ function scrollToYear(year) {
 function renderModalContent(key) {
   const data = planetData[key];
   if(!data) return;
-  const lang = document.documentElement.lang || 'it';
-  const content = data[lang] || data['it'];
+  const lang = document.documentElement.lang || 'en';
+  const content = data[lang] || data['en'];
 
   document.getElementById('modal-title').textContent = data.title;
   document.getElementById('modal-sub').textContent = content.sub;
@@ -1292,24 +1320,9 @@ function filterVsxTable() {
   renderVsxTable(filtered);
 }
 
-async function fetchAdsMetrics() {
-  const statusEl = document.getElementById('ads-widget-status');
-  try {
-    const lang = document.documentElement.lang || 'it';
-    if (statusEl) {
-      statusEl.textContent = lang === 'en' ? 'Live sync ORCID: 0000-0002-2412-1558' : 'Sincronizzazione ORCID: 0000-0002-2412-1558';
-    }
-  } catch (e) {
-    console.error("ADS fetch notice:", e);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const savedLang = localStorage.getItem('cv_lang_v3') || 'it';
-  const savedTheme = localStorage.getItem('cv_theme');
-  switchLang(savedLang);
-  if(savedTheme === 'dark') toggleTheme();
-  fetchAdsMetrics();
+// Inizializzazione della lingua inglese come default assoluto all'avvio della pagina
+document.addEventListener("DOMContentLoaded", () => {
+  switchLang('en');
 });
 </script>
 </body>
