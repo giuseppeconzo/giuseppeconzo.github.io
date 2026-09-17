@@ -436,7 +436,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
   
   <div class="metrics">
     <div class="metric">
-      <span class="num">15 / 9</span>
+      <span class="num" id="metric-pubs-count">15 / 9</span>
       <span class="label lang-it">Pubblicazioni / 1° Autore</span>
       <span class="label lang-en">Publications / 1st Author</span>
     </div>
@@ -614,12 +614,12 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         <div class="lang-it">
           Ricercatore indipendente attivo all'interfaccia tra l'astronomia amatoriale avanzata e le collaborazioni di ricerca professionale internazionale. Specializzato nella validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, nell'analisi dinamica di sistemi binari visivi che ospitano pianeti (ad es., TOI-6883AB) e nella produzione di cataloghi di efemeridi omogenei per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 efemeridi aggiornate).
 <br><br>
-Autore di 15 articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, che includono due importanti scoperte di esopianeti come primo autore (2024–2026): la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab (2024).
+Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di cui <span id="profile-first-pubs">9</span> come primo autore, che includono due importanti scoperte di esopianeti come primo autore (2024–2026): la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab (2024).
         </div>
         <div class="lang-en">
           Independent researcher working at the interface between advanced amateur astronomy and international professional research collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides).
           <br><br>
-          Author of 15 ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including 9 as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
+          Author of <span id="profile-total-pubs-en">15</span> ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including <span id="profile-first-pubs-en">9</span> as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
         </div>
       </div>
 
@@ -730,7 +730,9 @@ Autore di 15 articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di 
       </div>
 
       <div class="section-title">
-        📚 <span class="lang-it">Pubblicazioni – 15 lavori (9 come primo autore)</span><span class="lang-en">Publications – 15 works (9 first-author papers)</span>
+        📚 
+        <span class="lang-it">Pubblicazioni – <span id="sec-total-pubs">15</span> lavori (<span id="sec-first-pubs">9</span> come primo autore)</span>
+        <span class="lang-en">Publications – <span id="sec-total-pubs-en">15</span> works (<span id="sec-first-pubs-en">9</span> first-author papers)</span>
       </div>
 
       <div class="pub-toolbar">
@@ -1015,17 +1017,45 @@ let currentPlanetKey = null;
 let vsxDataCache = [];
 let currentVsxType = 'ALL';
 
-// Funzioni di generazione BibTeX dinamica (estratte direttamente dalla pagina HTML)
+// Funzione automatica per contare le pubblicazioni e aggiornare i contatori nella pagina
+function updatePublicationCounters() {
+  const pubs = document.querySelectorAll('.pub');
+  const totalPubs = pubs.length;
+  let firstAuthorPubs = 0;
+
+  pubs.forEach(pub => {
+    if (pub.getAttribute('data-first') === 'true') {
+      firstAuthorPubs++;
+    }
+  });
+
+  const countString = `${totalPubs} / ${firstAuthorPubs}`;
+
+  // Aggiorna il box metriche in alto
+  const metricNumEl = document.getElementById('metric-pubs-count');
+  if (metricNumEl) metricNumEl.textContent = countString;
+
+  // Aggiorna i testi all'interno del profilo scientifico e del titolo sezione
+  ['sec-total-pubs', 'sec-total-pubs-en', 'profile-total-pubs', 'profile-total-pubs-en'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = totalPubs;
+  });
+
+  ['sec-first-pubs', 'sec-first-pubs-en', 'profile-first-pubs', 'profile-first-pubs-en'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = firstAuthorPubs;
+  });
+}
+
+// Funzioni di generazione BibTeX dinamica
 function generateBibtexFromPub(pubElement) {
   const authorsRaw = pubElement.querySelector('.authors')?.innerText || '';
-  // Rimuove badge ed etichette testuali superflue (es. anno, "[ PRIMO AUTORE ]", "[ SCOPERTA ]", ecc.)
   const authorsClean = authorsRaw.replace(/^\d{4}/, '').replace(/\[.*?\]/g, '').replace(/⭐/g, '').trim();
   
   const title = pubElement.querySelector('.title')?.innerText.trim() || '';
   const journalRaw = pubElement.querySelector('.journal')?.innerText.trim() || '';
   const year = pubElement.getAttribute('data-year') || '2026';
   
-  // Crea una chiave univoca pulita es. "conzo2026gliese" o "shaf2026"
   const firstAuthorToken = authorsClean.split(',')[0].replace(/[^a-zA-Z]/g, '').toLowerCase() || 'author';
   const bibKey = firstAuthorToken + year + '_' + Math.random().toString(36).substring(2, 6);
 
@@ -1110,7 +1140,6 @@ function switchLang(lang) {
   
   document.getElementById('search-bar').placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
 
-  // Aggiorna dinamicamente il titolo della scheda del browser in base alla lingua attiva
   if (lang === 'it') {
     document.getElementById('browser-title').textContent = "Giuseppe Conzo - CV Scientifico";
   } else {
@@ -1336,9 +1365,10 @@ function filterVsxTable() {
   renderVsxTable(filtered);
 }
 
-// Inizializzazione della lingua inglese come default assoluto all'avvio della pagina
+// Inizializzazione all'avvio della pagina
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
+  updatePublicationCounters(); // Calcola e aggiorna automaticamente i contatori dei paper
 });
 </script>
 </body>
