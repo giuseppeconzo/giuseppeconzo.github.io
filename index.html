@@ -649,10 +649,10 @@ let vsxDataCache = [];
 let currentVsxType = 'ALL';
 let rawBibtexText = '';
 
-// Caricamento automatico di export-bibtex.bib
+// Caricamento corretto del file export-bibtex.bib (tramite percorso relativo)
 async function loadBibtexFile() {
   try {
-    const response = await fetch('http://giuseppeconzo.github.io/export-bibtex.bib');
+    const response = await fetch('export-bibtex.bib');
     if (!response.ok) throw new Error('File export-bibtex.bib non trovato');
     rawBibtexText = await response.text();
     
@@ -761,7 +761,7 @@ function downloadAllBibtex() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'http://giuseppeconzo.github.io/export-bibtex.bib';
+  a.download = 'export-bibtex.bib';
   a.click();
   URL.revokeObjectURL(url);
   showToast(document.documentElement.lang === 'en' ? 'Downloaded export-bibtex.bib!' : 'File export-bibtex.bib scaricato!');
@@ -1038,7 +1038,7 @@ function filterVsxTable() {
 // Avvio all'apertura della pagina
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
-  loadBibtexFile(); // Legge direttamente export-bibtex.bib
+  loadBibtexFile();
 });
 </script>
 </body>
