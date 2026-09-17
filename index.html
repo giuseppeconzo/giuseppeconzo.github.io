@@ -9,19 +9,19 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://giuseppeconzo.github.io/">
 <meta property="og:title" content="Giuseppe Conzo - CV Scientifico">
-<meta property="og:description" content="Attività scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
+<meta property="og:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
 <meta property="og:image" content="anteprima-W2.jpg">
 
 <!-- Twitter Card (per Twitter / X) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://giuseppeconzo.github.io/">
 <meta name="twitter:title" content="Giuseppe Conzo - CV Scientifico">
-<meta name="twitter:description" content="Attività scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
+<meta name="twitter:description" content="Attività scientifiche e di ricerca del Ricercatore Indipendente Giuseppe Conzo">
 <meta name="twitter:image" content="anteprima-W2.jpg">
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Curriculum Vitae Scientifico di Giuseppe Conzo, Ricercatore Indipendente specializzato in Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
-<meta name="keywords" content="Giuseppe Conzo, Esoplaneti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
+<meta name="keywords" content="Giuseppe Conzo, Esopianeti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
 <meta name="author" content="Giuseppe Conzo">
 <meta name="robots" content="index, follow">
 
@@ -101,11 +101,12 @@ html[lang="en"] .lang-it { display: none !important; }
 .ctrl-btn:hover { background: rgba(255, 255, 255, 0.35); }
 .ctrl-btn.active { background: var(--nasa-red); border-color: var(--nasa-red); }
 
-.metrics { display: grid; grid-template-columns: repeat(4,1fr); background: var(--nasa-blue); color: white; text-align: center; }
+/* Blocco metriche ridotto a 3 colonne per eliminare il duplicato */
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); background: var(--nasa-blue); color: white; text-align: center; }
 .metric { padding: 16px 8px; border-right: 1px solid rgba(255,255,255,0.15); }
 .metric:last-child { border-right: none; }
-.metric .num { font-size: 28px; font-weight: 700; display: block; }
-.metric .label { font-size: 10px; letter-spacing: 1px; color: #A8C0FF; text-transform: uppercase; margin-top: 2px; display: block; }
+.metric .num { font-size: 26px; font-weight: 700; display: block; }
+.metric .label { font-size: 9.5px; letter-spacing: 0.5px; color: #A8C0FF; text-transform: uppercase; margin-top: 2px; display: block; line-height: 1.3; }
 
 .body { display: grid; grid-template-columns: 300px 1fr; min-height: 800px; }
 .sidebar { background: var(--bg-sidebar); padding: 24px; border-right: 1px solid var(--border-color); transition: background 0.3s; }
@@ -183,6 +184,10 @@ body.dark-theme .year { color: #60A5FA; }
 .copy-btn:hover { background: var(--nasa-blue); color: white; border-color: var(--nasa-blue); }
 
 .profile-text { font-size: 11.5px; line-height: 1.6; color: var(--text-main); background: var(--pub-hover); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); text-align: justify; }
+
+/* Research Interests Grid */
+.interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 16px; }
+.interest-tag { background: var(--pub-hover); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 6px; font-size: 10.5px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
 
 /* Print QR Code Wrapper */
 .print-qr-code { display: none; margin-top: 15px; text-align: center; }
@@ -287,6 +292,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
     border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
     page-break-inside: avoid;
     break-inside: avoid;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .metric {
@@ -328,6 +334,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
   .discovery-card,
   .edu-card,
   .profile-text,
+  .interests-grid,
   .pub,
   .timeline,
   .media-card,
@@ -408,24 +415,19 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
   
   <div class="metrics">
     <div class="metric">
-      <span class="num">15</span>
-      <span class="label lang-it">Pubblicazioni</span>
-      <span class="label lang-en">Publications</span>
+      <span class="num">15 / 9</span>
+      <span class="label lang-it">Pubblicazioni / 1° Autore</span>
+      <span class="label lang-en">Publications / 1st Author</span>
     </div>
     <div class="metric">
-      <span class="num">9</span>
-      <span class="label lang-it">Scoperte 2020-26</span>
-      <span class="label lang-en">Discoveries 2020-26</span>
+      <span class="num">2 / 80</span>
+      <span class="label lang-it">Esopianeti / Stelle Variabili</span>
+      <span class="label lang-en">Exoplanets / Variable Stars</span>
     </div>
     <div class="metric">
       <span class="num">1.070</span>
-      <span class="label lang-it">Effemeridi esopianeti</span>
+      <span class="label lang-it">Effemeridi di esopianeti</span>
       <span class="label lang-en">Exoplanet Ephemerides</span>
-    </div>
-    <div class="metric">
-      <span class="num">80</span>
-      <span class="label lang-it">Stelle Variabili</span>
-      <span class="label lang-en">Variable Stars</span>
     </div>
   </div>
 
@@ -453,39 +455,6 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
           <span class="lang-en">Live sync ORCID: 0000-0002-2412-1558</span>
         </div>
       </div>
-	
-	
-	   <!--    <div class="section-title">
-        ⭐ <span class="lang-it">Esopianeti scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
-      </div>
-      <div class="discovery-card" onclick="openModal('gliese')">
-        <div class="icon">🌍</div>
-        <div class="name">Gliese 48 b (Ross 318 b)</div>
-        <div class="desc">
-          <span class="lang-it">Super-Terra temperata in Cassiopea (Clicca per dettagli)</span>
-          <span class="lang-en">Temperate Super-Earth in Cassiopeia (Click for details)</span>
-        </div>
-      </div>
-      <div class="discovery-card" style="border-left-color:#FC3D21" onclick="openModal('toi')">
-        <div class="icon">🪐</div>
-        <div class="name">TOI-6883Ab (TIC 393818343A b)</div>
-        <div class="desc">
-          <span class="lang-it">Gioviano Caldo nel Delfino (Clicca per dettagli)</span>
-          <span class="lang-en">Hot Jupiter in Delphinus (Click for details)</span>
-        </div>
-      </div>
-
-      <div class="section-title">
-        ✨ <span class="lang-it">Stelle Variabili scoperte (80)</span><span class="lang-en">Discovered Variable Stars (80)</span>
-      </div>
-      <div class="discovery-card" style="border-left-color: #2563EB;" onclick="openVsxModal()">
-        <div class="icon">📈</div>
-        <div class="name"><span class="lang-it">Lista Scoperte</span><span class="lang-en">Discoveries List</span></div>
-        <div class="desc">
-          <span class="lang-it">Esplora il database (Clicca per aprire)</span>
-          <span class="lang-en">Explore the database (Click to open)</span>
-        </div>
-      </div> -->
 	
 	<div class="section-title">
         🎓 <span class="lang-it">Istruzione</span><span class="lang-en">Education</span>
@@ -553,7 +522,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         </div>
       </div>
 	  
-	  <!-- SEZIONE RICONOSCIMENTI AGGIUNTA -->
+	  <!-- SEZIONE RICONOSCIMENTI -->
       <div class="section-title">
         🏆 <span class="lang-it">Riconoscimenti</span><span class="lang-en">Awards & Honors</span>
       </div>
@@ -622,23 +591,30 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       </div>
       <div class="profile-text">
         <div class="lang-it">
-          Ricercatore indipendente italiano con approccio data-driven, ponte tra ricerca amatoriale evoluta e collaborazioni professionali large-team internazionali. Specializzato in validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, analisi dinamica di sistemi binari visuali ospitanti pianeti (es. TOI-6883AB) e produzione di cataloghi omogenei di effemeridi per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 effemeridi aggiornate: 450 nel catalogo III + 620 nel IV).
-
-Autore di 15 lavori indicizzati ADS/arXiv/VizieR tra il 2020 e il 2026, di cui 9 come primo autore, con 2 scoperte principali tra il 2024-2026 tra cui la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab nella costellazione del Delfino (2024).
-
-L'esperienza include attività di supporto e divulgazione scientifica legate alla Missione ESA Rosetta sulla cometa 67P/Churyumov-Gerasimenko, con focus su fotometria cometaria, evoluzione della chioma e coinvolgimento del pubblico durante le fasi di avvicinamento e atterraggio di Philae.
-
-Da anni attivo nel Gruppo Astrofili Palidoro (Fiumicino, RM), dove coordina serate osservative pubbliche, percorsi didattici per le scuole e progetti di citizen science, trasformando l'osservazione amatoriale in dati utili alla comunità internazionale (TESS TFOP, ExoClock, TNS).
+          Independent researcher working at the interface between advanced amateur astronomy and international professional research collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides).
+          <br><br>
+          Author of 15 ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including 9 as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
         </div>
         <div class="lang-en">
-          Independent Italian researcher with a data-driven approach, bridging advanced amateur research and large-team international professional collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides: 450 in Catalog III + 620 in Catalog IV).
-
-Author of 15 ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including 9 as first author, with 2 major discoveries between 2024–2026, featuring the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab in the constellation Delphinus (2024).
-
-Experience includes support and science communication activities related to the ESA Rosetta mission on comet 67P/Churyumov-Gerasimenko, focusing on cometary photometry, coma evolution, and public engagement during Philae's approach and landing phases.
-
-Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinating public observational events, educational paths for schools, and citizen science projects, turning amateur observation into data useful to the international community (TESS TFOP, ExoClock, TNS).
+          Independent researcher working at the interface between advanced amateur astronomy and international professional research collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides).
+          <br><br>
+          Author of 15 ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including 9 as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
         </div>
+      </div>
+
+      <!-- Research Interests -->
+      <div class="section-title">
+        🔬 <span class="lang-it">Interessi di Ricerca</span><span class="lang-en">Research Interests</span>
+      </div>
+      <div class="interests-grid">
+        <div class="interest-tag">🪐 <span class="lang-it">Rilevamento e caratterizzazione esopianeti</span><span class="lang-en">Exoplanet detection and characterization</span></div>
+        <div class="interest-tag">🛰️ <span class="lang-it">Osservazioni di follow-up TESS</span><span class="lang-en">TESS follow-up observations</span></div>
+        <div class="interest-tag">📈 <span class="lang-it">Fotometria di transito</span><span class="lang-en">Transit photometry</span></div>
+        <div class="interest-tag">📉 <span class="lang-it">Analisi di velocità radiali</span><span class="lang-en">Radial-velocity analysis</span></div>
+        <div class="interest-tag">⏱️ <span class="lang-it">Effemeridi esoplanetarie</span><span class="lang-en">Exoplanet ephemerides</span></div>
+        <div class="interest-tag">✨ <span class="lang-it">Variabilità stellare</span><span class="lang-en">Stellar variability</span></div>
+        <div class="interest-tag">⭐ <span class="lang-it">Sistemi stellari binari e multipli</span><span class="lang-en">Binary and multiple stellar systems</span></div>
+        <div class="interest-tag">🤝 <span class="lang-it">Citizen science e collaborazioni pro-am</span><span class="lang-en">Citizen science & professional–amateur collaboration</span></div>
       </div>
 
       <!-- Sezione Rassegna Stampa & Media (Public Outreach) -->
@@ -733,7 +709,7 @@ Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinat
       </div>
 
       <div class="section-title">
-        📚 <span class="lang-it">Pubblicazioni – 15 lavori</span><span class="lang-en">Publications – 15 works</span>
+        📚 <span class="lang-it">Pubblicazioni – 15 lavori (9 come primo autore)</span><span class="lang-en">Publications – 15 works (9 first-author papers)</span>
       </div>
 
       <div class="pub-toolbar">
@@ -1253,12 +1229,12 @@ async function loadVsxCsv() {
     vsxDataCache = parseCSV(csvText);
     renderVsxTable(vsxDataCache);
   } catch (err) {
-    console.error("Errore fetch CSV (probabile blocco CORS in locale):", err);
+    console.error("Errore fetch CSV:", err);
     document.getElementById('vsx-table-body').innerHTML = `
       <tr><td colspan="6" style="text-align:center; color: var(--nasa-red); padding: 20px; line-height: 1.5;">
         <strong>Nota sui browser in locale (protocollo file://):</strong><br>
         I browser bloccano la lettura diretta dei file locali con <code>fetch()</code> per sicurezza.<br>
-        Per leggerlo dinamicamente, puoi aprire la pagina tramite un piccolo server locale (es. VS Code Live Server o <code>python -m http.server</code>).
+        Apri la pagina tramite un server locale (es. VS Code Live Server o <code>python -m http.server</code>).
       </td></tr>`;
   }
 }
