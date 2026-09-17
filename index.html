@@ -483,8 +483,8 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         <div class="icon">📈</div>
         <div class="name"><span class="lang-it">Cataloghi VSX (80+ Stelle)</span><span class="lang-en">VSX Catalogs (80+ Stars)</span></div>
         <div class="desc">
-          <span class="lang-it">Esplora il database dinamico da CSV (Clicca per aprire)</span>
-          <span class="lang-en">Explore dynamic database from CSV (Click to open)</span>
+          <span class="lang-it">Esplora il database dinamico da VSX (Clicca per aprire)</span>
+          <span class="lang-en">Explore dynamic database from VSX (Click to open)</span>
         </div>
       </div>
 	
@@ -939,8 +939,8 @@ Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinat
     <span class="modal-close" onclick="closeVsxModalDirect()">&times;</span>
     <h3>✨ <span class="lang-it">Database Stelle Variabili (AAVSO VSX)</span><span class="lang-en">Variable Stars Database (AAVSO VSX)</span></h3>
     <p style="font-size: 11px; color: var(--text-muted);">
-      <span class="lang-it">Elenco dinamico letto da SearchResults.csv. Usa la ricerca, la magnitudine massima o i filtri rapidi.</span>
-      <span class="lang-en">Dynamic list read from SearchResults.csv. Use search, max magnitude or quick filters.</span>
+      <span class="lang-it">Elenco dinamico caricato da AAVSO VSX (MaCoMP_V17). Usa la ricerca, la magnitudine massima o i filtri rapidi.</span>
+      <span class="lang-en">Dynamic list loaded from AAVSO VSX (MaCoMP_V17). Use search, max magnitude or quick filters.</span>
     </p>
     
     <div style="display: flex; gap: 8px; margin: 12px 0 8px 0; flex-wrap: wrap; align-items: center; justify-content: space-between;">
@@ -970,13 +970,13 @@ Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinat
           </tr>
         </thead>
         <tbody id="vsx-table-body">
-          <tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Caricamento dati da SearchResults.csv...</td></tr>
+          <tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Caricamento dati da AAVSO VSX...</td></tr>
         </tbody>
       </table>
     </div>
     <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
       <span id="vsx-counter">Totale record: 0</span>
-      <a href="https://vsx.aavso.org/" target="_blank" style="color: var(--nasa-blue); text-decoration: underline;">AAVSO VSX Official Database ↗</a>
+      <a href="https://vsx.aavso.org/index.php?view=results.get&ident=MaCoMP_V17" target="_blank" style="color: var(--nasa-blue); text-decoration: underline;">AAVSO VSX MaCoMP_V17 ↗</a>
     </div>
   </div>
 </div>
@@ -1164,7 +1164,7 @@ function closeModalDirect() {
   currentPlanetKey = null;
 }
 
-/* Gestione Modale VSX Database con lettura CSV dinamica */
+/* Gestione Modale VSX Database con URL compromesso AAVSO */
 function openVsxModal() {
   document.getElementById('vsx-modal-overlay').classList.add('active');
   if (vsxDataCache.length === 0) {
@@ -1217,20 +1217,31 @@ function parseCSV(text) {
 }
 
 async function loadVsxCsv() {
+  const vsxUrl = 'https://vsx.aavso.org/index.php?view=results.get&ident=MaCoMP_V17';
+  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(vsxUrl);
+
   try {
-    const response = await fetch('SearchResults.csv');
-    if (!response.ok) throw new Error('Network response was not ok');
+    let response = await fetch(vsxUrl);
+    if (!response.ok) throw new Error('Direct fetch failed');
     const csvText = await response.text();
     vsxDataCache = parseCSV(csvText);
     renderVsxTable(vsxDataCache);
   } catch (err) {
-    console.error("Errore fetch CSV (probabile blocco CORS in locale):", err);
-    document.getElementById('vsx-table-body').innerHTML = `
-      <tr><td colspan="6" style="text-align:center; color: var(--nasa-red); padding: 20px; line-height: 1.5;">
-        <strong>Nota sui browser in locale (protocollo file://):</strong><br>
-        I browser bloccano la lettura diretta dei file locali con <code>fetch()</code> per sicurezza.<br>
-        Per leggerlo dinamicamente, puoi aprire la pagina tramite un piccolo server locale (es. VS Code Live Server o <code>python -m http.server</code>).
-      </td></tr>`;
+    console.warn("Direct fetch CORS restricted, trying proxy...", err);
+    try {
+      let response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error('Proxy fetch failed');
+      const csvText = await response.text();
+      vsxDataCache = parseCSV(csvText);
+      renderVsxTable(vsxDataCache);
+    } catch (err2) {
+      console.error("Errore fetch VSX:", err2);
+      document.getElementById('vsx-table-body').innerHTML = `
+        <tr><td colspan="6" style="text-align:center; color: var(--nasa-red); padding: 20px; line-height: 1.5;">
+          <strong>Impossibile caricare i dati da AAVSO VSX.</strong><br>
+          Verifica la connessione o l'endpoint: <code>${vsxUrl}</code>
+        </td></tr>`;
+    }
   }
 }
 
@@ -1246,14 +1257,20 @@ function renderVsxTable(data) {
 
   data.forEach(item => {
     const tr = document.createElement('tr');
-    const vsxUrl = `https://vsx.aavso.org/search?view=detail&ident=${encodeURIComponent(item.Name)}`;
+    const nameVal = item.Name || item.AUID || item.ID || '-';
+    const constVal = item.Const || item.Constellation || '-';
+    const typeVal = item.Type || '-';
+    const periodVal = item.Period || '-';
+    const magVal = item.Mag || item.Max || item.MaxVisual || item['V-range'] || item.Range || '-';
+    const vsxUrlLink = `https://vsx.aavso.org/search?view=detail&ident=${encodeURIComponent(nameVal)}`;
+    
     tr.innerHTML = `
-      <td><strong>${item.Name || '-'}</strong></td>
-      <td>${item.Const || '-'}</td>
-      <td><span class="badge" style="background:var(--nasa-blue);">${item.Type || '-'}</span></td>
-      <td style="font-family:'JetBrains Mono',monospace;">${item.Period || '-'}</td>
-      <td style="font-family:'JetBrains Mono',monospace; font-size:9.5px;">${item.Mag || '-'}</td>
-      <td><a href="${vsxUrl}" target="_blank">VSX ↗</a></td>
+      <td><strong>${nameVal}</strong></td>
+      <td>${constVal}</td>
+      <td><span class="badge" style="background:var(--nasa-blue);">${typeVal}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;">${periodVal}</td>
+      <td style="font-family:'JetBrains Mono',monospace; font-size:9.5px;">${magVal}</td>
+      <td><a href="${vsxUrlLink}" target="_blank">VSX ↗</a></td>
     `;
     tbody.appendChild(tr);
   });
@@ -1276,15 +1293,20 @@ function filterVsxTable() {
   const maxMagVal = parseFloat(document.getElementById('vsx-mag-input').value);
   
   const filtered = vsxDataCache.filter(item => {
-    const matchesSearch = (item.Name && item.Name.toLowerCase().includes(query)) ||
-                          (item.Const && item.Const.toLowerCase().includes(query)) ||
-                          (item.Type && item.Type.toLowerCase().includes(query));
+    const name = item.Name || item.AUID || item.ID || '';
+    const constName = item.Const || item.Constellation || '';
+    const typeName = item.Type || '';
+    
+    const matchesSearch = name.toLowerCase().includes(query) ||
+                          constName.toLowerCase().includes(query) ||
+                          typeName.toLowerCase().includes(query);
                           
-    const matchesType = (currentVsxType === 'ALL') || (item.Type && item.Type.toUpperCase().includes(currentVsxType));
+    const matchesType = (currentVsxType === 'ALL') || typeName.toUpperCase().includes(currentVsxType);
     
     let matchesMag = true;
-    if (!isNaN(maxMagVal) && item.Mag) {
-      const magNums = item.Mag.match(/[\d.]+/g);
+    const magStr = item.Mag || item.Max || item.MaxVisual || item['V-range'] || item.Range || '';
+    if (!isNaN(maxMagVal) && magStr) {
+      const magNums = magStr.match(/[\d.]+/g);
       if (magNums && magNums.length > 0) {
         const primaryMag = parseFloat(magNums[0]);
         if (!isNaN(primaryMag)) {
