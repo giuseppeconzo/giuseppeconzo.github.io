@@ -1243,7 +1243,7 @@ function renderVsxTable(data) {
 
   data.forEach(item => {
     const tr = document.createElement('tr');
-    const vsxUrl = `https://vsx.aavso.org/search?view=detail&ident=${encodeURIComponent(item.Name)}`;
+    const vsxUrl = `https://vsx.aavso.org/index.php?view=results.get&ident=${encodeURIComponent(item.Name)}`;
     tr.innerHTML = `
       <td><strong>${item.Name || '-'}</strong></td>
       <td>${item.Const || '-'}</td>
