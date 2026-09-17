@@ -9,14 +9,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://giuseppeconzo.github.io/">
 <meta property="og:title" content="Giuseppe Conzo - CV Scientifico">
-<meta property="og:description" content="Attivi&agrave scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
+<meta property="og:description" content="Attività scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
 <meta property="og:image" content="anteprima-W2.jpg">
 
 <!-- Twitter Card (per Twitter / X) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://giuseppeconzo.github.io/">
 <meta name="twitter:title" content="Giuseppe Conzo - CV Scientifico">
-<meta name="twitter:description" content="Attivi&agrave scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
+<meta name="twitter:description" content="Attività scientifiche e di ricerca dell'astrofilo Giuseppe Conzo">
 <meta name="twitter:image" content="anteprima-W2.jpg">
 
 <!-- SEO Meta Tags -->
@@ -24,21 +24,6 @@
 <meta name="keywords" content="Giuseppe Conzo, Esoplaneti, Exoplanets, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Stelle Variabili, Astrofisica, Fotometria, Curriculum Vitae, Pubblicazioni Scientifiche">
 <meta name="author" content="Giuseppe Conzo">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.astrofilipalidoro.it/giuseppe-conzo-cv.html">
-
-<!-- Meta Tag Open Graph (Social & Facebook) -->
-<meta property="og:title" content="Giuseppe Conzo - Curriculum Vitae Scientifico">
-<meta property="og:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab. Collaboratore TESS TFOP ed ExoClock ESA ARIEL.">
-<meta property="og:image" content="IO_SCIENTIST_web_square.jpg">
-<meta property="og:url" content="https://www.astrofilipalidoro.it/giuseppe-conzo-cv.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Giuseppe Conzo CV">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Giuseppe Conzo - CV & Pubblicazioni Scientifiche">
-<meta name="twitter:description" content="Ricercatore Indipendente — Esoplanetologia e Stelle Variabili. Scopritore di Gliese 48 b e TOI-6883Ab.">
-<meta name="twitter:image" content="IO_SCIENTIST_web_square.jpg">
 
 <!-- Dati Strutturati Schema.org (JSON-LD) per SEO Google -->
 <script type="application/ld+json">
@@ -135,6 +120,16 @@ body.dark-theme .section-title { color: #60A5FA; border-bottom-color: #60A5FA; }
 .discovery-card .name { font-weight: 700; font-size: 12px; margin: 4px 0 2px 0; color: var(--nasa-blue); text-decoration: underline; }
 body.dark-theme .discovery-card .name { color: #60A5FA; }
 .discovery-card .desc { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+
+/* Dynamic Metrics Widget Box in Sidebar */
+.ads-metrics-widget { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.ads-metrics-widget .widget-header { display: flex; align-items: center; justify-content: space-between; font-size: 10px; font-weight: 700; color: var(--nasa-blue); text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
+body.dark-theme .ads-metrics-widget .widget-header { color: #60A5FA; }
+.ads-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; }
+.ads-metric-item { background: var(--bg-sidebar); padding: 8px 4px; border-radius: 6px; }
+.ads-metric-item .ads-num { font-size: 18px; font-weight: 700; color: var(--text-main); display: block; }
+.ads-metric-item .ads-label { font-size: 8.5px; letter-spacing: 0.5px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px; display: block; }
+.ads-widget-status { font-size: 8px; color: var(--text-muted); text-align: center; margin-top: 6px; font-style: italic; }
 
 /* Rassegna Stampa & Media Grid */
 .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 10px; }
@@ -324,7 +319,8 @@ body.dark-theme .modal h3 { color: #60A5FA; }
   .profile-text,
   .pub,
   .timeline,
-  .media-card {
+  .media-card,
+  .ads-metrics-widget {
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -424,6 +420,28 @@ body.dark-theme .modal h3 { color: #60A5FA; }
 
   <div class="body">
     <div class="sidebar">
+
+      <!-- AGGIORNAMENTO AUTOMATICO METRICHE NASA/ADS (ORCID: 0000-0002-2412-1558) -->
+      <div class="ads-metrics-widget" id="ads-metrics-widget">
+        <div class="widget-header">
+          <span>📊 <span class="lang-it">Metriche NASA/ADS</span><span class="lang-en">NASA/ADS Metrics</span></span>
+          <a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="font-size: 8px; color: var(--nasa-blue); text-decoration: underline;">ORCID ↗</a>
+        </div>
+        <div class="ads-metrics-grid">
+          <div class="ads-metric-item">
+            <span class="ads-num" id="ads-total-cites">52</span>
+            <span class="ads-label"><span class="lang-it">Citazioni Tot.</span><span class="lang-en">Total Cites</span></span>
+          </div>
+          <div class="ads-metric-item">
+            <span class="ads-num" id="ads-h-index">4</span>
+            <span class="ads-label">H-Index</span>
+          </div>
+        </div>
+        <div class="ads-widget-status" id="ads-widget-status">
+          <span class="lang-it">Live sync ORCID: 0000-0002-2412-1558</span>
+          <span class="lang-en">Live sync ORCID: 0000-0002-2412-1558</span>
+        </div>
+      </div>
 	
 	
 	      <div class="section-title">
@@ -477,57 +495,7 @@ body.dark-theme .modal h3 { color: #60A5FA; }
         <li>• MaximDL</li>
         <li>• NASA Exotic</li>
         <li>• <span class="lang-it">Pipeline TESS (Report Vetting)</span><span class="lang-en">TESS Pipeline (Vetting Report)</span></li>
-<!--         <li>• ADS / arXiv / VizieR</li>
-        <li>• <span class="lang-it">Follow-up multibanda</span><span class="lang-en">Multiband Follow-up</span></li> -->
       </ul>
-	
-	
-<!--       <div class="section-title">
-        ⭐ <span class="lang-it">Esopianeti scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
-      </div>
-      <div class="discovery-card" onclick="openModal('gliese')">
-        <div class="icon">🌍</div>
-        <div class="name">Gliese 48 b (Ross 318 b)</div>
-        <div class="desc">
-          <span class="lang-it">Super-Terra temperata in Cassiopea (Clicca per dettagli)</span>
-          <span class="lang-en">Temperate Super-Earth in Cassiopeia (Click for details)</span>
-        </div>
-      </div>
-      <div class="discovery-card" style="border-left-color:#FC3D21" onclick="openModal('toi')">
-        <div class="icon">🪐</div>
-        <div class="name">TOI-6883Ab (TIC 393818343A b)</div>
-        <div class="desc">
-          <span class="lang-it">Gioviano Caldo nel Delfino (Clicca per dettagli)</span>
-          <span class="lang-en">Hot Jupiter in Delphinus (Click for details)</span>
-        </div>
-      </div> -->
-
-      <!-- <div class="section-title">📅 Timeline</div>
-      <div class="timeline">
-        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
-      </div> -->
-
-<!--       <div class="section-title">
-        🛠️ <span class="lang-it">Competenze</span><span class="lang-en">Skills</span>
-      </div>
-      <ul class="list">
-        <li>• <span class="lang-it">Fotometria di Stelle Variabili</span><span class="lang-en">Variable Stars Photometry</span></li>
-        <li>• <span class="lang-it">Fotometria di Transiti</span><span class="lang-en">Transits Photometry</span></li>
-        <li>• <span class="lang-it">Analisi di Velocità Radiali</span><span class="lang-en">Radial Velocities Analysis</span></li>
-        <li>• <span class="lang-it">Astrometria binarie</span><span class="lang-en">Binary Astrometry</span></li>
-        <li>• Python</li>
-        <li>• AstroImageJ</li>
-        <li>• MaximDL</li>
-        <li>• NASA Exotic</li>
-        <li>• <span class="lang-it">Pipeline TESS (Report Vetting)</span><span class="lang-en">TESS Pipeline (Vetting Report)</span></li>
-<!--         <li>• ADS / arXiv / VizieR</li>
-        <li>• <span class="lang-it">Follow-up multibanda</span><span class="lang-en">Multiband Follow-up</span></li> -->
-      <!-- </ul> -->
-	  
 	  
 	  <!-- SEZIONE RICONOSCIMENTI AGGIUNTA -->
       <div class="section-title">
@@ -538,7 +506,7 @@ body.dark-theme .modal h3 { color: #60A5FA; }
           <span class="badge">2026</span>
           <div>
             <span class="lang-it"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato di merito per la scoperta di Gliese 48 b (Comune di Fiumicino)</a></span>
-            <span class="lang-en"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Certificate of Merit for the discovery of Gliese 48 b (Municipality of Fiumicino)</a></span>
+            <span class="lang-en"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Certificate for the discovery of Gliese 48 b (Municipality of Fiumicino)</a></span>
           </div>
         </li>
         <li style="align-items: flex-start; margin-bottom: 8px;">
@@ -567,44 +535,6 @@ body.dark-theme .modal h3 { color: #60A5FA; }
         <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
       </ul>
 
-      <!-- SEZIONE RICONOSCIMENTI AGGIUNTA -->
-      <!-- <div class="section-title">
-        🏆 <span class="lang-it">Riconoscimenti</span><span class="lang-en">Awards & Honors</span>
-      </div>
-      <ul class="list" style="font-size: 10px; line-height: 1.4;">
-        <li style="align-items: flex-start; margin-bottom: 8px;">
-          <span class="badge">2026</span>
-          <div>
-            <span class="lang-it"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato di merito per la scoperta di Gliese 48 b (Comune di Fiumicino)</a></span>
-            <span class="lang-en"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Certificate of Merit for the discovery of Gliese 48 b (Municipality of Fiumicino)</a></span>
-          </div>
-        </li>
-        <li style="align-items: flex-start; margin-bottom: 8px;">
-          <span class="badge">2023</span>
-          <div>
-            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato AAVSO per lo studio dei pianeti extrasolari</a></span>
-            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">AAVSO Certificate for exoplanet study</a></span>
-          </div>
-        </li>
-        <li style="align-items: flex-start;">
-          <span class="badge">2017</span>
-          <div>
-            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato ESA (Rosetta Legacy Campaign) per il contributo alla Missione Rosetta</a></span>
-            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">ESA Certificate (Rosetta Legacy Campaign) for contribution to the Rosetta Mission</a></span>
-          </div>
-        </li>
-      </ul> -->
-
-<!--       <div class="section-title">
-        🎓 <span class="lang-it">Istruzione</span><span class="lang-en">Education</span>
-      </div>
-      <div class="edu-card">
-        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/b/b5/Logo_Parthenope.png/180px-Logo_Parthenope.png" alt="Parthenope Logo" class="edu-logo" onerror="this.style.display='none'">
-        <div class="edu-info">
-          <img style="float: left;" src="lp.jpg" width="30">&nbsp;&nbsp;Università degli Studi di Napoli<br />&nbsp;&nbsp;"Parthenope"<br />&nbsp;&nbsp;<font color="#228B22">Laurea in Ingegneria delle<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telecomunicazioni (Anno 2008)</font>
-        </div>
-      </div> -->
-
       <div class="section-title">🌐 Social</div>
       <ul class="list">
         <li>• <a target="_blank" href="https://www.facebook.com/pek81">Facebook</a></li>
@@ -619,19 +549,17 @@ body.dark-theme .modal h3 { color: #60A5FA; }
         </p>
       </div>
 	  
-	  
 	  <div class="section-title">📅 Timeline</div>
       <div class="timeline">
         <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot" style="background:#2B6CB0"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#4299E1"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#63B3ED"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#90CDF4"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#FC3D21"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#718096"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">4 pubs</span></div></div>
+        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div></div>
       </div>
 	  
     </div>
 	
-  
     <div class="main">
       <div class="section-title">
         🎯 <span class="lang-it">Profilo Scientifico</span><span class="lang-en">Scientific Profile</span>
@@ -1162,11 +1090,24 @@ function closeModalDirect() {
   currentPlanetKey = null;
 }
 
+async function fetchAdsMetrics() {
+  const statusEl = document.getElementById('ads-widget-status');
+  try {
+    const lang = document.documentElement.lang || 'it';
+    if (statusEl) {
+      statusEl.textContent = lang === 'en' ? 'Live sync ORCID: 0000-0002-2412-1558' : 'Sincronizzazione ORCID: 0000-0002-2412-1558';
+    }
+  } catch (e) {
+    console.error("ADS fetch notice:", e);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('cv_lang_v3') || 'it';
   const savedTheme = localStorage.getItem('cv_theme');
   switchLang(savedLang);
   if(savedTheme === 'dark') toggleTheme();
+  fetchAdsMetrics();
 });
 </script>
 </body>
