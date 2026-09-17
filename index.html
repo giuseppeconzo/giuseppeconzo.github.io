@@ -1,1045 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="browser-title">Giuseppe Conzo - Scientific CV</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications - Research Portfolio</title>
+  
+  <!-- Libreria BibTeX Parser nativa per il browser -->
+  <script src="https://cdn.jsdelivr.net/npm/bibtex-parse-js@0.0.24/bibtexParse.min.js"></script>
+  
+  <style>
+    :root {
+      --nasa-blue: #0b3d91;
+      --nasa-red: #fc3d21;
+      --dark-bg: #111418;
+      --card-bg: #1a202c;
+      --text-main: #e2e8f0;
+      --text-muted: #a0aec0;
+      --border-color: #2d3748;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px;
+    }
 
-<!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://giuseppeconzo.github.io/">
-<meta property="og:title" content="Giuseppe Conzo - Scientific CV">
-<meta property="og:description" content="Scientific and research activities of Independent Researcher Giuseppe Conzo">
-<meta property="og:image" content="IO_SCIENTIST_web_square.jpg">
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-<!-- Twitter Card (per Twitter / X) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://giuseppeconzo.github.io/">
-<meta name="twitter:title" content="Giuseppe Conzo - Scientific CV">
-<meta name="twitter:description" content="Scientific and research activities of Independent Researcher Giuseppe Conzo">
-<meta name="twitter:image" content="IO_SCIENTIST_web_square.jpg">
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
 
-<!-- SEO Meta Tags -->
-<meta name="description" content="Scientific Curriculum Vitae of Giuseppe Conzo, Independent Researcher specialized in Exoplanetology and Variable Stars. Discoverer of Gliese 48 b and TOI-6883Ab. Collaborator with TESS TFOP and ESA ARIEL ExoClock.">
-<meta name="keywords" content="Giuseppe Conzo, Exoplanets, Esopianeti, Gliese 48 b, TOI-6883Ab, TESS, ExoClock, ESA ARIEL, Variable Stars, Astrophysics, Photometry, Scientific CV, Publications">
-<meta name="author" content="Giuseppe Conzo">
-<meta name="robots" content="index, follow">
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #fff;
+    }
 
-<!-- Dati Strutturati Schema.org (JSON-LD) per SEO Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Giuseppe Conzo",
-  "jobTitle": "Ricercatore Indipendente / Independent Researcher",
-  "affiliation": {
-    "@type": "EducationalOrganization",
-    "name": "Gruppo Astrofili Palidoro"
-  },
-  "url": "https://www.astrofilipalidoro.it",
-  "sameAs": [
-    "https://orcid.org/0000-0002-2412-1558",
-    "https://www.facebook.com/pek81",
-    "http://instagram.com/giuseppe.conzo"
-  ],
-  "knowsAbout": [
-    "Exoplanets",
-    "Variable Stars",
-    "Transit Photometry",
-    "TESS Pipeline",
-    "ESA ARIEL Mission"
-  ]
-}
-</script>
+    .counters {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    .pub {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      transition: border-color 0.2s;
+    }
 
-<!-- Libreria BibTeX Parser per leggere export-bibtex.bib direttamente via fetch -->
-<script src="https://cdn.jsdelivr.net/npm/@retorquere/bibtex-parser@3.0.0/dist/bibtex-parser.min.js"></script>
+    .pub:hover {
+      border-color: var(--nasa-blue);
+    }
 
-<style>
-:root {
-  --nasa-blue: #0B3D91;
-  --nasa-red: #FC3D21;
-  --bg-body: #0A1020;
-  --bg-card: #FFFFFF;
-  --bg-sidebar: #F0F4FA;
-  --text-main: #1A202C;
-  --text-muted: #4A5568;
-  --border-color: #E2E8F0;
-  --pub-hover: #F7FAFF;
-  --highlight-bg: #FFF3CD;
-}
+    .authors {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
 
-body.dark-theme {
-  --bg-body: #050811;
-  --bg-card: #0F172A;
-  --bg-sidebar: #1E293B;
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --border-color: #334155;
-  --pub-hover: #1E293B;
-  --highlight-bg: #3E3204;
-}
+    .title a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); padding: 20px; transition: background 0.3s; }
-.cv-container { max-width: 1100px; margin: 0 auto; background: var(--bg-card); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: background 0.3s; }
+    .title a:hover {
+      color: #63b3ed;
+      text-decoration: underline;
+    }
 
-.header { background: linear-gradient(135deg, var(--nasa-blue) 0%, #102A5E 100%); color: white; padding: 32px; display: flex; gap: 24px; align-items: center; position: relative; overflow: hidden; }
-.header::after { content: ''; position: absolute; right: -50px; top: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
-.header .profile-avatar { width: 120px; height: 120px; border-radius: 12px; border: 3px solid rgba(255,255,255,0.3); object-fit: cover; z-index: 1; }
-.orcid-icon { width: 14px !important; height: 14px !important; vertical-align: middle; margin-right: 4px; display: inline-block !important; }
-.header-text { z-index: 1; flex: 1; }
-.header h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-.header h2 { font-size: 14px; font-weight: 400; color: #A8C0FF; letter-spacing: 0.5px; margin-bottom: 12px; }
-.header .meta { font-size: 11px; color: #D0DDFF; line-height: 1.6; }
+    .journal {
+      font-style: italic;
+      font-size: 13px;
+      color: #cbd5e0;
+      margin-top: 4px;
+    }
 
-html[lang="it"] .lang-en { display: none !important; }
-html[lang="en"] .lang-it { display: none !important; }
+    .doi {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
 
-.controls-bar { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; z-index: 10; align-items: center; }
-.ctrl-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; transition: all 0.2s ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
-.ctrl-btn:hover { background: rgba(255, 255, 255, 0.35); }
-.ctrl-btn.active { background: var(--nasa-red); border-color: var(--nasa-red); }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 4px;
+      color: #fff;
+      margin-right: 6px;
+    }
 
-.metrics { display: grid; grid-template-columns: repeat(3,1fr); background: var(--nasa-blue); color: white; text-align: center; }
-.metric { padding: 16px 8px; border-right: 1px solid rgba(255,255,255,0.15); }
-.metric:last-child { border-right: none; }
-.metric .num { font-size: 26px; font-weight: 700; display: block; }
-.metric .label { font-size: 9.5px; letter-spacing: 0.5px; color: #A8C0FF; text-transform: uppercase; margin-top: 2px; display: block; line-height: 1.3; }
+    .note {
+      color: #ecc94b;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 5px;
+    }
 
-.body { display: grid; grid-template-columns: 300px 1fr; min-height: 800px; }
-.sidebar { background: var(--bg-sidebar); padding: 24px; border-right: 1px solid var(--border-color); transition: background 0.3s; }
-.main { padding: 28px; }
+    .pub-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
 
-.section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--nasa-blue); margin: 20px 0 10px 0; padding-bottom: 6px; border-bottom: 2px solid var(--nasa-blue); display: flex; align-items: center; gap: 6px; }
-body.dark-theme .section-title { color: #60A5FA; border-bottom-color: #60A5FA; }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-.discovery-card { background: var(--bg-card); border-radius: 8px; padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--nasa-blue); box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-.discovery-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-.discovery-card .icon { font-size: 18px; }
-.discovery-card .name { font-weight: 700; font-size: 12px; margin: 4px 0 2px 0; color: var(--nasa-blue); text-decoration: underline; }
-body.dark-theme .discovery-card .name { color: #60A5FA; }
-.discovery-card .desc { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
-
-.ads-metrics-widget { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.ads-metrics-widget .widget-header { display: flex; align-items: center; justify-content: space-between; font-size: 10px; font-weight: 700; color: var(--nasa-blue); text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
-body.dark-theme .ads-metrics-widget .widget-header { color: #60A5FA; }
-.ads-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; }
-.ads-metric-item { background: var(--bg-sidebar); padding: 8px 4px; border-radius: 6px; }
-.ads-metric-item .ads-num { font-size: 18px; font-weight: 700; color: var(--text-main); display: block; }
-.ads-metric-item .ads-label { font-size: 8.5px; letter-spacing: 0.5px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px; display: block; }
-.ads-widget-status { font-size: 8px; color: var(--text-muted); text-align: center; margin-top: 6px; font-style: italic; }
-
-.media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 10px; }
-.media-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 12px; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: var(--text-main); display: flex; flex-direction: column; justify-content: space-between; }
-.media-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-color: var(--nasa-blue); }
-.media-tag { font-size: 8px; font-weight: 700; text-transform: uppercase; color: var(--nasa-blue); margin-bottom: 4px; letter-spacing: 0.5px; }
-body.dark-theme .media-tag { color: #60A5FA; }
-.media-title { font-size: 11px; font-weight: 600; line-height: 1.35; margin-bottom: 6px; color: var(--text-main); }
-.media-source { font-size: 9.5px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-
-.timeline { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-.timeline-item { display: flex; align-items: center; gap: 10px; font-size: 11px; cursor: pointer; padding: 3px 6px; border-radius: 4px; transition: background 0.2s; }
-.timeline-item:hover { background: rgba(11, 61, 145, 0.15); }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--nasa-blue); flex-shrink: 0; }
-.year { font-weight: 700; color: var(--nasa-blue); min-width: 70px; }
-body.dark-theme .year { color: #60A5FA; }
-.count { color: var(--text-muted); }
-
-.list { list-style: none; }
-.list li { font-size: 11px; padding: 4px 0; color: var(--text-main); display: flex; gap: 6px; align-items: center; }
-.badge { display: inline-block; background: var(--nasa-blue); color: white; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; margin-right: 4px; flex-shrink: 0; }
-
-.edu-card { display: flex; align-items: center; gap: 12px; background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); }
-.edu-logo { width: 42px; height: 42px; object-fit: contain; border-radius: 4px; background: #FFF; padding: 2px; border: 1px solid var(--border-color); }
-.edu-info { font-size: 11px; font-weight: 600; line-height: 1.3; color: var(--text-main); }
-
-.pub-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; justify-content: space-between; }
-.pub-filters { display: flex; gap: 6px; }
-.filter-btn { background: var(--bg-sidebar); border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.filter-btn:hover { background: var(--border-color); }
-.filter-btn.active { background: var(--nasa-blue); color: white; border-color: var(--nasa-blue); }
-
-.search-input { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 4px; font-size: 10px; outline: none; width: 180px; transition: all 0.2s; }
-.search-input:focus { border-color: var(--nasa-blue); width: 220px; }
-
-/* Stili Pubblicazione dinamica generata da BibTeX */
-.pub { margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--border-color); transition: all 0.2s; position: relative; }
-.pub:hover { border-left-color: var(--nasa-blue); background: var(--pub-hover); }
-.pub .authors { font-size: 11px; font-weight: 700; color: var(--text-main); }
-.pub .title { font-size: 12px; font-weight: 600; color: var(--text-main); margin: 2px 0; }
-.pub .title a { color: inherit; text-decoration: none; }
-.pub .title a:hover { text-decoration: underline; color: var(--nasa-blue); }
-.pub .journal { font-size: 10px; font-style: italic; color: var(--text-muted); }
-.pub .doi { font-size: 9px; color: #5A7AB8; font-family: 'JetBrains Mono', monospace; margin-top: 3px; word-break: break-all; }
-.pub .note { font-size: 8px; background: #FFF3CD; color: #856404; padding: 1px 5px; border-radius: 3px; margin-left: 6px; }
-
-.pub-actions { margin-top: 6px; display: flex; gap: 6px; }
-.copy-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); font-size: 9px; padding: 2px 6px; border-radius: 3px; cursor: pointer; transition: all 0.2s; }
-.copy-btn:hover { background: var(--nasa-blue); color: white; border-color: var(--nasa-blue); }
-
-.profile-text { font-size: 11.5px; line-height: 1.6; color: var(--text-main); background: var(--pub-hover); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); text-align: justify; }
-
-.interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 16px; }
-.interest-tag { background: var(--pub-hover); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 6px; font-size: 10.5px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
-
-.print-qr-code { display: none; margin-top: 15px; text-align: center; }
-
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(3px); }
-.modal-overlay.active { display: flex; }
-.modal { background: var(--bg-card); color: var(--text-main); border-radius: 12px; width: 90%; max-width: 500px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid var(--border-color); position: relative; }
-.modal-close { position: absolute; top: 12px; right: 16px; font-size: 20px; font-weight: bold; cursor: pointer; color: var(--text-muted); }
-.modal h3 { color: var(--nasa-blue); font-size: 18px; margin-bottom: 8px; }
-body.dark-theme .modal h3 { color: #60A5FA; }
-.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; font-size: 11px; }
-.modal-grid div { background: var(--bg-sidebar); padding: 8px; border-radius: 6px; }
-.modal-grid strong { display: block; color: var(--text-muted); font-size: 9px; text-transform: uppercase; }
-
-.modal-wide { max-width: 800px; width: 95%; max-height: 85vh; display: flex; flex-direction: column; }
-.modal-body-scroll { overflow-y: auto; max-height: 60vh; margin-top: 12px; border: 1px solid var(--border-color); border-radius: 6px; }
-.vsx-table { width: 100%; border-collapse: collapse; font-size: 10.5px; text-align: left; }
-.vsx-table th { background: var(--nasa-blue); color: white; padding: 8px 10px; position: sticky; top: 0; z-index: 2; font-weight: 600; }
-.vsx-table td { padding: 6px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
-.vsx-table tr:hover { background: var(--pub-hover); }
-.vsx-table a { color: var(--nasa-blue); text-decoration: none; font-weight: 600; }
-body.dark-theme .vsx-table a { color: #60A5FA; }
-.vsx-table a:hover { text-decoration: underline; }
-
-#toast { position: fixed; bottom: 20px; right: 20px; background: #1A202C; color: white; padding: 8px 16px; border-radius: 6px; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; z-index: 100; border: 1px solid #4A5568; }
-
-@media print {
-  @page { size: A4; margin: 0; }
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important; text-shadow: none !important; }
-  body { background: #FFFFFF !important; color: #000000 !important; padding: 0 !important; font-size: 9pt; line-height: 1.35; }
-  .cv-container { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important; margin: 0 !important; background: #FFFFFF !important; }
-  .controls-bar, .pub-toolbar, .pub-actions, .modal-overlay, #toast { display: none !important; }
-  .header { background: #0B3D91 !important; color: #FFFFFF !important; padding: 16px 20px !important; page-break-inside: avoid; }
-  .header h1 { font-size: 26px !important; color: #FFFFFF !important; }
-  .header h2 { color: #D0DDFF !important; font-size: 11px !important; }
-  .header .profile-avatar { width: 90px !important; height: 90px !important; }
-  .orcid-icon { width: 14px !important; height: 14px !important; vertical-align: middle !important; margin-right: 4px !important; display: inline-block !important; }
-  .metrics { background: #0B3D91 !important; color: #FFFFFF !important; border-top: 1px solid rgba(255, 255, 255, 0.2) !important; page-break-inside: avoid; grid-template-columns: repeat(3, 1fr) !important; }
-  .metric { padding: 10px 4px !important; }
-  .metric .num { font-size: 20px !important; }
-  .metric .label { font-size: 8px !important; }
-  .body { display: grid !important; grid-template-columns: 250px 1fr !important; min-height: auto !important; }
-  .sidebar { background: #F0F4FA !important; padding: 16px 14px !important; border-right: 1px solid #CBD5E1 !important; }
-  .main { padding: 18px 20px !important; }
-  .section-title { color: #0B3D91 !important; border-bottom-color: #0B3D91 !important; page-break-after: avoid; margin-top: 14px !important; }
-  .discovery-card, .edu-card, .profile-text, .interests-grid, .pub, .timeline, .media-card, .ads-metrics-widget { page-break-inside: avoid; }
-  .discovery-card { border-left-width: 3px !important; padding: 8px 10px !important; margin-bottom: 8px !important; }
-  .pub { margin-bottom: 10px !important; padding-left: 8px !important; border-left: 2px solid #0B3D91 !important; display: block !important; }
-  .pub .title a { color: #0B3D91 !important; text-decoration: none !important; font-weight: 700 !important; }
-  .pub .doi { color: #334155 !important; font-size: 8pt !important; }
-  .profile-text { background: #F8FAFC !important; border: 1px solid #E2E8F0 !important; padding: 10px 12px !important; font-size: 9.5pt !important; }
-  .print-qr-code { display: block !important; margin-top: 16px !important; page-break-inside: avoid; }
-}
-
-@media(max-width:800px){ .body { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2,1fr); } .header { flex-direction: column; text-align: center; } .controls-bar { top: 12px; right: 12px; } }
-</style>
+    .copy-btn:hover {
+      background: var(--border-color);
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
-<div class="cv-container">
-  <div class="header">
-    <div class="controls-bar">
-      <button class="ctrl-btn" onclick="toggleTheme()" id="theme-toggle">🌙 Dark</button>
-      <button class="ctrl-btn" onclick="window.print()" title="Stampa / Print">🖨️ <span class="lang-it">Stampa</span><span class="lang-en">Print</span></button>
-      <button class="ctrl-btn" id="btn-it" onclick="switchLang('it')">IT</button>
-      <button class="ctrl-btn active" id="btn-en" onclick="switchLang('en')">EN</button>
-    </div>
-    <img src="IO_SCIENTIST_web_square.jpg" alt="Giuseppe Conzo" class="profile-avatar">
-    <div class="header-text">
-      <h1>GIUSEPPE CONZO</h1>
-      <h2>
-        <span class="lang-it">Gruppo Astrofili Palidoro • Ricercatore Indipendente — Esoplanetologia e Stelle Variabili</span>
-        <span class="lang-en">Gruppo Astrofili Palidoro • Independent Researcher — Exoplanetology and Variable Stars</span>
-      </h2>
-      <div class="meta">
-        <span class="lang-it">📍 Fiumicino (RM), Italia</span>
-        <span class="lang-en">📍 Fiumicino (RM), Italy</span>
-        &nbsp;|&nbsp; ✉ giuseppe.conzo@astrofilipalidoro.it &nbsp;|&nbsp; 🔎 TESS TFOP & ExoClock ESA ARIEL<br>
-        <a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-          <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID iD" class="orcid-icon">ORCID: 0000-0002-2412-1558
-        </a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="metrics">
-    <div class="metric">
-      <span class="num" id="metric-pubs-count">- / -</span>
-      <span class="label lang-it">Pubblicazioni / 1° Autore</span>
-      <span class="label lang-en">Publications / 1st Author</span>
-    </div>
-    <div class="metric">
-      <span class="num">2 / 80</span>
-      <span class="label lang-it">Esopianeti / Stelle Variabili</span>
-      <span class="label lang-en">Exoplanets / Variable Stars</span>
-    </div>
-    <div class="metric">
-      <span class="num">1.070</span>
-      <span class="label lang-it">Effemeridi di esopianeti</span>
-      <span class="label lang-en">Exoplanet Ephemerides</span>
+  <div class="container">
+    <header>
+      <h1>Scientific Publications</h1>
+      <div class="counters" id="counters">Loading statistics...</div>
+    </header>
+
+    <div id="publications-container">
+      <p style="color: var(--text-muted);">Caricamento pubblicazioni in corso...</p>
     </div>
   </div>
 
-  <div class="body">
-    <div class="sidebar">
+  <script>
+    let rawBibtexText = '';
 
-      <div class="ads-metrics-widget" id="ads-metrics-widget">
-        <div class="widget-header">
-          <span>📊 <span class="lang-it">Metriche NASA/ADS</span><span class="lang-en">NASA/ADS Metrics</span></span>
-          <a href="https://orcid.org/0000-0002-2412-1558" target="_blank" rel="noopener noreferrer" style="font-size: 8px; color: var(--nasa-blue); text-decoration: underline;">ORCID ↗</a>
-        </div>
-        <div class="ads-metrics-grid">
-          <div class="ads-metric-item">
-            <span class="ads-num" id="ads-total-cites">52</span>
-            <span class="ads-label"><span class="lang-it">Citazioni Tot.</span><span class="lang-en">Total Cites</span></span>
-          </div>
-          <div class="ads-metric-item">
-            <span class="ads-num" id="ads-h-index">4</span>
-            <span class="ads-label">H-Index</span>
-          </div>
-        </div>
-        <div class="ads-widget-status" id="ads-widget-status">
-          <span class="lang-it">Live sync ORCID: 0000-0002-2412-1558</span>
-          <span class="lang-en">Live sync ORCID: 0000-0002-2412-1558</span>
-        </div>
-      </div>
-	
-      <div class="section-title">
-        🎓 <span class="lang-it">Istruzione</span><span class="lang-en">Education</span>
-      </div>
-      <div class="edu-card">
-        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/b/b5/Logo_Parthenope.png/180px-Logo_Parthenope.png" alt="Parthenope Logo" class="edu-logo" onerror="this.style.display='none'">
-        <div class="edu-info">
-          <img style="float: left;" src="lp.jpg" width="30"><span class="lang-it">&nbsp;&nbsp;Università degli Studi di Napoli<br />&nbsp;&nbsp;"Parthenope"<br />&nbsp;&nbsp;<font color="#228B22">Laurea in Ingegneria delle<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telecomunicazioni (Anno 2008)</span><span class="lang-en">&nbsp;&nbsp;<font color="black">Parthenope University<br />&nbsp;&nbsp;(Napoli)</font><br />&nbsp;&nbsp;<font color="#228B22">Telecommunications<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Engineering (Year 2008)</font></span>
-        </div>
-      </div>
-	  
-      <div class="section-title">
-        💬 <span class="lang-it">Lingue</span><span class="lang-en">Languages</span>
-      </div>
-      <ul class="list">
-        <li>• <span class="lang-it">Italiano (Madrelingua)</span><span class="lang-en">Italian (Native speaker)</span></li>
-        <li>• <span class="lang-it">Inglese (B2)</span><span class="lang-en">English (B2)</span></li>
-      </ul>
-	
-      <div class="section-title">
-        🛠️ <span class="lang-it">Competenze</span><span class="lang-en">Skills</span>
-      </div>
-      <ul class="list">
-        <li>• <span class="lang-it">Fotometria di Stelle Variabili</span><span class="lang-en">Variable Stars Photometry</span></li>
-        <li>• <span class="lang-it">Fotometria di Transiti</span><span class="lang-en">Transits Photometry</span></li>
-        <li>• <span class="lang-it">Analisi di Velocità Radiali</span><span class="lang-en">Radial Velocities Analysis</span></li>
-        <li>• <span class="lang-it">Astrometria binarie</span><span class="lang-en">Binary Astrometry</span></li>
-        <li>• Python</li>
-        <li>• AstroImageJ</li>
-        <li>• MaximDL</li>
-        <li>• NASA Exotic</li>
-        <li>• <span class="lang-it">Pipeline TESS (Report Vetting)</span><span class="lang-en">TESS Pipeline (Vetting Report)</span></li>
-      </ul>
-	  
-      <div class="section-title">
-        ⭐ <span class="lang-it">Esopianeti scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
-      </div>
-      <div class="discovery-card" onclick="openModal('gliese')">
-        <div class="icon">🌍</div>
-        <div class="name">Gliese 48 b (Ross 318 b)</div>
-        <div class="desc">
-          <span class="lang-it">Super-Terra temperata in Cassiopea (Clicca per dettagli)</span>
-          <span class="lang-en">Temperate Super-Earth in Cassiopeia (Click for details)</span>
-        </div>
-      </div>
-      <div class="discovery-card" style="border-left-color:#FC3D21" onclick="openModal('toi')">
-        <div class="icon">🪐</div>
-        <div class="name">TOI-6883Ab (TIC 393818343A b)</div>
-        <div class="desc">
-          <span class="lang-it">Gioviano Caldo nel Delfino (Clicca per dettagli)</span>
-          <span class="lang-en">Hot Jupiter in Delphinus (Click for details)</span>
-        </div>
-      </div>
-
-      <div class="section-title">
-        ✨ <span class="lang-it">Stelle Variabili scoperte (80)</span><span class="lang-en">Discovered Variable Stars (80)</span>
-      </div>
-      <div class="discovery-card" style="border-left-color: #2563EB;" onclick="openVsxModal()">
-        <div class="icon">📈</div>
-        <div class="name"><span class="lang-it">Lista Scoperte</span><span class="lang-en">Discoveries List</span></div>
-        <div class="desc">
-          <span class="lang-it">Esplora il database (Clicca per aprire)</span>
-          <span class="lang-en">Explore the database (Click to open)</span>
-        </div>
-      </div>
-	  
-      <div class="section-title">
-        🏆 <span class="lang-it">Riconoscimenti</span><span class="lang-en">Awards & Honors</span>
-      </div>
-      <ul class="list" style="font-size: 10px; line-height: 1.4;">
-        <li style="align-items: flex-start; margin-bottom: 8px;">
-          <span class="badge">2026</span>
-          <div>
-            <span class="lang-it"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato di merito per la scoperta di Gliese 48 b (Comune di Fiumicino)</a></span>
-            <span class="lang-en"><a href="https://www.comune.fiumicino.rm.it/index.php/it/news/il-sindaco-incontra-gli-scopritori-della-super-terra-gliese-48-b" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Certificate for the discovery of Gliese 48 b (Municipality of Fiumicino)</a></span>
-          </div>
-        </li>
-        <li style="align-items: flex-start; margin-bottom: 8px;">
-          <span class="badge">2023</span>
-          <div>
-            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato AAVSO per lo studio dei pianeti extrasolari</a></span>
-            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">AAVSO Certificate for exoplanet study</a></span>
-          </div>
-        </li>
-        <li style="align-items: flex-start;">
-          <span class="badge">2017</span>
-          <div>
-            <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato ESA (Rosetta Legacy Campaign) per il contributo alla Missione Rosetta</a></span>
-            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid02n8cw9mMHtBx9L8YPc48DTrqcwacLjnNJK2YkSzPMReFxvJiB5bHnDzaxTKtk6gBal?__cft__[0]=AZi821jN1AIHYWd3CuTyo5JaGbtqVpfcmIk91l65DVpFESmnVG6sVhj7d2uikR_F0tiFnFe_BHRIQYsLW8ygrO2Ju5K9n7ao4kOk2IHQa8kNapDEIXeHXwX7vbrMjgy7giYpbMTpyx-rdrP1LiuWl-K5Qukd57ZOnqk&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">ESA Certificate (Rosetta Legacy Campaign) for contribution to the Rosetta Mission</a></span>
-          </div>
-        </li>
-      </ul>
-
-      <div class="section-title">
-        🤝 <span class="lang-it">Collaborazioni</span><span class="lang-en">Collaborations</span>
-      </div>
-      <ul class="list">
-        <li>• <a target="_blank" href="https://www.exoclock.space/">ExoClock / ESA ARIEL</a></li>
-        <li>• <a target="_blank" href="https://exofop.ipac.caltech.edu/tess/">TESS Follow-up Program</a></li>
-        <li>• <a target="_blank" href="https://www.uai.it/sito/"><span class="lang-it">Unione Astrofili Italiani (UAI)</span><span class="lang-en">Italian Amateur Astronomers Union (UAI)</span></a></li>
-        <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
-      </ul>
-
-      <div class="section-title">🌐 Social</div>
-      <ul class="list">
-        <li>• <a target="_blank" href="https://www.facebook.com/pek81">Facebook</a></li>
-        <li>• <a target="_blank" href="http://instagram.com/giuseppe.conzo">Instagram</a></li>
-      </ul>
-
-      <div class="print-qr-code">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://www.astrofilipalidoro.it" alt="Web CV QR Code" style="width: 80px; height: 80px;">
-        <p style="font-size: 8px; color: #4A5568; margin-top: 2px;">
-          <span class="lang-it">Scansiona per la versione web interattiva</span>
-          <span class="lang-en">Scan for interactive web version</span>
-        </p>
-      </div>
-	  
-    </div>
-	
-    <div class="main">
-      <div class="section-title">
-        🎯 <span class="lang-it">Profilo Scientifico</span><span class="lang-en">Scientific Profile</span>
-      </div>
-      <div class="profile-text">
-        <div class="lang-it">
-          Ricercatore indipendente attivo all'interfaccia tra l'astronomia amatoriale avanzata e le collaborazioni di ricerca professionale internazionale. Specializzato nella validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, nell'analisi dinamica di sistemi binari visivi che ospitano pianeti (ad es., TOI-6883AB) e nella produzione di cataloghi di efemeridi omogenei per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 efemeridi aggiornate).
-<br><br>
-Autore di <span id="profile-total-pubs">-</span> articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di cui <span id="profile-first-pubs">-</span> come primo autore, che includono due importanti scoperte di esopianeti come primo autore (2024–2026): la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab (2024).
-        </div>
-        <div class="lang-en">
-          Independent researcher working at the interface between advanced amateur astronomy and international professional research collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides).
-          <br><br>
-          Author of <span id="profile-total-pubs-en">-</span> ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including <span id="profile-first-pubs-en">-</span> as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
-        </div>
-      </div>
-
-      <div class="section-title">
-        🔬 <span class="lang-it">Interessi di Ricerca</span><span class="lang-en">Research Interests</span>
-      </div>
-      <div class="interests-grid">
-        <div class="interest-tag">🪐 <span class="lang-it">Rilevamento e caratterizzazione esopianeti</span><span class="lang-en">Exoplanet detection and characterization</span></div>
-        <div class="interest-tag">🛰️ <span class="lang-it">Osservazioni di follow-up TESS</span><span class="lang-en">TESS follow-up observations</span></div>
-        <div class="interest-tag">📈 <span class="lang-it">Fotometria di transito</span><span class="lang-en">Transit photometry</span></div>
-        <div class="interest-tag">📉 <span class="lang-it">Analisi di velocità radiali</span><span class="lang-en">Radial-velocity analysis</span></div>
-        <div class="interest-tag">⏱️ <span class="lang-it">Effemeridi esoplanetarie</span><span class="lang-en">Exoplanet ephemerides</span></div>
-        <div class="interest-tag">✨ <span class="lang-it">Variabilità stellare</span><span class="lang-en">Stellar variability</span></div>
-        <div class="interest-tag">⭐ <span class="lang-it">Sistemi stellari binari e multipli</span><span class="lang-en">Binary and multiple stellar systems</span></div>
-        <div class="interest-tag">🤝 <span class="lang-it">Citizen science e collaborazioni pro-am</span><span class="lang-en">Citizen science & professional–amateur collaboration</span></div>
-      </div>
-
-      <div class="section-title">
-        📰 <span class="lang-it">Rassegna Stampa & Media (Public Outreach)</span><span class="lang-en">Press & Media Coverage (Public Outreach)</span>
-      </div>
-      <div class="media-grid">
-        <a href="https://www.uniparthenope.it/Portale-Ateneo/articolo/Dalla_Parthenope_alle_stelle__un26d6684593094960b6ff1d6a5977bc30" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">Università Parthenope (Napoli)</span>
-              <span class="lang-en">Parthenope University (Napoli)</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">Dalla Parthenope alle stelle: una scoperta che parla anche di noi</span>
-              <span class="lang-en">From Parthenope to the stars: a discovery that also speaks about us</span>
-            </div>
-          </div>
-          <div class="media-source"><span>Università Parthenope</span> <span>2026 🔗</span></div>
-        </a>		
-        <a href="https://www.corriere.it/tecnologia/26_giugno_26/scoperta-una-super-terra-a-28-anni-luce-dal-sistema-solare-e-nella-zona-abitabile-della-sua-stella-f3649d37-d2d1-48ed-a70c-de46a2382xlk.shtml" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">Corriere della Sera</span>
-              <span class="lang-en">Corriere della Sera</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">Scoperta una Super-Terra a 28 anni luce dal Sistema Solare (Gliese 48 b)</span>
-              <span class="lang-en">Discovery of a Super-Earth 28 light-years from the Solar System (Gliese 48 b)</span>
-            </div>
-          </div>
-          <div class="media-source"><span>Corriere della Sera</span> <span>2026 🔗</span></div>
-        </a>
-        <a href="https://www.ilmessaggero.it/scienza/toi_6883_b_esopianeta_scoperto_astrofili_italiani_giuseppe_conzo_mara_moriconi_simile_giove_nasa-8162412.html" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">Il Messaggero</span>
-              <span class="lang-en">Il Messaggero</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">TOI-6883b: Esopianeta simile a Giove scoperto da astrofili italiani</span>
-              <span class="lang-en">TOI-6883b: Jupiter-like exoplanet discovered by Italian amateur astronomers</span>
-            </div>
-          </div>
-          <div class="media-source"><span>Il Messaggero</span> <span>2024 🔗</span></div>
-        </a>
-        <a href="https://www.ansa.it/canale_scienza/notizie/spazio_astronomia/2025/06/14/ha-una-compagna-la-stella-dellesopianeta-scoperto-nel-2024-_96682f1b-8df3-44d4-8f7f-3abed50fae0e.html" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">ANSA Scienza</span>
-              <span class="lang-en">ANSA Science</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">Ha una compagna la stella dell'esopianeta scoperto nel 2024 (TOI-6883AB)</span>
-              <span class="lang-en">The host star of the exoplanet discovered in 2024 has a companion (TOI-6883AB)</span>
-            </div>
-          </div>
-          <div class="media-source"><span>ANSA</span> <span>2025 🔗</span></div>
-        </a>
-        <a href="https://www.tgcom24.mediaset.it/spazio/ricostruzione-movimento-pianeti-enigmatici_98435011-202502k.shtml" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">TGcom24</span>
-              <span class="lang-en">TGcom24</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">Ricostruzione del movimento dei pianeti enigmatici</span>
-              <span class="lang-en">Reconstructing the motion of enigmatic planets</span>
-            </div>
-          </div>
-          <div class="media-source"><span>TGcom24</span> <span>2025 🔗</span></div>
-        </a>
-        <a href="https://www.repubblica.it/scienze/2016/03/10/foto/ecco_come_sarebbe_la_cometa_di_rosetta_a_colori-135162702/1/" target="_blank" rel="noopener noreferrer" class="media-card">
-          <div>
-            <div class="media-tag">
-              <span class="lang-it">La Repubblica</span>
-              <span class="lang-en">La Repubblica</span>
-            </div>
-            <div class="media-title">
-              <span class="lang-it">Ecco come sarebbe la cometa di Rosetta a colori</span>
-              <span class="lang-en">Here is what Rosetta's comet would look like in color</span>
-            </div>
-          </div>
-          <div class="media-source"><span>La Repubblica</span> <span>2016 🔗</span></div>
-        </a>
-      </div>
-
-      <div class="section-title">
-        📚 
-        <span class="lang-it">Pubblicazioni – <span id="sec-total-pubs">-</span> lavori (<span id="sec-first-pubs">-</span> come primo autore)</span>
-        <span class="lang-en">Publications – <span id="sec-total-pubs-en">-</span> works (<span id="sec-first-pubs-en">-</span> first-author papers)</span>
-      </div>
-
-      <div class="pub-toolbar">
-        <div class="pub-filters">
-          <button class="filter-btn active" onclick="filterPubs('all', this)"><span class="lang-it">Tutte</span><span class="lang-en">All</span></button>
-          <button class="filter-btn" onclick="filterPubs('first', this)"><span class="lang-it">Primo Autore</span><span class="lang-en">First Author</span></button>
-          <button class="filter-btn" onclick="filterPubs('discovery', this)"><span class="lang-it">Scoperte</span><span class="lang-en">Discoveries</span></button>
-        </div>
-        <div style="display: flex; gap: 6px; align-items: center;">
-          <input type="text" id="search-bar" class="search-input" placeholder="🔍 Search..." onkeyup="applySearch()">
-          <button class="filter-btn" style="background: var(--nasa-blue); color: white;" onclick="downloadAllBibtex()" title="Scarica tutte le citazioni / Download all citations">
-            <span class="lang-it">📦 Scarica .bib</span><span class="lang-en">📦 Download .bib</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Contenitore in cui lo script caricherà automaticamente il file export-bibtex.bib -->
-      <div id="publications-container">
-        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 20px;">Caricamento pubblicazioni da export-bibtex.bib...</p>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Modal Dettagli Esopianeti Bilingue -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <span class="modal-close" onclick="closeModalDirect()">&times;</span>
-    <h3 id="modal-title">Nome Esopianeta</h3>
-    <p id="modal-sub" style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;"></p>
-    <div class="modal-grid">
-      <div><strong><span class="lang-it">Stella Ospite</span><span class="lang-en">Host Star</span></strong><span id="m-star">-</span></div>
-      <div><strong><span class="lang-it">Costellazione</span><span class="lang-en">Constellation</span></strong><span id="m-const">-</span></div>
-      <div><strong><span class="lang-it">Periodo Orbitale</span><span class="lang-en">Orbital Period</span></strong><span id="m-period">-</span></div>
-      <div><strong><span class="lang-it">Tipo / Categoria</span><span class="lang-en">Type / Category</span></strong><span id="m-type">-</span></div>
-    </div>
-    <div style="font-size: 11px; line-height: 1.5; margin-bottom: 16px;" id="modal-desc"></div>
-    <div style="display: flex; gap: 8px;">
-      <a id="modal-link-ads" target="_blank" href="#" class="ctrl-btn active" style="text-decoration:none; text-align:center; flex:1;">ADS Abstract</a>
-      <a id="modal-link-web" target="_blank" href="#" class="ctrl-btn" style="text-decoration:none; text-align:center; flex:1; background:#4A5568;">
-        <span class="lang-it">Scheda Progetto</span><span class="lang-en">Project Page</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Database Stelle Variabili (CSV Reader Dinamico) -->
-<div class="modal-overlay" id="vsx-modal-overlay" onclick="closeVsxModal(event)">
-  <div class="modal modal-wide" onclick="event.stopPropagation()">
-    <span class="modal-close" onclick="closeVsxModalDirect()">&times;</span>
-    <h3>✨ <span class="lang-it">Database Stelle Variabili (AAVSO VSX)</span><span class="lang-en">Variable Stars Database (AAVSO VSX)</span></h3>
-    <p style="font-size: 11px; color: var(--text-muted);">
-      <span class="lang-it">Elenco completo delle Stelle Variabili scoperte da Giuseppe Conzo.</span>
-      <span class="lang-en">Complete List of Variable Stars and Stellar Systems Discovered by Giuseppe Conzo.</span>
-    </p>
-    
-    <div style="display: flex; gap: 8px; margin: 12px 0 8px 0; flex-wrap: wrap; align-items: center; justify-content: space-between;">
-      <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Search..." onkeyup="filterVsxTable()" style="width: 240px;">
-      <div class="pub-filters" id="vsx-type-filters">
-        <button class="filter-btn active" onclick="filterVsxByType('ALL', this)">ALL</button>
-        <button class="filter-btn" onclick="filterVsxByType('EW', this)">EW</button>
-        <button class="filter-btn" onclick="filterVsxByType('DSCT', this)">DSCT</button>
-        <button class="filter-btn" onclick="filterVsxByType('EA', this)">EA</button>
-        <button class="filter-btn" onclick="filterVsxByType('ELL', this)">ELL</button>
-      </div>
-    </div>
-
-    <div class="modal-body-scroll">
-      <table class="vsx-table" id="vsx-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Const</th>
-            <th>Type</th>
-            <th>Period (d)</th>
-            <th>Mag</th>
-            <th>VSX / AUID</th>
-          </tr>
-        </thead>
-        <tbody id="vsx-table-body">
-          <tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Caricamento dati da SearchResults.csv...</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
-      <span id="vsx-counter">Totale record: 0</span>
-      <a href="https://vsx.aavso.org/" target="_blank" style="color: var(--nasa-blue); text-decoration: underline;">AAVSO VSX Official Database ↗</a>
-    </div>
-  </div>
-</div>
-
-<div id="toast">Notifica</div>
-
-<script>
-let currentFilter = 'all';
-let currentPlanetKey = null;
-let vsxDataCache = [];
-let currentVsxType = 'ALL';
-let rawBibtexText = '';
-
-// Caricamento corretto del file export-bibtex.bib (tramite percorso relativo)
-async function loadBibtexFile() {
-  try {
-    const response = await fetch('export-bibtex.bib');
-    if (!response.ok) throw new Error('File export-bibtex.bib non trovato');
-    rawBibtexText = await response.text();
-    
-    const parsed = BibtexParser.parse(rawBibtexText);
-    const entries = Object.values(parsed.entries);
-    
-    renderPublications(entries);
-  } catch (err) {
-    console.error("Errore caricamento BibTeX:", err);
-    document.getElementById('publications-container').innerHTML = `
-      <div style="color: var(--nasa-red); font-size: 11px; padding: 15px; border: 1px solid var(--nasa-red); border-radius: 6px;">
-        <strong>Impossibile caricare il file 'export-bibtex.bib'.</strong><br>
-        Assicurati che il file si trovi nella stessa cartella e che il sito sia eseguito tramite un server locale o pubblicato su GitHub Pages.
-      </div>`;
-  }
-}
-
-function renderPublications(entries) {
-  const container = document.getElementById('publications-container');
-  container.innerHTML = '';
-
-  // Ordina per anno decrescente
-  entries.sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0));
-
-  let totalCount = entries.length;
-  let firstCount = 0;
-
-  entries.forEach(entry => {
-    const f = entry.fields;
-    const year = f.year || '2026';
-    const authors = f.author || '';
-    const title = f.title || '';
-    const journal = f.journal || f.booktitle || '';
-    const doi = f.doi ? `DOI: ${f.doi}` : '';
-    const adsurl = f.adsurl || '';
-    const eprint = f.eprint ? `arXiv:${f.eprint}` : '';
-
-    // Rileva se sei primo autore (se il cognome Conzo compare all'inizio della stringa autori)
-    const isFirstAuthor = authors.toLowerCase().startsWith('conzo');
-    if (isFirstAuthor) firstCount++;
-
-    // Rileva se è una scoperta (se nel titolo o note compare la keyword o se vuoi personalizzare)
-    const isDiscovery = title.toLowerCase().includes('detection') || title.toLowerCase().includes('candidate') || title.toLowerCase().includes('nuovo') || title.toLowerCase().includes('new') || isFirstAuthor;
-
-    const badgeColor = year === '2026' ? 'var(--nasa-blue)' : (year === '2024' ? '#FC3D21' : (year === '2023' ? '#718096' : '#A0AEC0'));
-
-    const pubDiv = document.createElement('div');
-    pubDiv.className = 'pub';
-    pubDiv.setAttribute('data-year', year);
-    pubDiv.setAttribute('data-first', isFirstAuthor ? 'true' : 'false');
-    pubDiv.setAttribute('data-discovery', isDiscovery ? 'true' : 'false');
-
-    let metaString = [doi, eprint].filter(Boolean).join(' | ');
-
-    pubDiv.innerHTML = `
-      <div class="authors">
-        <span class="badge" style="background:${badgeColor}">${year}</span> ${authors}
-        ${isFirstAuthor ? '[<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]' : ''}
-        ${isFirstAuthor ? '<span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>' : ''}
-      </div>
-      <div class="title"><a target="_blank" href="${adsurl || '#'}">${title}</a></div>
-      <div class="journal">${journal}</div>
-      <div class="doi">${metaString}</div>
-      <div class="pub-actions">
-        <button class="copy-btn" onclick="copyCitation(this, '${authors.replace(/'/g, "")}, ${year}, ${journal}')"><span class="lang-it">📋 Citazione</span><span class="lang-en">📋 Citation</span></button>
-        <button class="copy-btn" onclick="copySpecificBibtex(this, \`${escapeHtml(entry.raw || '')}\`)">📦 BibTeX</button>
-      </div>
-    `;
-    container.appendChild(pubDiv);
-  });
-
-  // Aggiorna i contatori dinamici globali
-  updateCounters(totalCount, firstCount);
-  switchLang(document.documentElement.lang || 'en');
-}
-
-function escapeHtml(str) {
-  return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-function updateCounters(total, first) {
-  const countString = `${total} / ${first}`;
-  const metricNumEl = document.getElementById('metric-pubs-count');
-  if (metricNumEl) metricNumEl.textContent = countString;
-
-  ['sec-total-pubs', 'sec-total-pubs-en', 'profile-total-pubs', 'profile-total-pubs-en'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = total;
-  });
-
-  ['sec-first-pubs', 'sec-first-pubs-en', 'profile-first-pubs', 'profile-first-pubs-en'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = first;
-  });
-}
-
-function copySpecificBibtex(btn, rawBib) {
-  navigator.clipboard.writeText(rawBib).then(() => {
-    showToast(document.documentElement.lang === 'en' ? 'BibTeX entry copied!' : 'Voce BibTeX copiata!');
-  });
-}
-
-function downloadAllBibtex() {
-  if (!rawBibtexText) return;
-  const blob = new Blob([rawBibtexText], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'export-bibtex.bib';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast(document.documentElement.lang === 'en' ? 'Downloaded export-bibtex.bib!' : 'File export-bibtex.bib scaricato!');
-}
-
-const planetData = {
-  'gliese': {
-    title: 'Gliese 48 b (Ross 318 b)',
-    it: {
-      sub: 'Super-Terra temperata confermata',
-      star: 'Gliese 48 (Nana M2.5V)',
-      const: 'Cassiopea',
-      period: '39.63 giorni',
-      type: 'Super-Terra Temperata',
-      desc: 'Pianeta di massa terrestre/super-terrestre in orbita attorno a una nana rossa vicina. Identificato tramite analisi di Velocità Radiale congiunta a fotometria TESS.'
-    },
-    en: {
-      sub: 'Confirmed temperate Super-Earth',
-      star: 'Gliese 48 (M-dwarf)',
-      const: 'Cassiopeia',
-      period: '39.63 days',
-      type: 'Temperate Super-Earth',
-      desc: 'Earth-mass / super-Earth planet orbiting a nearby red dwarf. Identified via Radial Velocity analysis combined with TESS photometry.'
-    },
-    ads: 'https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C',
-    web: 'https://www.astrofilipalidoro.it/Gliese48b'
-  },
-  'toi': {
-    title: 'TOI-6883Ab (TIC 393818343A b)',
-    it: {
-      sub: 'Gioviano caldo in sistema binario visuale',
-      star: 'TOI-6883A',
-      const: 'Delfino',
-      period: '16.2 giorni',
-      type: 'Gioviano Caldo',
-      desc: 'Candidato a singolo transito confermato e caratterizzato. L\'analisi ha chiarito l\'architettura del sistema binario visuale ospitante TOI-6883AB.'
-    },
-    en: {
-      sub: 'Hot Jupiter in a visual binary system',
-      star: 'TOI-6883A',
-      const: 'Delphinus',
-      period: '16.2 days',
-      type: 'Warm Jupiter',
-      desc: 'Confirmed and characterized single-transit candidate. The analysis clarified the architecture of the visual binary system hosting TOI-6883AB.'
-    },
-    ads: 'https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C',
-    web: 'https://www.astrofilipalidoro.it/TOI6883Ab/'
-  }
-};
-
-function switchLang(lang) {
-  document.documentElement.lang = lang;
-  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  
-  const searchBar = document.getElementById('search-bar');
-  if (searchBar) searchBar.placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
-
-  if (lang === 'it') {
-    document.getElementById('browser-title').textContent = "Giuseppe Conzo - CV Scientifico";
-  } else {
-    document.getElementById('browser-title').textContent = "Giuseppe Conzo - Scientific CV";
-  }
-
-  if (currentPlanetKey) {
-    renderModalContent(currentPlanetKey);
-  }
-
-  localStorage.setItem('cv_lang_v3', lang);
-}
-
-function toggleTheme() {
-  document.body.classList.toggle('dark-theme');
-  const isDark = document.body.classList.contains('dark-theme');
-  document.getElementById('theme-toggle').textContent = isDark ? '☀️ Light' : '🌙 Dark';
-  localStorage.setItem('cv_theme', isDark ? 'dark' : 'light');
-}
-
-function filterPubs(type, btn) {
-  currentFilter = type;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  applySearch();
-}
-
-function applySearch() {
-  const searchBar = document.getElementById('search-bar');
-  const query = searchBar ? searchBar.value.toLowerCase() : '';
-  const pubs = document.querySelectorAll('.pub');
-  
-  pubs.forEach(pub => {
-    const text = pub.textContent.toLowerCase();
-    const matchesSearch = text.includes(query);
-    let matchesFilter = true;
-    
-    if (currentFilter === 'first') {
-      matchesFilter = pub.getAttribute('data-first') === 'true';
-    } else if (currentFilter === 'discovery') {
-      matchesFilter = pub.getAttribute('data-discovery') === 'true';
+    // Funzione di utilità per escaping HTML
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
-    
-    pub.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
-  });
-}
 
-function copyCitation(btn, citationText) {
-  navigator.clipboard.writeText(citationText).then(() => {
-    showToast(document.documentElement.lang === 'en' ? 'Citation copied!' : 'Citazione copiata!');
-  });
-}
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.style.display = 'block';
-  setTimeout(() => { toast.style.display = 'none'; }, 2200);
-}
-
-function renderModalContent(key) {
-  const data = planetData[key];
-  if(!data) return;
-  const lang = document.documentElement.lang || 'en';
-  const content = data[lang] || data['en'];
-
-  document.getElementById('modal-title').textContent = data.title;
-  document.getElementById('modal-sub').textContent = content.sub;
-  document.getElementById('m-star').textContent = content.star;
-  document.getElementById('m-const').textContent = content.const;
-  document.getElementById('m-period').textContent = content.period;
-  document.getElementById('m-type').textContent = content.type;
-  document.getElementById('modal-desc').textContent = content.desc;
-  document.getElementById('modal-link-ads').href = data.ads;
-  document.getElementById('modal-link-web').href = data.web;
-}
-
-function openModal(key) {
-  currentPlanetKey = key;
-  renderModalContent(key);
-  document.getElementById('modal-overlay').classList.add('active');
-}
-
-function closeModal(e) {
-  if (e.target.id === 'modal-overlay') closeModalDirect();
-}
-
-function closeModalDirect() {
-  document.getElementById('modal-overlay').classList.remove('active');
-  currentPlanetKey = null;
-}
-
-/* Gestione Modale VSX Database con lettura CSV dinamica */
-function openVsxModal() {
-  document.getElementById('vsx-modal-overlay').classList.add('active');
-  if (vsxDataCache.length === 0) {
-    loadVsxCsv();
-  }
-}
-
-function closeVsxModal(e) {
-  if (e.target.id === 'vsx-modal-overlay') closeVsxModalDirect();
-}
-
-function closeVsxModalDirect() {
-  document.getElementById('vsx-modal-overlay').classList.remove('active');
-}
-
-function parseCSV(text) {
-  const lines = text.split('\n');
-  const result = [];
-  if (lines.length === 0) return result;
-  
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-  
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-    let row = [];
-    let inQuotes = false;
-    let currentVal = '';
-    
-    for (let char of lines[i]) {
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        row.push(currentVal.trim().replace(/^"|"$/g, ''));
-        currentVal = '';
-      } else {
-        currentVal += char;
+    // Caricamento del file export-bibtex.bib tramite bibtex-parse-js
+    async function loadBibtexFile() {
+      try {
+        const response = await fetch('export-bibtex.bib');
+        if (!response.ok) throw new Error('File export-bibtex.bib non trovato');
+        rawBibtexText = await response.text();
+        
+        // Parsing robusto con bibtex-parse-js
+        const entries = bibtexParse.toJSON(rawBibtexText);
+        
+        renderPublications(entries);
+      } catch (err) {
+        console.error("Errore caricamento BibTeX:", err);
+        document.getElementById('publications-container').innerHTML = `
+          <div style="color: var(--nasa-red); font-size: 13px; padding: 15px; border: 1px solid var(--nasa-red); border-radius: 6px;">
+            <strong>Impossibile caricare il file 'export-bibtex.bib'.</strong><br>
+            Assicurati che il file si trovi nella stessa cartella e che il sito sia eseguito tramite un server locale (es. VS Code Live Server / Python http.server).
+          </div>`;
       }
     }
-    row.push(currentVal.trim().replace(/^"|"$/g, ''));
-    
-    if (row.length >= headers.length) {
-      let obj = {};
-      headers.forEach((h, index) => {
-        obj[h] = row[index] || '';
+
+    function renderPublications(entries) {
+      const container = document.getElementById('publications-container');
+      container.innerHTML = '';
+
+      // Ordina per anno decrescente
+      entries.sort((a, b) => {
+        const yearA = parseInt(a.entryTags.year) || 0;
+        const yearB = parseInt(b.entryTags.year) || 0;
+        return yearB - yearA;
       });
-      result.push(obj);
+
+      let totalCount = entries.length;
+      let firstCount = 0;
+
+      entries.forEach(entry => {
+        const f = entry.entryTags || {};
+        const year = f.year || '2026';
+        const authors = f.author || '';
+        const title = f.title || '';
+        const journal = f.journal || f.booktitle || '';
+        const doi = f.doi ? `DOI: ${f.doi}` : '';
+        const adsurl = f.adsurl || '';
+        const eprint = f.eprint ? `arXiv:${f.eprint}` : '';
+
+        // Rileva se sei primo autore
+        const isFirstAuthor = authors.toLowerCase().startsWith('conzo');
+        if (isFirstAuthor) firstCount++;
+
+        const isDiscovery = title.toLowerCase().includes('detection') || title.toLowerCase().includes('candidate') || title.toLowerCase().includes('nuovo') || title.toLowerCase().includes('new') || isFirstAuthor;
+
+        const badgeColor = year === '2026' ? 'var(--nasa-blue)' : (year === '2024' ? '#FC3D21' : (year === '2023' ? '#718096' : '#A0AEC0'));
+
+        const pubDiv = document.createElement('div');
+        pubDiv.className = 'pub';
+        pubDiv.setAttribute('data-year', year);
+        pubDiv.setAttribute('data-first', isFirstAuthor ? 'true' : 'false');
+        pubDiv.setAttribute('data-discovery', isDiscovery ? 'true' : 'false');
+
+        let metaString = [doi, eprint].filter(Boolean).join(' | ');
+
+        // Rigenera il blocco BibTeX pulito per il singolo articolo
+        const singleBibtex = bibtexParse.toBibtex([entry]);
+
+        pubDiv.innerHTML = `
+          <div class="authors">
+            <span class="badge" style="background:${badgeColor}">${year}</span> ${authors}
+            ${isFirstAuthor ? '[<span>PRIMO AUTORE / FIRST AUTHOR</span>]' : ''}
+            ${isFirstAuthor ? '<span class="note">⭐ <span>SCOPERTA / DISCOVERY</span></span>' : ''}
+          </div>
+          <div class="title"><a target="_blank" href="${adsurl || '#'}">${title}</a></div>
+          <div class="journal">${journal}</div>
+          <div class="doi">${metaString}</div>
+          <div class="pub-actions">
+            <button class="copy-btn" onclick="copyCitation(this, '${authors.replace(/'/g, "")}, ${year}, ${journal}')">📋 Citazione</button>
+            <button class="copy-btn" onclick="copySpecificBibtex(this, \`${escapeHtml(singleBibtex)}\`)">📦 BibTeX</button>
+          </div>
+        `;
+        container.appendChild(pubDiv);
+      });
+
+      updateCounters(totalCount, firstCount);
     }
-  }
-  return result;
-}
 
-async function loadVsxCsv() {
-  try {
-    const response = await fetch('SearchResults.csv');
-    if (!response.ok) throw new Error('Network response was not ok');
-    const csvText = await response.text();
-    vsxDataCache = parseCSV(csvText);
-    renderVsxTable(vsxDataCache);
-  } catch (err) {
-    console.error("Errore fetch CSV:", err);
-    document.getElementById('vsx-table-body').innerHTML = `
-      <tr><td colspan="6" style="text-align:center; color: var(--nasa-red); padding: 20px; line-height: 1.5;">
-        <strong>Nota sui browser in locale (protocollo file://):</strong><br>
-        I browser bloccano la lettura diretta dei file locali con <code>fetch()</code> per sicurezza.<br>
-        Apri la pagina tramite un server locale (es. VS Code Live Server o <code>python -m http.server</code>).
-      </td></tr>`;
-  }
-}
+    function updateCounters(total, first) {
+      document.getElementById('counters').innerHTML = `Total Publications: <strong>${total}</strong> | First Author: <strong>${first}</strong>`;
+    }
 
-function renderVsxTable(data) {
-  const tbody = document.getElementById('vsx-table-body');
-  tbody.innerHTML = '';
-  
-  if (data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Nessun record trovato.</td></tr>`;
-    document.getElementById('vsx-counter').textContent = 'Totale record: 0';
-    return;
-  }
+    function copyCitation(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ Copiato!';
+        setTimeout(() => btn.innerText = originalText, 2000);
+      });
+    }
 
-  data.forEach(item => {
-    const tr = document.createElement('tr');
-    const vsxUrl = `https://vsx.aavso.org/index.php?view=results.get&ident=${encodeURIComponent(item.Name)}`;
-    tr.innerHTML = `
-      <td><strong>${item.Name || '-'}</strong></td>
-      <td>${item.Const || '-'}</td>
-      <td><span class="badge" style="background:var(--nasa-blue);">${item.Type || '-'}</span></td>
-      <td style="font-family:'JetBrains Mono',monospace;">${item.Period || '-'}</td>
-      <td style="font-family:'JetBrains Mono',monospace; font-size:9.5px;">${item.Mag || '-'}</td>
-      <td><a href="${vsxUrl}" target="_blank">VSX ↗</a></td>
-    `;
-    tbody.appendChild(tr);
-  });
-  
-  document.getElementById('vsx-counter').textContent = `Totale record: ${data.length}`;
-}
+    function copySpecificBibtex(btn, bibtexText) {
+      navigator.clipboard.writeText(bibtexText).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ Copiato!';
+        setTimeout(() => btn.innerText = originalText, 2000);
+      });
+    }
 
-function filterVsxByType(type, btn) {
-  currentVsxType = type;
-  const container = document.getElementById('vsx-type-filters');
-  if (container) {
-    container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  }
-  if (btn) btn.classList.add('active');
-  filterVsxTable();
-}
-
-function filterVsxTable() {
-  const query = document.getElementById('vsx-search-input').value.toLowerCase();
-  
-  const filtered = vsxDataCache.filter(item => {
-    const matchesSearch = (item.Name && item.Name.toLowerCase().includes(query)) ||
-                          (item.Const && item.Const.toLowerCase().includes(query)) ||
-                          (item.Type && item.Type.toLowerCase().includes(query));
-                          
-    const matchesType = (currentVsxType === 'ALL') || (item.Type && item.Type.toUpperCase().includes(currentVsxType));
-    
-    return matchesSearch && matchesType;
-  });
-  
-  renderVsxTable(filtered);
-}
-
-// Avvio all'apertura della pagina
-document.addEventListener("DOMContentLoaded", () => {
-  switchLang('en');
-  loadBibtexFile();
-});
-</script>
+    // Avvia il caricamento all'avvio della pagina
+    window.addEventListener('DOMContentLoaded', loadBibtexFile);
+  </script>
 </body>
 </html>
