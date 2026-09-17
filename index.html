@@ -55,6 +55,9 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
+<!-- Libreria BibTeX Parser per leggere export-bibtex.bib direttamente via fetch -->
+<script src="https://cdn.jsdelivr.net/npm/@retorquere/bibtex-parser@3.0.0/dist/bibtex-parser.min.js"></script>
+
 <style>
 :root {
   --nasa-blue: #0B3D91;
@@ -163,6 +166,7 @@ body.dark-theme .year { color: #60A5FA; }
 .search-input { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); padding: 4px 10px; border-radius: 4px; font-size: 10px; outline: none; width: 180px; transition: all 0.2s; }
 .search-input:focus { border-color: var(--nasa-blue); width: 220px; }
 
+/* Stili Pubblicazione dinamica generata da BibTeX */
 .pub { margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--border-color); transition: all 0.2s; position: relative; }
 .pub:hover { border-left-color: var(--nasa-blue); background: var(--pub-hover); }
 .pub .authors { font-size: 11px; font-weight: 700; color: var(--text-main); }
@@ -212,26 +216,26 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
   body { background: #FFFFFF !important; color: #000000 !important; padding: 0 !important; font-size: 9pt; line-height: 1.35; }
   .cv-container { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important; margin: 0 !important; background: #FFFFFF !important; }
   .controls-bar, .pub-toolbar, .pub-actions, .modal-overlay, #toast { display: none !important; }
-  .header { background: #0B3D91 !important; color: #FFFFFF !important; padding: 16px 20px !important; page-break-inside: avoid; break-inside: avoid; }
+  .header { background: #0B3D91 !important; color: #FFFFFF !important; padding: 16px 20px !important; page-break-inside: avoid; }
   .header h1 { font-size: 26px !important; color: #FFFFFF !important; }
   .header h2 { color: #D0DDFF !important; font-size: 11px !important; }
   .header .profile-avatar { width: 90px !important; height: 90px !important; }
   .orcid-icon { width: 14px !important; height: 14px !important; vertical-align: middle !important; margin-right: 4px !important; display: inline-block !important; }
-  .metrics { background: #0B3D91 !important; color: #FFFFFF !important; border-top: 1px solid rgba(255, 255, 255, 0.2) !important; page-break-inside: avoid; break-inside: avoid; grid-template-columns: repeat(3, 1fr) !important; }
+  .metrics { background: #0B3D91 !important; color: #FFFFFF !important; border-top: 1px solid rgba(255, 255, 255, 0.2) !important; page-break-inside: avoid; grid-template-columns: repeat(3, 1fr) !important; }
   .metric { padding: 10px 4px !important; }
   .metric .num { font-size: 20px !important; }
   .metric .label { font-size: 8px !important; }
   .body { display: grid !important; grid-template-columns: 250px 1fr !important; min-height: auto !important; }
   .sidebar { background: #F0F4FA !important; padding: 16px 14px !important; border-right: 1px solid #CBD5E1 !important; }
   .main { padding: 18px 20px !important; }
-  .section-title { color: #0B3D91 !important; border-bottom-color: #0B3D91 !important; page-break-after: avoid; break-after: avoid; margin-top: 14px !important; }
-  .discovery-card, .edu-card, .profile-text, .interests-grid, .pub, .timeline, .media-card, .ads-metrics-widget { page-break-inside: avoid; break-inside: avoid; }
+  .section-title { color: #0B3D91 !important; border-bottom-color: #0B3D91 !important; page-break-after: avoid; margin-top: 14px !important; }
+  .discovery-card, .edu-card, .profile-text, .interests-grid, .pub, .timeline, .media-card, .ads-metrics-widget { page-break-inside: avoid; }
   .discovery-card { border-left-width: 3px !important; padding: 8px 10px !important; margin-bottom: 8px !important; }
   .pub { margin-bottom: 10px !important; padding-left: 8px !important; border-left: 2px solid #0B3D91 !important; display: block !important; }
   .pub .title a { color: #0B3D91 !important; text-decoration: none !important; font-weight: 700 !important; }
   .pub .doi { color: #334155 !important; font-size: 8pt !important; }
   .profile-text { background: #F8FAFC !important; border: 1px solid #E2E8F0 !important; padding: 10px 12px !important; font-size: 9.5pt !important; }
-  .print-qr-code { display: block !important; margin-top: 16px !important; page-break-inside: avoid; break-inside: avoid; }
+  .print-qr-code { display: block !important; margin-top: 16px !important; page-break-inside: avoid; }
 }
 
 @media(max-width:800px){ .body { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2,1fr); } .header { flex-direction: column; text-align: center; } .controls-bar { top: 12px; right: 12px; } }
@@ -267,7 +271,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
   
   <div class="metrics">
     <div class="metric">
-      <span class="num" id="metric-pubs-count">15 / 9</span>
+      <span class="num" id="metric-pubs-count">- / -</span>
       <span class="label lang-it">Pubblicazioni / 1° Autore</span>
       <span class="label lang-en">Publications / 1st Author</span>
     </div>
@@ -423,15 +427,6 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         </p>
       </div>
 	  
-      <div class="section-title">📅 Timeline</div>
-      <div class="timeline">
-        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div><div>3 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div><div>1 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#FC3D21"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#718096"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">3 pubs</span></div><div>2 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div><div>5 Peer Reviewed</div></div>
-      </div>
-	  
     </div>
 	
     <div class="main">
@@ -442,16 +437,15 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         <div class="lang-it">
           Ricercatore indipendente attivo all'interfaccia tra l'astronomia amatoriale avanzata e le collaborazioni di ricerca professionale internazionale. Specializzato nella validazione e caratterizzazione di candidati TESS tramite fotometria di transito ad alta precisione, nell'analisi dinamica di sistemi binari visivi che ospitano pianeti (ad es., TOI-6883AB) e nella produzione di cataloghi di efemeridi omogenei per la missione ESA ARIEL nell'ambito del progetto ExoClock (1.070 efemeridi aggiornate).
 <br><br>
-Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di cui <span id="profile-first-pubs">9</span> come primo autore, che includono due importanti scoperte di esopianeti come primo autore (2024–2026): la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab (2024).
+Autore di <span id="profile-total-pubs">-</span> articoli indicizzati su ADS/arXiv/VizieR tra il 2020 e il 2026, di cui <span id="profile-first-pubs">-</span> come primo autore, che includono due importanti scoperte di esopianeti come primo autore (2024–2026): la super-Terra temperata Gliese 48 b (OEJV 2026) e il pianeta di tipo gioviano caldo TOI-6883Ab (2024).
         </div>
         <div class="lang-en">
           Independent researcher working at the interface between advanced amateur astronomy and international professional research collaborations. Specialized in the validation and characterization of TESS candidates via high-precision transit photometry, dynamical analysis of visual binary systems hosting planets (e.g., TOI-6883AB), and the production of homogeneous ephemerides catalogs for the ESA ARIEL mission within the ExoClock project (1,070 updated ephemerides).
           <br><br>
-          Author of <span id="profile-total-pubs-en">15</span> ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including <span id="profile-first-pubs-en">9</span> as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
+          Author of <span id="profile-total-pubs-en">-</span> ADS/arXiv/VizieR-indexed papers between 2020 and 2026, including <span id="profile-first-pubs-en">-</span> as first author, featuring two major exoplanet discoveries as first author (2024–2026): the temperate super-Earth Gliese 48 b (OEJV 2026) and the hot Jupiter-type planet TOI-6883Ab (2024).
         </div>
       </div>
 
-      <!-- Research Interests -->
       <div class="section-title">
         🔬 <span class="lang-it">Interessi di Ricerca</span><span class="lang-en">Research Interests</span>
       </div>
@@ -466,7 +460,6 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
         <div class="interest-tag">🤝 <span class="lang-it">Citizen science e collaborazioni pro-am</span><span class="lang-en">Citizen science & professional–amateur collaboration</span></div>
       </div>
 
-      <!-- Sezione Rassegna Stampa & Media (Public Outreach) -->
       <div class="section-title">
         📰 <span class="lang-it">Rassegna Stampa & Media (Public Outreach)</span><span class="lang-en">Press & Media Coverage (Public Outreach)</span>
       </div>
@@ -553,8 +546,8 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
 
       <div class="section-title">
         📚 
-        <span class="lang-it">Pubblicazioni – <span id="sec-total-pubs">15</span> lavori (<span id="sec-first-pubs">9</span> come primo autore)</span>
-        <span class="lang-en">Publications – <span id="sec-total-pubs-en">15</span> works (<span id="sec-first-pubs-en">9</span> first-author papers)</span>
+        <span class="lang-it">Pubblicazioni – <span id="sec-total-pubs">-</span> lavori (<span id="sec-first-pubs">-</span> come primo autore)</span>
+        <span class="lang-en">Publications – <span id="sec-total-pubs-en">-</span> works (<span id="sec-first-pubs-en">-</span> first-author papers)</span>
       </div>
 
       <div class="pub-toolbar">
@@ -571,9 +564,9 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
         </div>
       </div>
 
-      <!-- CONTAINER DINAMICO DELLE PUBBLICAZIONI -->
+      <!-- Contenitore in cui lo script caricherà automaticamente il file export-bibtex.bib -->
       <div id="publications-container">
-        <!-- Generato automaticamente da script -->
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 20px;">Caricamento pubblicazioni da export-bibtex.bib...</p>
       </div>
 
     </div>
@@ -650,264 +643,128 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
 <div id="toast">Notifica</div>
 
 <script>
-// DATABASE PUBBLICAZIONI (Strutturato per aggiornamento automatico / integrazione NASA ADS)
-const publicationsDatabase = [
-  {
-    year: "2026",
-    first: false,
-    discovery: false,
-    authors: "Sha et al. (incl. Conzo G.)",
-    title: "The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters",
-    journal: "The Astronomical Journal, 172, 3, 183",
-    doi: "DOI: 10.3847/1538-3881/ae8bb0 | arXiv:2601.13302 | ADS: 2026AJ....172..183S",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2026AJ....172..183S",
-    citation: "Sha et al., 2026, AJ, 172, 183"
-  },
-  {
-    year: "2026",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M., Correa S.A.",
-    title: "Detection and characterization of the temperate super-earth Gliese 48 b",
-    journal: "Open European Journal on Variable Stars, 273, 1-18",
-    doi: "DOI: 10.5817/OEJV2026-0273 | arXiv:2605.11123 | ADS: 2026OEJV..273....1C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2026OEJV..273....1C",
-    citation: "Conzo et al., 2026, OEJV, 273, 1-18"
-  },
-  {
-    year: "2026",
-    first: false,
-    discovery: false,
-    authors: "Kokori A. et al. (incl. Conzo G.)",
-    title: "ExoClock Project IV: A Homogeneous Catalog of 620 Updated Exoplanet Ephemerides",
-    journal: "ApJS, 283, 1, 5",
-    doi: "DOI: 10.3847/1538-4365/ae3238 | arXiv:2511.14407 | ADS: 2026ApJS..283....5K",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2026ApJS..283....5K",
-    citation: "Kokori et al., 2026, ApJS, 283, 5"
-  },
-  {
-    year: "2025",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Campos F., Conti F., Sharp I.",
-    title: "Characterization of the Visual Binary TOI-6883AB and Dynamical Implications for TOI-6883Ab",
-    journal: "RNAAS, 9, 6, 139",
-    doi: "DOI: 10.3847/2515-5172/ade25d | arXiv:2506.08798 | ADS: 2025RNAAS...9..139C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2025RNAAS...9..139C",
-    citation: "Conzo et al., 2025, RNAAS, 9, 139"
-  },
-  {
-    year: "2025",
-    first: false,
-    discovery: false,
-    authors: "Fairnington T.R. et al. (incl. Conzo G.)",
-    title: "The eccentricity distribution of warm sub-Saturns in TESS",
-    journal: "MNRAS, 540, 1144-1162",
-    doi: "DOI: 10.1093/mnras/staf759 | arXiv:2505.04106 | ADS: 2025MNRAS.540.1144F",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2025MNRAS.540.1144F",
-    citation: "Fairnington et al., 2025, MNRAS, 540, 1144"
-  },
-  {
-    year: "2024",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M.",
-    title: "TOI-6883.01: A Single-transit Planet Candidate Detected from TESS",
-    journal: "RNAAS, 8, 2, 53",
-    doi: "DOI: 10.3847/2515-5172/ad2c85 | ADS: 2024RNAAS...8...53C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2024RNAAS...8...53C",
-    citation: "Conzo & Moriconi, 2024, RNAAS, 8, 53"
-  },
-  {
-    year: "2023",
-    first: false,
-    discovery: false,
-    authors: "Bianciardi G. et al. (incl. Conzo G.)",
-    title: "Multiband Photometry Evolution in the First Weeks of SN 2023ixf",
-    journal: "TNSAN, 213, 1",
-    doi: "arXiv:2307.05612 | ADS: 2023TNSAN.213....1B",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B",
-    citation: "Bianciardi et al., 2023, TNSAN, 213, 1"
-  },
-  {
-    year: "2023",
-    first: false,
-    discovery: false,
-    authors: "Kokori A. et al. (incl. Conzo G.)",
-    title: "ExoClock III: 450 New Exoplanet Ephemerides",
-    journal: "ApJS, 265, 1, 4",
-    doi: "DOI: 10.3847/1538-4365/ac9da4 | arXiv:2209.09673 | ADS: 2023ApJS..265....4K",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2023ApJS..265....4K",
-    citation: "Kokori et al., 2023, ApJS, 265, 4"
-  },
-  {
-    year: "2023",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M., Peretto I.",
-    title: "Candidate triple-star system with ellipsoidal components detected in Vulpecula",
-    journal: "OEJV, 235, 1-9",
-    doi: "DOI: 10.5817/OEJV2023-0235 | arXiv:2302.05778",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2023OEJV..235....1C",
-    citation: "Conzo et al., 2023, OEJV, 235, 1-9"
-  },
-  {
-    year: "2022",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M., Peretto I.",
-    title: "HD 345723: RS Canum Venaticorum Variable Star Detected with TESS Data",
-    journal: "RNAAS, 7, 275",
-    doi: "ADS: 2022RNAAS...6..275C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2022RNAAS...6..275C",
-    citation: "Conzo et al., 2022, RNAAS, 7, 275"
-  },
-  {
-    year: "2022",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M., P.G.Marotta",
-    title: "New Semiregular Variable Star Near The Wizard Nebula - Evolution of MACOMP_V1",
-    journal: "OEJV, 229, 1-8",
-    doi: "ADS: 2022OEJV..229....1C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2022OEJV..229....1C",
-    citation: "Conzo et al., 2022, OEJV, 229, 1-8"
-  },
-  {
-    year: "2021",
-    first: true,
-    discovery: true,
-    authors: "Conzo G., Moriconi M., Spaziani G.",
-    title: "New seven short-period variable stars in Cassiopea",
-    journal: "Astronomia UAI, N. 3, p. 44 - 51",
-    doi: "ADS: 2021AsUAI...3...44C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2021AsUAI...3...44C",
-    citation: "Conzo et al., 2021, Astronomia UAI, 3, 44"
-  },
-  {
-    year: "2020",
-    first: true,
-    discovery: true,
-    authors: "Conzo G. et al.",
-    title: "Un nuovo sistema binario di tipo Algol in Auriga: GUNVAG2 (VSX 1542879)",
-    journal: "Astronomia UAI, N. 4, p. 19 - 24",
-    doi: "ADS: 2020AsUAI...4...19C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2020AsUAI...4...19C",
-    citation: "Conzo et al., 2020, Astronomia UAI, 4, 19"
-  },
-  {
-    year: "2020",
-    first: true,
-    discovery: true,
-    authors: "Conzo G. et al.",
-    title: "Nuovo sistema binario di stelle ellissoidali in Auriga: GUNVAG1 (VSX 1500078)",
-    journal: "Astronomia UAI, N. 3, p. 19 - 25",
-    doi: "ADS: 2020AsUAI...3...19C",
-    adsUrl: "https://ui.adsabs.harvard.edu/abs/2020AsUAI...3...19C",
-    citation: "Conzo et al., 2020, Astronomia UAI, 3, 19"
-  }
-];
-
 let currentFilter = 'all';
 let currentPlanetKey = null;
 let vsxDataCache = [];
 let currentVsxType = 'ALL';
+let rawBibtexText = '';
 
-// Funzione di rendering dinamico delle pubblicazioni e aggiornamento contatori
-function renderPublications(dataArray) {
+// Caricamento automatico di export-bibtex.bib
+async function loadBibtexFile() {
+  try {
+    const response = await fetch('export-bibtex.bib');
+    if (!response.ok) throw new Error('File export-bibtex.bib non trovato');
+    rawBibtexText = await response.text();
+    
+    const parsed = BibtexParser.parse(rawBibtexText);
+    const entries = Object.values(parsed.entries);
+    
+    renderPublications(entries);
+  } catch (err) {
+    console.error("Errore caricamento BibTeX:", err);
+    document.getElementById('publications-container').innerHTML = `
+      <div style="color: var(--nasa-red); font-size: 11px; padding: 15px; border: 1px solid var(--nasa-red); border-radius: 6px;">
+        <strong>Impossibile caricare il file 'export-bibtex.bib'.</strong><br>
+        Assicurati che il file si trovi nella stessa cartella e che il sito sia eseguito tramite un server locale o pubblicato su GitHub Pages.
+      </div>`;
+  }
+}
+
+function renderPublications(entries) {
   const container = document.getElementById('publications-container');
-  if (!container) return;
   container.innerHTML = '';
 
-  dataArray.forEach(pub => {
+  // Ordina per anno decrescente
+  entries.sort((a, b) => (b.fields.year || 0) - (a.fields.year || 0));
+
+  let totalCount = entries.length;
+  let firstCount = 0;
+
+  entries.forEach(entry => {
+    const f = entry.fields;
+    const year = f.year || '2026';
+    const authors = f.author || '';
+    const title = f.title || '';
+    const journal = f.journal || f.booktitle || '';
+    const doi = f.doi ? `DOI: ${f.doi}` : '';
+    const adsurl = f.adsurl || '';
+    const eprint = f.eprint ? `arXiv:${f.eprint}` : '';
+
+    // Rileva se sei primo autore (se il cognome Conzo compare all'inizio della stringa autori)
+    const isFirstAuthor = authors.toLowerCase().startsWith('conzo');
+    if (isFirstAuthor) firstCount++;
+
+    // Rileva se è una scoperta (se nel titolo o note compare la keyword o se vuoi personalizzare)
+    const isDiscovery = title.toLowerCase().includes('detection') || title.toLowerCase().includes('candidate') || title.toLowerCase().includes('nuovo') || title.toLowerCase().includes('new') || isFirstAuthor;
+
+    const badgeColor = year === '2026' ? 'var(--nasa-blue)' : (year === '2024' ? '#FC3D21' : (year === '2023' ? '#718096' : '#A0AEC0'));
+
     const pubDiv = document.createElement('div');
     pubDiv.className = 'pub';
-    pubDiv.setAttribute('data-year', pub.year);
-    pubDiv.setAttribute('data-first', pub.first ? 'true' : 'false');
-    pubDiv.setAttribute('data-discovery', pub.discovery ? 'true' : 'false');
+    pubDiv.setAttribute('data-year', year);
+    pubDiv.setAttribute('data-first', isFirstAuthor ? 'true' : 'false');
+    pubDiv.setAttribute('data-discovery', isDiscovery ? 'true' : 'false');
 
-    let badgeBg = pub.year === '2024' ? 'background:#FC3D21' : (pub.year === '2023' ? 'background:#718096' : (parseInt(pub.year) <= 2022 ? 'background:#A0AEC0' : ''));
-    let firstAuthorHtml = pub.first ? ` [<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]` : '';
-    let discoveryHtml = pub.discovery ? ` <span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>` : '';
+    let metaString = [doi, eprint].filter(Boolean).join(' | ');
 
     pubDiv.innerHTML = `
       <div class="authors">
-        <span class="badge" style="${badgeBg}">${pub.year}</span> ${pub.authors}
-        ${firstAuthorHtml}
-        ${discoveryHtml}
+        <span class="badge" style="background:${badgeColor}">${year}</span> ${authors}
+        ${isFirstAuthor ? '[<span class="lang-it">PRIMO AUTORE</span><span class="lang-en">FIRST AUTHOR</span>]' : ''}
+        ${isFirstAuthor ? '<span class="note">⭐ <span class="lang-it">SCOPERTA</span><span class="lang-en">DISCOVERY</span></span>' : ''}
       </div>
-      <div class="title"><a target="_blank" href="${pub.adsUrl}">${pub.title}</a></div>
-      <div class="journal">${pub.journal}</div>
-      <div class="doi">${pub.doi}</div>
+      <div class="title"><a target="_blank" href="${adsurl || '#'}">${title}</a></div>
+      <div class="journal">${journal}</div>
+      <div class="doi">${metaString}</div>
       <div class="pub-actions">
-        <button class="copy-btn" onclick="copyCitation(this, '${pub.citation.replace(/'/g, "\\'")}')"><span class="lang-it">📋 Citazione</span><span class="lang-en">📋 Citation</span></button>
-        <button class="copy-btn" onclick="copyBibtexDynamic(this)">📦 BibTeX</button>
+        <button class="copy-btn" onclick="copyCitation(this, '${authors.replace(/'/g, "")}, ${year}, ${journal}')"><span class="lang-it">📋 Citazione</span><span class="lang-en">📋 Citation</span></button>
+        <button class="copy-btn" onclick="copySpecificBibtex(this, \`${escapeHtml(entry.raw || '')}\`)">📦 BibTeX</button>
       </div>
     `;
     container.appendChild(pubDiv);
   });
 
-  updatePublicationCounters(dataArray);
+  // Aggiorna i contatori dinamici globali
+  updateCounters(totalCount, firstCount);
+  switchLang(document.documentElement.lang || 'en');
 }
 
-function updatePublicationCounters(dataArray) {
-  const totalPubs = dataArray.length;
-  const firstAuthorPubs = dataArray.filter(p => p.first).length;
-  const countString = `${totalPubs} / ${firstAuthorPubs}`;
+function escapeHtml(str) {
+  return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 
+function updateCounters(total, first) {
+  const countString = `${total} / ${first}`;
   const metricNumEl = document.getElementById('metric-pubs-count');
   if (metricNumEl) metricNumEl.textContent = countString;
 
   ['sec-total-pubs', 'sec-total-pubs-en', 'profile-total-pubs', 'profile-total-pubs-en'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.textContent = totalPubs;
+    if (el) el.textContent = total;
   });
 
   ['sec-first-pubs', 'sec-first-pubs-en', 'profile-first-pubs', 'profile-first-pubs-en'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.textContent = firstAuthorPubs;
+    if (el) el.textContent = first;
   });
 }
 
-function generateBibtexFromPub(pubElement) {
-  const authorsRaw = pubElement.querySelector('.authors')?.innerText || '';
-  const authorsClean = authorsRaw.replace(/^\d{4}/, '').replace(/\[.*?\]/g, '').replace(/⭐/g, '').trim();
-  const title = pubElement.querySelector('.title')?.innerText.trim() || '';
-  const journalRaw = pubElement.querySelector('.journal')?.innerText.trim() || '';
-  const year = pubElement.getAttribute('data-year') || '2026';
-  
-  const firstAuthorToken = authorsClean.split(',')[0].replace(/[^a-zA-Z]/g, '').toLowerCase() || 'author';
-  const bibKey = firstAuthorToken + year + '_' + Math.random().toString(36).substring(2, 6);
-
-  return `@article{${bibKey},\n  author = {${authorsClean}},\n  title = {${title}},\n  journal = {${journalRaw}},\n  year = {${year}}\n}`;
-}
-
-function copyBibtexDynamic(btn) {
-  const pubElement = btn.closest('.pub');
-  if (!pubElement) return;
-  const bibText = generateBibtexFromPub(pubElement);
-  navigator.clipboard.writeText(bibText).then(() => {
+function copySpecificBibtex(btn, rawBib) {
+  navigator.clipboard.writeText(rawBib).then(() => {
     showToast(document.documentElement.lang === 'en' ? 'BibTeX entry copied!' : 'Voce BibTeX copiata!');
   });
 }
 
 function downloadAllBibtex() {
-  const pubs = document.querySelectorAll('.pub');
-  let allEntries = '';
-  pubs.forEach(pub => {
-    if (pub.style.display !== 'none') {
-      allEntries += generateBibtexFromPub(pub) + '\n\n';
-    }
-  });
-
-  const blob = new Blob([allEntries], { type: 'text/plain;charset=utf-8' });
+  if (!rawBibtexText) return;
+  const blob = new Blob([rawBibtexText], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'Giuseppe_Conzo_Publications.bib';
+  a.download = 'export-bibtex.bib';
   a.click();
   URL.revokeObjectURL(url);
-  showToast(document.documentElement.lang === 'en' ? 'Downloaded .bib file with all citations!' : 'File .bib con tutte le citazioni scaricato!');
+  showToast(document.documentElement.lang === 'en' ? 'Downloaded export-bibtex.bib!' : 'File export-bibtex.bib scaricato!');
 }
 
 const planetData = {
@@ -960,7 +817,8 @@ function switchLang(lang) {
   document.getElementById('btn-it').classList.toggle('active', lang === 'it');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   
-  document.getElementById('search-bar').placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
+  const searchBar = document.getElementById('search-bar');
+  if (searchBar) searchBar.placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
 
   if (lang === 'it') {
     document.getElementById('browser-title').textContent = "Giuseppe Conzo - CV Scientifico";
@@ -990,7 +848,8 @@ function filterPubs(type, btn) {
 }
 
 function applySearch() {
-  const query = document.getElementById('search-bar').value.toLowerCase();
+  const searchBar = document.getElementById('search-bar');
+  const query = searchBar ? searchBar.value.toLowerCase() : '';
   const pubs = document.querySelectorAll('.pub');
   
   pubs.forEach(pub => {
@@ -1019,17 +878,6 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.style.display = 'block';
   setTimeout(() => { toast.style.display = 'none'; }, 2200);
-}
-
-function scrollToYear(year) {
-  const targetPub = document.querySelector(`.pub[data-year="${year}"]`);
-  if (targetPub) {
-    targetPub.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    targetPub.style.transition = 'background 0.5s';
-    const origBg = targetPub.style.background;
-    targetPub.style.background = 'var(--highlight-bg)';
-    setTimeout(() => { targetPub.style.background = origBg; }, 1500);
-  }
 }
 
 function renderModalContent(key) {
@@ -1064,6 +912,7 @@ function closeModalDirect() {
   currentPlanetKey = null;
 }
 
+/* Gestione Modale VSX Database con lettura CSV dinamica */
 function openVsxModal() {
   document.getElementById('vsx-modal-overlay').classList.add('active');
   if (vsxDataCache.length === 0) {
@@ -1186,10 +1035,10 @@ function filterVsxTable() {
   renderVsxTable(filtered);
 }
 
-// Inizializzazione all'avvio della pagina
+// Avvio all'apertura della pagina
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
-  renderPublications(publicationsDatabase);
+  loadBibtexFile(); // Legge direttamente export-bibtex.bib
 });
 </script>
 </body>
