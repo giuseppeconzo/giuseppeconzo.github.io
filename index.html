@@ -198,6 +198,17 @@ body.dark-theme .modal h3 { color: #60A5FA; }
 .modal-grid div { background: var(--bg-sidebar); padding: 8px; border-radius: 6px; }
 .modal-grid strong { display: block; color: var(--text-muted); font-size: 9px; text-transform: uppercase; }
 
+/* Modale Ampia per Database CSV Variabili */
+.modal-wide { max-width: 800px; width: 95%; max-height: 85vh; display: flex; flex-direction: column; }
+.modal-body-scroll { overflow-y: auto; max-height: 60vh; margin-top: 12px; border: 1px solid var(--border-color); border-radius: 6px; }
+.vsx-table { width: 100%; border-collapse: collapse; font-size: 10.5px; text-align: left; }
+.vsx-table th { background: var(--nasa-blue); color: white; padding: 8px 10px; position: sticky; top: 0; z-index: 2; font-weight: 600; }
+.vsx-table td { padding: 6px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
+.vsx-table tr:hover { background: var(--pub-hover); }
+.vsx-table a { color: var(--nasa-blue); text-decoration: none; font-weight: 600; }
+body.dark-theme .vsx-table a { color: #60A5FA; }
+.vsx-table a:hover { text-decoration: underline; }
+
 #toast { position: fixed; bottom: 20px; right: 20px; background: #1A202C; color: white; padding: 8px 16px; border-radius: 6px; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; z-index: 100; border: 1px solid #4A5568; }
 
 /* Stampa PDF e Cartacea Ottimizzata */
@@ -461,6 +472,19 @@ body.dark-theme .modal h3 { color: #60A5FA; }
         <div class="desc">
           <span class="lang-it">Gioviano Caldo nel Delfino (Clicca per dettagli)</span>
           <span class="lang-en">Hot Jupiter in Delphinus (Click for details)</span>
+        </div>
+      </div>
+
+      <!-- WIDGET DATABASE STELLE VARIABILI (CSV READER DINAMICO) -->
+      <div class="section-title">
+        ✨ <span class="lang-it">Database Variabili</span><span class="lang-en">Variable Database</span>
+      </div>
+      <div class="discovery-card" style="border-left-color: #2563EB;" onclick="openVsxModal()">
+        <div class="icon">📈</div>
+        <div class="name"><span class="lang-it">Cataloghi VSX (80+ Stelle)</span><span class="lang-en">VSX Catalogs (80+ Stars)</span></div>
+        <div class="desc">
+          <span class="lang-it">Esplora il database dinamico da CSV (Clicca per aprire)</span>
+          <span class="lang-en">Explore dynamic database from CSV (Click to open)</span>
         </div>
       </div>
 	
@@ -909,11 +933,58 @@ Active for years with the Gruppo Astrofili Palidoro (Fiumicino, Rome), coordinat
   </div>
 </div>
 
+<!-- Modal Database Stelle Variabili (CSV Reader Dinamico) -->
+<div class="modal-overlay" id="vsx-modal-overlay" onclick="closeVsxModal(event)">
+  <div class="modal modal-wide" onclick="event.stopPropagation()">
+    <span class="modal-close" onclick="closeVsxModalDirect()">&times;</span>
+    <h3>✨ <span class="lang-it">Database Stelle Variabili (AAVSO VSX)</span><span class="lang-en">Variable Stars Database (AAVSO VSX)</span></h3>
+    <p style="font-size: 11px; color: var(--text-muted);">
+      <span class="lang-it">Elenco dinamico letto da SearchResults.csv. Usa la ricerca o i filtri rapidi.</span>
+      <span class="lang-en">Dynamic list read from SearchResults.csv. Use search or quick filters.</span>
+    </p>
+    
+    <div style="display: flex; gap: 8px; margin: 12px 0 8px 0; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+      <input type="text" id="vsx-search-input" class="search-input" placeholder="🔍 Cerca nome, costellazione, tipo..." onkeyup="filterVsxTable()" style="width: 240px;">
+      <div class="pub-filters" id="vsx-type-filters">
+        <button class="filter-btn active" onclick="filterVsxByType('ALL', this)">ALL</button>
+        <button class="filter-btn" onclick="filterVsxByType('EW', this)">EW</button>
+        <button class="filter-btn" onclick="filterVsxByType('DSCT', this)">DSCT</button>
+        <button class="filter-btn" onclick="filterVsxByType('EA', this)">EA</button>
+        <button class="filter-btn" onclick="filterVsxByType('ELL', this)">ELL</button>
+      </div>
+    </div>
+
+    <div class="modal-body-scroll">
+      <table class="vsx-table" id="vsx-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Const</th>
+            <th>Type</th>
+            <th>Period (d)</th>
+            <th>Mag</th>
+            <th>VSX / AUID</th>
+          </tr>
+        </thead>
+        <tbody id="vsx-table-body">
+          <tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Caricamento dati da SearchResults.csv...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
+      <span id="vsx-counter">Totale record: 0</span>
+      <a href="https://vsx.aavso.org/" target="_blank" style="color: var(--nasa-blue); text-decoration: underline;">AAVSO VSX Official Database ↗</a>
+    </div>
+  </div>
+</div>
+
 <div id="toast">Notifica</div>
 
 <script>
 let currentFilter = 'all';
 let currentPlanetKey = null;
+let vsxDataCache = [];
+let currentVsxType = 'ALL';
 
 const bibtexData = {
   'sha2026': `@article{sha2026,\n  author = {Sha, L. and others},\n  title = {The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters},\n  journal = {The Astronomical Journal},\n  volume = {172},\n  pages = {183},\n  year = {2026}\n}`,
@@ -1088,6 +1159,129 @@ function closeModal(e) {
 function closeModalDirect() {
   document.getElementById('modal-overlay').classList.remove('active');
   currentPlanetKey = null;
+}
+
+/* Gestione Modale VSX Database con lettura CSV dinamica */
+function openVsxModal() {
+  document.getElementById('vsx-modal-overlay').classList.add('active');
+  if (vsxDataCache.length === 0) {
+    loadVsxCsv();
+  }
+}
+
+function closeVsxModal(e) {
+  if (e.target.id === 'vsx-modal-overlay') closeVsxModalDirect();
+}
+
+function closeVsxModalDirect() {
+  document.getElementById('vsx-modal-overlay').classList.remove('active');
+}
+
+function parseCSV(text) {
+  const lines = text.split('\n');
+  const result = [];
+  if (lines.length === 0) return result;
+  
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    let row = [];
+    let inQuotes = false;
+    let currentVal = '';
+    
+    for (let char of lines[i]) {
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        row.push(currentVal.trim().replace(/^"|"$/g, ''));
+        currentVal = '';
+      } else {
+        currentVal += char;
+      }
+    }
+    row.push(currentVal.trim().replace(/^"|"$/g, ''));
+    
+    if (row.length >= headers.length) {
+      let obj = {};
+      headers.forEach((h, index) => {
+        obj[h] = row[index] || '';
+      });
+      result.push(obj);
+    }
+  }
+  return result;
+}
+
+async function loadVsxCsv() {
+  try {
+    const response = await fetch('SearchResults.csv');
+    if (!response.ok) throw new Error('Network response was not ok');
+    const csvText = await response.text();
+    vsxDataCache = parseCSV(csvText);
+    renderVsxTable(vsxDataCache);
+  } catch (err) {
+    console.error("Errore fetch CSV (probabile blocco CORS in locale):", err);
+    document.getElementById('vsx-table-body').innerHTML = `
+      <tr><td colspan="6" style="text-align:center; color: var(--nasa-red); padding: 20px; line-height: 1.5;">
+        <strong>Nota sui browser in locale (protocollo file://):</strong><br>
+        I browser bloccano la lettura diretta dei file locali con <code>fetch()</code> per sicurezza.<br>
+        Per leggerlo dinamicamente, puoi aprire la pagina tramite un piccolo server locale (es. VS Code Live Server o <code>python -m http.server</code>).
+      </td></tr>`;
+  }
+}
+
+function renderVsxTable(data) {
+  const tbody = document.getElementById('vsx-table-body');
+  tbody.innerHTML = '';
+  
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Nessun record trovato.</td></tr>`;
+    document.getElementById('vsx-counter').textContent = 'Totale record: 0';
+    return;
+  }
+
+  data.forEach(item => {
+    const tr = document.createElement('tr');
+    const vsxUrl = `https://vsx.aavso.org/search?view=detail&ident=${encodeURIComponent(item.Name)}`;
+    tr.innerHTML = `
+      <td><strong>${item.Name || '-'}</strong></td>
+      <td>${item.Const || '-'}</td>
+      <td><span class="badge" style="background:var(--nasa-blue);">${item.Type || '-'}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;">${item.Period || '-'}</td>
+      <td style="font-family:'JetBrains Mono',monospace; font-size:9.5px;">${item.Mag || '-'}</td>
+      <td><a href="${vsxUrl}" target="_blank">VSX ↗</a></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  document.getElementById('vsx-counter').textContent = `Totale record: ${data.length}`;
+}
+
+function filterVsxByType(type, btn) {
+  currentVsxType = type;
+  const container = document.getElementById('vsx-type-filters');
+  if (container) {
+    container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  }
+  if (btn) btn.classList.add('active');
+  filterVsxTable();
+}
+
+function filterVsxTable() {
+  const query = document.getElementById('vsx-search-input').value.toLowerCase();
+  
+  const filtered = vsxDataCache.filter(item => {
+    const matchesSearch = (item.Name && item.Name.toLowerCase().includes(query)) ||
+                          (item.Const && item.Const.toLowerCase().includes(query)) ||
+                          (item.Type && item.Type.toLowerCase().includes(query));
+                          
+    const matchesType = (currentVsxType === 'ALL') || (item.Type && item.Type.toUpperCase().includes(currentVsxType));
+    
+    return matchesSearch && matchesType;
+  });
+  
+  renderVsxTable(filtered);
 }
 
 async function fetchAdsMetrics() {
