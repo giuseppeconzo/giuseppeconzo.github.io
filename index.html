@@ -652,7 +652,7 @@ let rawBibtexText = '';
 // Caricamento automatico di export-bibtex.bib
 async function loadBibtexFile() {
   try {
-    const response = await fetch('export-bibtex.bib');
+    const response = await fetch('http://giuseppeconzo.github.io/export-bibtex.bib');
     if (!response.ok) throw new Error('File export-bibtex.bib non trovato');
     rawBibtexText = await response.text();
     
