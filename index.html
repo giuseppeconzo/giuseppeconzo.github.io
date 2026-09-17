@@ -709,7 +709,6 @@ function parseBibtex(bibText) {
     };
 
     lines.forEach(line => {
-      // Estrazione campi chiave BibTeX
       const match = line.match(/^\s*([a-zA-Z]+)\s*=\s*[{"](.+)[}"],?\s*$/);
       if (match) {
         const field = match[1].toLowerCase();
@@ -725,13 +724,9 @@ function parseBibtex(bibText) {
       }
     });
 
-    // Pulisci e formatta gli autori ADS (es. rimuove doppie parentesi e codifiche particolari)
     pub.author = pub.author.replace(/[{}]/g, '').replace(/\\\'([a-zA-Z])/g, '$1');
-
-    // Identifica se sei il primo autore (se il cognome Conzo compare all'inizio della lista autori)
     pub.isFirstAuthor = pub.author.toLowerCase().includes('conzo, g') || pub.author.toLowerCase().startsWith('conzo');
 
-    // Identifica se è una scoperta o un lavoro rilevante in base a parole chiave nel titolo
     const tLower = pub.title.toLowerCase();
     pub.isDiscovery = tLower.includes('gliese') || tLower.includes('toi-6883') || tLower.includes('candidate') || tLower.includes('new') || tLower.includes('discovery') || tLower.includes('detection');
 
@@ -740,7 +735,6 @@ function parseBibtex(bibText) {
     }
   });
 
-  // Ordinamento per anno decrescente (più recente in alto)
   entries.sort((a, b) => parseInt(b.year) - parseInt(a.year));
   return entries;
 }
