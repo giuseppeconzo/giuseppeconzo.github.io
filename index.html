@@ -663,38 +663,41 @@ let vsxDataCache = [];
 let currentVsxType = 'ALL';
 let allPublicationsCache = [];
 
-// Caricamento e parsing dinamico del file BibTeX (export-bibtex.bib)
+// Caricamento robusto del file BibTeX
 async function loadBibtexPublications() {
   try {
     const response = await fetch('export-bibtex.bib');
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok) throw new Error('File non trovato o errore di rete');
     const bibText = await response.text();
     
-    allPublicationsCache = parseBibtex(bibText);
+    allPublicationsCache = parseBibtexRobust(bibText);
     renderPublications(allPublicationsCache);
     updatePublicationCountersDynamic(allPublicationsCache);
   } catch (err) {
-    console.error("Errore nel caricamento del file .bib:", err);
+    console.error("Errore fetch BibTeX:", err);
     document.getElementById('pubs-container').innerHTML = `
-      <div style="padding: 15px; color: var(--nasa-red); font-size: 11px; background: var(--pub-hover); border-radius: 6px; line-height: 1.5;">
-        <strong>Nota sui browser in locale (protocollo file://):</strong><br>
-        I browser bloccano la lettura diretta dei file locali con <code>fetch()</code> per sicurezza.<br>
-        Apri la pagina tramite un server locale (es. VS Code Live Server o <code>python -m http.server</code>).
+      <div style="padding: 15px; color: var(--nasa-red); font-size: 11px; background: var(--pub-hover); border-radius: 6px; line-height: 1.6;">
+        <strong>⚠️ Nota sul caricamento locale (protocollo file://):</strong><br>
+        I browser bloccano la lettura dei file con <code>fetch()</code> se aperti direttamente con doppio click.<br>
+        Avvia un server locale leggero (es. estensione <strong>Live Server</strong> su VS Code oppure <code>python -m http.server</code>).
       </div>`;
   }
 }
 
-function parseBibtex(bibText) {
+// Parser avanzato per file .bib (gestisce campi multilinea e parentesi annidate)
+function parseBibtexRobust(bibText) {
   const entries = [];
-  const rawEntries = bibText.split('@');
+  const rawItems = bibText.split('@');
 
-  rawEntries.forEach(raw => {
-    if (!raw.trim()) return;
+  rawItems.forEach(item => {
+    if (!item.trim()) return;
     
-    const lines = raw.split('\n');
-    const typeAndKey = lines[0].split('{');
-    const pubType = typeAndKey[0].trim().toLowerCase();
-    const citeKey = typeAndKey[1] ? typeAndKey[1].replace(',', '').trim() : '';
+    const firstBrace = item.indexOf('{');
+    const firstComma = item.indexOf(',');
+    if (firstBrace === -1 || firstComma === -1) return;
+
+    const pubType = item.substring(0, firstBrace).trim().toLowerCase();
+    const citeKey = item.substring(firstBrace + 1, firstComma).trim();
 
     let pub = {
       type: pubType,
@@ -708,23 +711,17 @@ function parseBibtex(bibText) {
       arxiv: ''
     };
 
-    lines.forEach(line => {
-      const match = line.match(/^\s*([a-zA-Z]+)\s*=\s*[{"](.+)[}"],?\s*$/);
-      if (match) {
-        const field = match[1].toLowerCase();
-        let value = match[2].replace(/[{}]/g, '');
-        
-        if (field === 'author') pub.author = value;
-        if (field === 'title') pub.title = value;
-        if (field === 'journal' || field === 'booktitle' || field === 'howpublished') pub.journal = value;
-        if (field === 'year') pub.year = value.trim();
-        if (field === 'doi') pub.doi = value;
-        if (field === 'adsurl') pub.ads = value;
-        if (field === 'eprint') pub.arxiv = value;
-      }
-    });
+    pub.author = extractField(item, 'author');
+    pub.title = extractField(item, 'title');
+    pub.journal = extractField(item, 'journal') || extractField(item, 'booktitle') || extractField(item, 'howpublished');
+    pub.year = extractField(item, 'year') || '2026';
+    pub.doi = extractField(item, 'doi');
+    pub.ads = extractField(item, 'adsurl');
+    pub.arxiv = extractField(item, 'eprint');
 
-    pub.author = pub.author.replace(/[{}]/g, '').replace(/\\\'([a-zA-Z])/g, '$1');
+    // Pulizia formattazione autori da NASA ADS
+    pub.author = pub.author.replace(/[{}]/g, '').replace(/\\['`^~=u.]([a-zA-Z])/g, '$1');
+
     pub.isFirstAuthor = pub.author.toLowerCase().includes('conzo, g') || pub.author.toLowerCase().startsWith('conzo');
 
     const tLower = pub.title.toLowerCase();
@@ -739,12 +736,38 @@ function parseBibtex(bibText) {
   return entries;
 }
 
+function extractField(text, fieldName) {
+  const match = text.match(new RegExp(`\\b${fieldName}\\s*=\\s*\\{([\\s\\S]*?)\\}(?:\\s*,\\s*\\n|\\s*\\n[a-zA-Z]+\\s*=|$)`, 'i'));
+  if (match && match[1]) {
+    return match[1].replace(/[\n\r]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  
+  const idx = text.toLowerCase().indexOf(fieldName + ' =');
+  if (idx === -1) return '';
+  let sub = text.substring(idx + fieldName.length + 2).trim();
+  if (sub.startsWith('{') || sub.startsWith('"')) {
+    const charOpen = sub[0];
+    let depth = 0;
+    let val = '';
+    for (let i = 0; i < sub.length; i++) {
+      let c = sub[i];
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (charOpen === '"' && c === '"' && i > 0) break;
+      if (charOpen === '{' && depth === 0) break;
+      val += c;
+    }
+    return val.replace(/^[{"]/, '').replace(/[\n\r]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  return '';
+}
+
 function renderPublications(pubs) {
   const container = document.getElementById('pubs-container');
   container.innerHTML = '';
 
   if (pubs.length === 0) {
-    container.innerHTML = '<p style="font-size:11px; color:var(--text-muted);">Nessuna pubblicazione trovata.</p>';
+    container.innerHTML = '<p style="font-size:11px; color:var(--text-muted);">Nessuna pubblicazione trovata nel file .bib.</p>';
     return;
   }
 
@@ -885,7 +908,8 @@ function switchLang(lang) {
   document.getElementById('btn-it').classList.toggle('active', lang === 'it');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   
-  document.getElementById('search-bar').placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
+  const searchBar = document.getElementById('search-bar');
+  if(searchBar) searchBar.placeholder = lang === 'en' ? '🔍 Search...' : '🔍 Cerca...';
 
   if (lang === 'it') {
     document.getElementById('browser-title').textContent = "Giuseppe Conzo - CV Scientifico";
@@ -915,7 +939,8 @@ function filterPubs(type, btn) {
 }
 
 function applySearch() {
-  const query = document.getElementById('search-bar').value.toLowerCase();
+  const searchInput = document.getElementById('search-bar');
+  const query = searchInput ? searchInput.value.toLowerCase() : '';
   const pubs = document.querySelectorAll('.pub');
   
   pubs.forEach(pub => {
@@ -941,6 +966,7 @@ function copyCitation(btn, citationText) {
 
 function showToast(msg) {
   const toast = document.getElementById('toast');
+  if(!toast) return;
   toast.textContent = msg;
   toast.style.display = 'block';
   setTimeout(() => { toast.style.display = 'none'; }, 2200);
@@ -1061,6 +1087,7 @@ async function loadVsxCsv() {
 
 function renderVsxTable(data) {
   const tbody = document.getElementById('vsx-table-body');
+  if(!tbody) return;
   tbody.innerHTML = '';
   
   if (data.length === 0) {
@@ -1097,7 +1124,8 @@ function filterVsxByType(type, btn) {
 }
 
 function filterVsxTable() {
-  const query = document.getElementById('vsx-search-input').value.toLowerCase();
+  const queryInput = document.getElementById('vsx-search-input');
+  const query = queryInput ? queryInput.value.toLowerCase() : '';
   
   const filtered = vsxDataCache.filter(item => {
     const matchesSearch = (item.Name && item.Name.toLowerCase().includes(query)) ||
@@ -1115,7 +1143,7 @@ function filterVsxTable() {
 // Inizializzazione all'avvio della pagina
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
-  loadBibtexPublications(); // Carica dinamicamente il file BibTeX all'avvio
+  loadBibtexPublications();
 });
 </script>
 </body>
