@@ -170,13 +170,15 @@ body.dark-theme .media-tag { color: #60A5FA; }
 .media-title { font-size: 11px; font-weight: 600; line-height: 1.35; margin-bottom: 6px; color: var(--text-main); }
 .media-source { font-size: 9.5px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
 
-.timeline { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-.timeline-item { display: flex; align-items: center; gap: 10px; font-size: 11px; cursor: pointer; padding: 3px 6px; border-radius: 4px; transition: background 0.2s; }
+.timeline { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.timeline-item { display: flex; align-items: center; justify-content: space-between; font-size: 10.5px; cursor: pointer; padding: 4px 6px; border-radius: 4px; transition: background 0.2s; }
 .timeline-item:hover { background: rgba(11, 61, 145, 0.15); }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--nasa-blue); flex-shrink: 0; }
-.year { font-weight: 700; color: var(--nasa-blue); min-width: 70px; }
+.timeline-left { display: flex; align-items: center; gap: 8px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--nasa-blue); flex-shrink: 0; }
+.year { font-weight: 700; color: var(--nasa-blue); min-width: 62px; }
 body.dark-theme .year { color: #60A5FA; }
-.count { color: var(--text-muted); }
+.timeline-counts { display: flex; gap: 8px; color: var(--text-muted); font-size: 10px; }
+.timeline-counts span { background: var(--bg-card); padding: 1px 5px; border-radius: 3px; border: 1px solid var(--border-color); font-family: 'JetBrains Mono', monospace; font-size: 9.5px; }
 
 .list { list-style: none; }
 .list li { font-size: 11px; padding: 4px 0; color: var(--text-main); display: flex; gap: 6px; align-items: center; }
@@ -395,7 +397,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       </ul>
 	  
       <div class="section-title">
-        ⭐ <span class="lang-it">Rilevazioni / Caratterizzazioni (2)</span><span class="lang-en">Detections & Characterizations (2)</span>
+        ⭐ <span class="lang-it">Esopianeti Scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
       </div>
       <div class="discovery-card" onclick="openModal('gliese')">
         <div class="icon">🌍</div>
@@ -441,7 +443,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
           <span class="badge">2023</span>
           <div>
             <span class="lang-it"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">Attestato AAVSO per lo studio dei pianeti extrasolari</a></span>
-            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">AAVSO Certificate for exoplanet study</a></span>
+            <span class="lang-en"><a href="https://www.facebook.com/pek81/posts/pfbid027bCUXMgT5zkhJw7qNe8jQCAgPtvv6zxd2sKhJgeQMyL9tTXBPoACfKkhPFXeqGQfl?__cft__[0]=AZiSNpWqxAXLVrU6XjJIKxf3gZhaAJm3aAsBvUG16daVzy2s4Ik4ENpYRgtuBWI1RbOczKVcrcYPMf4ET0AD3TsiE4yOjDHpAX7dtYjiIzmDHpAX7dtYjiIzmDw5Se6R0Iul_tXw1zQJnWqOHqhDJKL4q2jT-paqcpFLFgaIGVlb_dULv1UHYTqCPgRIICpDdfHW-0PNXHtQ&__tn__=H-R" target="_blank" style="color:var(--nasa-blue); text-decoration:underline;">AAVSO Certificate for exoplanet study</a></span>
           </div>
         </li>
         <li style="align-items: flex-start;">
@@ -463,12 +465,6 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
         <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
       </ul>
 
-      <div class="section-title">🌐 Social</div>
-      <ul class="list">
-        <li>• <a target="_blank" href="https://www.facebook.com/pek81">Facebook</a></li>
-        <li>• <a target="_blank" href="http://instagram.com/giuseppe.conzo">Instagram</a></li>
-      </ul>
-
       <div class="print-qr-code">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://www.astrofilipalidoro.it" alt="Web CV QR Code" style="width: 80px; height: 80px;">
         <p style="font-size: 8px; color: #4A5568; margin-top: 2px;">
@@ -479,11 +475,41 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
 	  
       <div class="section-title">📅 Timeline</div>
       <div class="timeline">
-        <div class="timeline-item" onclick="scrollToYear('2026')"><div class="dot"></div><div class="year">2026</div><div class="count"><span class="lang-it">3 pub</span><span class="lang-en">3 pubs</span></div><div>3 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2025')"><div class="dot"></div><div class="year">2025</div><div class="count"><span class="lang-it">2 pub</span><span class="lang-en">2 pubs</span></div><div>1 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2024')"><div class="dot" style="background:#FC3D21"></div><div class="year">2024</div><div class="count"><span class="lang-it">1 pub</span><span class="lang-en">1 pub</span></div></div>
-        <div class="timeline-item" onclick="scrollToYear('2023')"><div class="dot" style="background:#718096"></div><div class="year">2023</div><div class="count"><span class="lang-it">4 pub</span><span class="lang-en">3 pubs</span></div><div>2 Peer Reviewed</div></div>
-        <div class="timeline-item" onclick="scrollToYear('2022')"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div><div class="count"><span class="lang-it">5 pub</span><span class="lang-en">5 pubs</span></div><div>5 Peer Reviewed</div></div>
+        <div class="timeline-item" onclick="scrollToYear('2026')" data-timeline-year="2026">
+          <div class="timeline-left"><div class="dot"></div><div class="year">2026</div></div>
+          <div class="timeline-counts">
+            <span><strong class="count-num">0</strong> tot</span>
+            <span><strong class="ref-num">0</strong> Ref.</span>
+          </div>
+        </div>
+        <div class="timeline-item" onclick="scrollToYear('2025')" data-timeline-year="2025">
+          <div class="timeline-left"><div class="dot"></div><div class="year">2025</div></div>
+          <div class="timeline-counts">
+            <span><strong class="count-num">0</strong> tot</span>
+            <span><strong class="ref-num">0</strong> Ref.</span>
+          </div>
+        </div>
+        <div class="timeline-item" onclick="scrollToYear('2024')" data-timeline-year="2024">
+          <div class="timeline-left"><div class="dot" style="background:#FC3D21"></div><div class="year">2024</div></div>
+          <div class="timeline-counts">
+            <span><strong class="count-num">0</strong> tot</span>
+            <span><strong class="ref-num">0</strong> Ref.</span>
+          </div>
+        </div>
+        <div class="timeline-item" onclick="scrollToYear('2023')" data-timeline-year="2023">
+          <div class="timeline-left"><div class="dot" style="background:#718096"></div><div class="year">2023</div></div>
+          <div class="timeline-counts">
+            <span><strong class="count-num">0</strong> tot</span>
+            <span><strong class="ref-num">0</strong> Ref.</span>
+          </div>
+        </div>
+        <div class="timeline-item" onclick="scrollToYear('2022')" data-timeline-range="2022,2021,2020">
+          <div class="timeline-left"><div class="dot" style="background:#A0AEC0"></div><div class="year">2022-2020</div></div>
+          <div class="timeline-counts">
+            <span><strong class="count-num">0</strong> tot</span>
+            <span><strong class="ref-num">0</strong> Ref.</span>
+          </div>
+        </div>
       </div>
     </div>
 	
@@ -595,7 +621,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           <span class="lang-en">1. Refereed International Journal Articles (AJ, ApJS, MNRAS)</span>
         </div>
 
-        <div class="pub" data-year="2026" data-first="false" data-discovery="false">
+        <div class="pub" data-year="2026" data-first="false" data-discovery="false" data-refereed="true">
           <div class="authors"><span class="badge">2026</span> Sha et al. (incl. Conzo G.)</div>
           <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026AJ....172..183S">The Occurrence Rate of Nearby Planetary Companions to Hot Jupiters</a></div>
           <div class="journal">The Astronomical Journal, 172, 3, 183 <span class="note" style="background:#E2E8F0; color:#1A202C;"><span class="lang-it">Contributo osservativo / fotometria</span><span class="lang-en">Observational & photometry contribution</span></span></div>
@@ -606,7 +632,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2026" data-first="false" data-discovery="false">
+        <div class="pub" data-year="2026" data-first="false" data-discovery="false" data-refereed="true">
           <div class="authors"><span class="badge">2026</span> Kokori A. et al. (incl. Conzo G.)</div>
           <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2026ApJS..283....5K">ExoClock Project IV: A Homogeneous Catalog of 620 Updated Exoplanet Ephemerides</a></div>
           <div class="journal">ApJS, 283, 1, 5 <span class="note" style="background:#E2E8F0; color:#1A202C;"><span class="lang-it">Contributo fotometria di transito (ExoClock)</span><span class="lang-en">Transit photometry contribution (ExoClock)</span></span></div>
@@ -617,7 +643,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2025" data-first="false" data-discovery="false">
+        <div class="pub" data-year="2025" data-first="false" data-discovery="false" data-refereed="true">
           <div class="authors"><span class="badge">2025</span> Fairnington T.R. et al. (incl. Conzo G.)</div>
           <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.540.1144F">The eccentricity distribution of warm sub-Saturns in TESS</a></div>
           <div class="journal">MNRAS, 540, 1144-1162 <span class="note" style="background:#E2E8F0; color:#1A202C;"><span class="lang-it">Contributo osservativo</span><span class="lang-en">Observational contribution</span></span></div>
@@ -628,7 +654,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2023" data-first="false" data-discovery="false">
+        <div class="pub" data-year="2023" data-first="false" data-discovery="false" data-refereed="true">
           <div class="authors"><span class="badge" style="background:#718096">2023</span> Kokori A. et al. (incl. Conzo G.)</div>
           <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023ApJS..265....4K">ExoClock III: 450 New Exoplanet Ephemerides</a></div>
           <div class="journal">ApJS, 265, 1, 4 <span class="note" style="background:#E2E8F0; color:#1A202C;"><span class="lang-it">Contributo fotometria di transito (ExoClock)</span><span class="lang-en">Transit photometry contribution (ExoClock)</span></span></div>
@@ -648,7 +674,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           <span class="lang-en">2. Research Notes and Short Contributions (RNAAS — Editorial Review)</span>
         </div>
 
-        <div class="pub" data-year="2025" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2025" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge">2025</span> Conzo G., Campos F., Conti F., Sharp I. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -663,7 +689,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2024" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2024" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#FC3D21">2024</span> Conzo G., Moriconi M. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -678,7 +704,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2022" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2022" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., Peretto I. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -702,7 +728,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           <span class="lang-en">3. Open Journals, Association & Astronomical Notes (OEJV, Astronomia UAI, TNSAN)</span>
         </div>
 
-        <div class="pub" data-year="2026" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2026" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge">2026</span> Conzo G., Moriconi M., Correa S.A. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -717,7 +743,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2023" data-first="false" data-discovery="false">
+        <div class="pub" data-year="2023" data-first="false" data-discovery="false" data-refereed="false">
           <div class="authors"><span class="badge" style="background:#718096">2023</span> Bianciardi G. et al. (incl. Conzo G.)</div>
           <div class="title"><a target="_blank" href="https://ui.adsabs.harvard.edu/abs/2023TNSAN.213....1B">Multiband Photometry Evolution in the First Weeks of SN 2023ixf</a></div>
           <div class="journal">Transient Name Server AstroNote (TNSAN), 213, 1</div>
@@ -728,7 +754,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2023" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2023" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#718096">2023</span> Conzo G., Moriconi M., Peretto I. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -743,7 +769,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2022" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2022" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#A0AEC0">2022</span> Conzo G., Moriconi M., P.G.Marotta 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -758,7 +784,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2021" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2021" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#A0AEC0">2021</span> Conzo G., Moriconi M., Spaziani G. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -773,7 +799,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2020" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2020" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -788,7 +814,7 @@ Autore di <span id="profile-total-pubs">15</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2020" data-first="true" data-discovery="true">
+        <div class="pub" data-year="2020" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#A0AEC0">2020</span> Conzo G. et al. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -907,6 +933,52 @@ function updatePublicationCounters() {
   ['sec-first-pubs', 'sec-first-pubs-en', 'profile-first-pubs', 'profile-first-pubs-en'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = firstAuthorPubs;
+  });
+
+  updateTimelineCounts();
+}
+
+function updateTimelineCounts() {
+  const pubs = document.querySelectorAll('.pub');
+  const yearCounts = {};
+  const refereedCounts = {};
+
+  pubs.forEach(pub => {
+    const year = pub.getAttribute('data-year');
+    const isRefereed = pub.getAttribute('data-refereed') === 'true';
+    if (year) {
+      yearCounts[year] = (yearCounts[year] || 0) + 1;
+      if (isRefereed) {
+        refereedCounts[year] = (refereedCounts[year] || 0) + 1;
+      }
+    }
+  });
+
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    const range = item.getAttribute('data-timeline-range');
+    const singleYear = item.getAttribute('data-timeline-year');
+    const countNumEl = item.querySelector('.count-num');
+    const refNumEl = item.querySelector('.ref-num');
+    
+    if (!countNumEl || !refNumEl) return;
+
+    let totalForRange = 0;
+    let refereedForRange = 0;
+
+    if (range) {
+      const years = range.split(',');
+      years.forEach(y => {
+        const cleanY = y.trim();
+        totalForRange += (yearCounts[cleanY] || 0);
+        refereedForRange += (refereedCounts[cleanY] || 0);
+      });
+    } else if (singleYear) {
+      totalForRange = yearCounts[singleYear] || 0;
+      refereedForRange = refereedCounts[singleYear] || 0;
+    }
+
+    countNumEl.textContent = totalForRange;
+    refNumEl.textContent = refereedForRange;
   });
 }
 
@@ -1061,14 +1133,38 @@ function showToast(msg) {
   setTimeout(() => { toast.style.display = 'none'; }, 2200);
 }
 
-function scrollToYear(year) {
-  const targetPub = document.querySelector(`.pub[data-year="${year}"]`);
-  if (targetPub) {
-    targetPub.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    targetPub.style.transition = 'background 0.5s';
-    const origBg = targetPub.style.background;
-    targetPub.style.background = 'var(--highlight-bg)';
-    setTimeout(() => { targetPub.style.background = origBg; }, 1500);
+function scrollToYear(yearStr) {
+  // 1. Resetta i filtri e la ricerca per mostrare tutte le categorie e tutti i paper
+  currentFilter = 'all';
+  document.querySelectorAll('.pub-filters .filter-btn').forEach((b, idx) => {
+    b.classList.toggle('active', idx === 0);
+  });
+  const searchInput = document.getElementById('search-bar');
+  if (searchInput) searchInput.value = '';
+  applySearch();
+
+  // 2. Gestisce sia singoli anni (es. '2025') sia range multipli nella timeline (es. '2022')
+  const yearsArray = yearStr.includes(',') ? yearStr.split(',') : [yearStr];
+  
+  // Trova TUTTE le pubblicazioni corrispondenti agli anni selezionati
+  const targetPubs = Array.from(document.querySelectorAll('.pub')).filter(pub => {
+    const pubYear = pub.getAttribute('data-year');
+    return yearsArray.includes(pubYear);
+  });
+
+  if (targetPubs.length > 0) {
+    // Scorri fluidamente al primo elemento trovato
+    targetPubs[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Evidenzia tutti i paper corrispondenti di quell'anno/periodo con effetto visivo temporaneo
+    targetPubs.forEach(pub => {
+      pub.style.transition = 'background 0.5s';
+      const origBg = pub.style.background;
+      pub.style.background = 'var(--highlight-bg)';
+      setTimeout(() => { 
+        pub.style.background = origBg; 
+      }, 1800);
+    });
   }
 }
 
