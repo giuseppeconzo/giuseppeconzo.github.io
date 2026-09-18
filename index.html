@@ -410,7 +410,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       <span class="label lang-en">Publications / 1st Author</span>
     </div>
     <div class="metric">
-      <span class="num">2 / 80</span>
+      <span class="num">2 / <span id="metric-vsx-count">-</span></span>
       <span class="label lang-it">Esopianeti / Stelle Variabili</span>
       <span class="label lang-en">Exoplanets / Variable Stars</span>
     </div>
@@ -499,7 +499,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       </div>
 
       <div class="section-title">
-        ✨ <span class="lang-it">Stelle Variabili scoperte (80)</span><span class="lang-en">Discovered Variable Stars (80)</span>
+        ✨ <span class="lang-it">Stelle Variabili scoperte (<span id="vsx-discovered-count-it">...</span>)</span><span class="lang-en">Discovered Variable Stars (<span id="vsx-discovered-count-en">...</span>)</span>
       </div>
       <div class="discovery-card" style="border-left-color: #2563EB;" onclick="openVsxModal()">
         <div class="icon">📈</div>
@@ -1453,6 +1453,17 @@ async function loadVsxCsv() {
     const csvText = await response.text();
     vsxDataCache = parseCSV(csvText);
     renderVsxTable(vsxDataCache);
+
+    // Calcolo dinamico: totale record meno 12
+    const calculatedCount = vsxDataCache.length - 12;
+    const metricVsxEl = document.getElementById('metric-vsx-count');
+    const vsxItEl = document.getElementById('vsx-discovered-count-it');
+    const vsxEnEl = document.getElementById('vsx-discovered-count-en');
+
+    if (metricVsxEl) metricVsxEl.textContent = calculatedCount;
+    if (vsxItEl) vsxItEl.textContent = calculatedCount;
+    if (vsxEnEl) vsxEnEl.textContent = calculatedCount;
+
   } catch (err) {
     console.error("Errore fetch CSV:", err);
     document.getElementById('vsx-table-body').innerHTML = `
@@ -1520,6 +1531,7 @@ function filterVsxTable() {
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
   updatePublicationCounters();
+  loadVsxCsv(); // Avvia il caricamento automatico e il calcolo dinamico del CSV all'avvio
 });
 </script>
 </body>
