@@ -191,6 +191,13 @@ body.dark-theme .year { color: #60A5FA; }
 .edu-logo { width: 42px; height: 42px; object-fit: contain; border-radius: 4px; background: #FFF; padding: 2px; border: 1px solid var(--border-color); }
 .edu-info { font-size: 11px; font-weight: 600; line-height: 1.3; color: var(--text-main); }
 
+/* Stili specifici per le card di collaborazione con loghi */
+.collab-card { display: flex; align-items: center; gap: 10px; background: var(--bg-card); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 6px; text-decoration: none; color: var(--text-main); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.collab-card:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-color: var(--nasa-blue); }
+.collab-icon { font-size: 16px; width: 24px; text-align: center; flex-shrink: 0; }
+.collab-details { font-size: 10.5px; font-weight: 600; line-height: 1.25; }
+.collab-sub { font-size: 8.5px; color: var(--text-muted); font-weight: 400; display: block; margin-top: 1px; }
+
 .pub-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; justify-content: space-between; }
 .pub-filters { display: flex; gap: 6px; }
 .filter-btn { background: var(--bg-sidebar); border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -342,7 +349,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
     margin-bottom: 10px !important; 
     page-break-inside: avoid;
   }
-  .discovery-card, .edu-card, .profile-text, .interests-grid, .pub, .timeline, .media-card, .ads-metrics-widget { 
+  .discovery-card, .edu-card, .profile-text, .interests-grid, .pub, .timeline, .media-card, .ads-metrics-widget, .collab-card { 
     page-break-inside: avoid; 
   }
   .discovery-card { border-left-width: 3px !important; padding: 6px 8px !important; margin-bottom: 6px !important; }
@@ -530,12 +537,35 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       <div class="section-title">
         🤝 <span class="lang-it">Collaborazioni</span><span class="lang-en">Collaborations</span>
       </div>
-      <ul class="list">
-        <li>• <a target="_blank" href="https://www.exoclock.space/">ExoClock / ESA ARIEL</a></li>
-        <li>• <a target="_blank" href="https://exofop.ipac.caltech.edu/tess/">TESS Follow-up Program</a></li>
-        <li>• <a target="_blank" href="https://www.uai.it/sito/"><span class="lang-it">Unione Astrofili Italiani (UAI)</span><span class="lang-en">Italian Amateur Astronomers Union (UAI)</span></a></li>
-        <li>• <a target="_blank" href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta"><span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span></a></li>
-      </ul>
+      <!-- Sezione Collaborazioni con card grafiche e loghi/simboli visivi -->
+      <a href="https://www.exoclock.space/" target="_blank" rel="noopener noreferrer" class="collab-card">
+        <div class="collab-icon">🛰️</div>
+        <div class="collab-details">
+          ExoClock / ESA ARIEL
+          <span class="collab-sub"><span class="lang-it">Cataloghi Ephemerides III & IV</span><span class="lang-en">Ephemerides Catalogs III & IV</span></span>
+        </div>
+      </a>
+      <a href="https://exofop.ipac.caltech.edu/tess/" target="_blank" rel="noopener noreferrer" class="collab-card">
+        <div class="collab-icon">🔭</div>
+        <div class="collab-details">
+          TESS Follow-up Program
+          <span class="collab-sub"><span class="lang-it">Fotometria e Vetting Candidati</span><span class="lang-en">Photometry & Candidate Vetting</span></span>
+        </div>
+      </a>
+      <a href="https://www.uai.it/sito/" target="_blank" rel="noopener noreferrer" class="collab-card">
+        <div class="collab-icon">⭐</div>
+        <div class="collab-details">
+          <span class="lang-it">Unione Astrofili Italiani (UAI)</span><span class="lang-en">Unione Astrofili Italiani (UAI)</span>
+          <span class="collab-sub"><span class="lang-it">Detection di Stelle Variabili</span><span class="lang-en">Variable Stars Detection</span></span>
+        </div>
+      </a>
+      <a href="https://www.esa.int/Science_Exploration/Space_Science/Rosetta" target="_blank" rel="noopener noreferrer" class="collab-card">
+        <div class="collab-icon">☄️</div>
+        <div class="collab-details">
+          <span class="lang-it">Missione Rosetta (ESA)</span><span class="lang-en">Rosetta Mission (ESA)</span>
+          <span class="collab-sub">Legacy Campaign Contributor</span>
+        </div>
+      </a>
 
       <div class="section-title">📅 Timeline</div>
       <div class="timeline">
