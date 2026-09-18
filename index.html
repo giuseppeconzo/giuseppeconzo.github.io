@@ -410,7 +410,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       <span class="label lang-en">Publications / 1st Author</span>
     </div>
     <div class="metric">
-      <span class="num">2 / <span id="metric-vsx-count">-</span></span>
+      <span class="num"><span id="metric-exo-count">-</span> / <span id="metric-vsx-count">-</span></span>
       <span class="label lang-it">Esopianeti / Stelle Variabili</span>
       <span class="label lang-en">Exoplanets / Variable Stars</span>
     </div>
@@ -479,7 +479,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       </ul>
 	  
       <div class="section-title">
-        ⭐ <span class="lang-it">Esopianeti Scoperti (2)</span><span class="lang-en">Discovered Exoplanets (2)</span>
+        ⭐ <span class="lang-it">Esopianeti Scoperti (<span id="exo-discovered-count-it">-</span>)</span><span class="lang-en">Discovered Exoplanets (<span id="exo-discovered-count-en">-</span>)</span>
       </div>
       <div class="discovery-card" onclick="openModal('gliese')">
         <div class="icon">🌍</div>
@@ -499,7 +499,7 @@ body.dark-theme .vsx-table a { color: #60A5FA; }
       </div>
 
       <div class="section-title">
-        ✨ <span class="lang-it">Stelle Variabili scoperte (<span id="vsx-discovered-count-it">...</span>)</span><span class="lang-en">Discovered Variable Stars (<span id="vsx-discovered-count-en">...</span>)</span>
+        ✨ <span class="lang-it">Stelle Variabili scoperte (<span id="vsx-discovered-count-it">-</span>)</span><span class="lang-en">Discovered Variable Stars (<span id="vsx-discovered-count-en">-</span>)</span>
       </div>
       <div class="discovery-card" style="border-left-color: #2563EB;" onclick="openVsxModal()">
         <div class="icon">📈</div>
@@ -870,7 +870,7 @@ Autore di <span id="profile-total-pubs">16</span> articoli indicizzati su ADS/ar
           </div>
         </div>
 
-        <div class="pub" data-year="2024" data-first="true" data-discovery="true" data-refereed="false">
+        <div class="pub exoplanet-item" data-year="2024" data-first="true" data-discovery="true" data-refereed="false">
           <div class="authors">
             <span class="badge" style="background:#FC3D21">2024</span> Conzo G., Moriconi M. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -909,7 +909,7 @@ Autore di <span id="profile-total-pubs">16</span> articoli indicizzati su ADS/ar
           <span class="lang-en">3. Refereed Open Journals, Associations & Astronomical Notes (OEJV, Astronomia UAI, TNSAN)</span>
         </div>
 
-        <div class="pub" data-year="2026" data-first="true" data-discovery="true" data-refereed="true">
+        <div class="pub exoplanet-item" data-year="2026" data-first="true" data-discovery="true" data-refereed="true">
           <div class="authors">
             <span class="badge">2026</span> Conzo G., Moriconi M., Correa S.A. 
             <span class="first-author-badge">★ <span class="lang-it">1° Autore</span><span class="lang-en">1st Author</span></span>
@@ -1136,6 +1136,19 @@ function updatePublicationCounters() {
   });
 
   updateTimelineCounts();
+}
+
+function updateExoplanetCounters() {
+  const exoCards = document.querySelectorAll('.exoplanet-item');
+  const count = exoCards.length;
+
+  const metricExoEl = document.getElementById('metric-exo-count');
+  const exoItEl = document.getElementById('exo-discovered-count-it');
+  const exoEnEl = document.getElementById('exo-discovered-count-en');
+
+  if (metricExoEl) metricExoEl.textContent = count;
+  if (exoItEl) exoItEl.textContent = count;
+  if (exoEnEl) exoEnEl.textContent = count;
 }
 
 function updateTimelineCounts() {
@@ -1531,6 +1544,7 @@ function filterVsxTable() {
 document.addEventListener("DOMContentLoaded", () => {
   switchLang('en');
   updatePublicationCounters();
+  updateExoplanetCounters(); // Aggiunto per rendere dinamico il conteggio degli esopianeti dalle card effettive
   loadVsxCsv(); // Avvia il caricamento automatico e il calcolo dinamico del CSV all'avvio
 });
 </script>
